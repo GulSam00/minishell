@@ -6,7 +6,7 @@
 /*   By: sham <sham@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/25 14:09:22 by sham              #+#    #+#             */
-/*   Updated: 2021/11/11 19:03:37 by sham             ###   ########.fr       */
+/*   Updated: 2021/11/13 18:56:18 by sham             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,26 +37,29 @@ int ft_pwd(void)
 }
 int ft_chdir(char *cmd)
 {
-    /*
+
     char *path;
     path = getcwd(NULL, 0);
     printf("before path : %s\n", path);
     printf("Result : %d\n", chdir(cmd));
     path = getcwd(NULL, 0);
     printf("after path : %s\n", path);
-    */
+
     if (!chdir(cmd))
         return (-1);
     return (0);
 }
 
-void ft_echo(int fd, int option, char *cmd)
+int ft_echo(int fd, int option, char *cmd)
 {
     // 임시 변편
+    int result;
+
     fd = 1;
-    write(fd, cmd, ft_getlen(cmd));
+    result += write(fd, cmd, ft_getlen(cmd));
     if (option)
-        write(fd, "\n", 1);
+        result += write(fd, "\n", 1);
+    return result;
 }
 
 int cmpstr(char *str1, char *str2)
@@ -75,14 +78,16 @@ int cmpstr(char *str1, char *str2)
     return 0;
 }
 
-void check_command(char *str)
+int check_command(char *str)
 {
+    int result = 0;
     if (!cmpstr("pwd", str))
-        ft_pwd();
+        result = ft_pwd();
     else if (!cmpstr("cd", str))
-        ft_chdir("..");
+        result = ft_chdir("..");
     else if (!cmpstr("echo", str))
-        ft_echo(1, 0, "test");
+        result = ft_echo(1, 0, "test");
+    return result;
 }
 
 int main(void)
@@ -99,7 +104,8 @@ int main(void)
             printf("%s\n", str);       /* 주소안에 문자열을 출력해보자 */
         else                           /* str = NULL 이라면 (EOF, cntl + D)*/
             break;                     /* 반복문을 탈출해준다.*/
-        check_command(str);            /* add_history에 저장된 문자열은 up & down 방향키를 이용해 확인할수있다 */
+        if (check_command(str))
+            printf("error!\n"); /* add_history에 저장된 문자열은 up & down 방향키를 이용해 확인할수있다 */
         add_history(str);
         /* 라인은 힙메모리에 저장되기때문에 다 사용한 메모리는 할당을 해제해줘야한다 */
         free(str);
