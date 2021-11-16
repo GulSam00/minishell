@@ -29,9 +29,54 @@ void descriptor_output(int flag)
     write(STDOUT_FILENO, "test\n", 5);
 }
 
-int main(void)
+int ft_getlen(char *str)
 {
-    descriptor_input();
+    int i;
+
+    i = 0;
+    while (str[i])
+        i++;
+    //printf("%s len : %d\n", str, i);
+    return (i);
+}
+
+char *ft_cpstr(char *str)
+{
+    char *temp;
+    int i;
+
+    i = 0;
+    temp = (char *)malloc(ft_getlen(str) + 1);
+    while (str[i])
+    {
+        temp[i] = str[i];
+        i++;
+    }
+    temp[i] = '\0';
+    return temp;
+}
+char **parse(int argc, char *argv[])
+{
+    char **command_list;
+    int i;
+
+    i = 1;
+    command_list = (char **)malloc(sizeof(char *) * (argc - 1));
+    while (i < argc)
+    {
+        printf("argv[%d] : %s\n", i, argv[i]);
+        command_list[i] = ft_cpstr(argv[i]);
+        printf("cp success! - %s\n", command_list[i]);
+        i++;
+    }
+    return command_list;
+}
+
+int main(int argc, char *argv[])
+{
+    char **command_list;
+    command_list = parse(argc, argv);
+    //descriptor_input();
     return (0);
     /*
         int fd[2];
