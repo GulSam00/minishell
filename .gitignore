@@ -1,4 +1,6 @@
 *.txt
 test/
 .vscode/
-.
+rep/
+rep1/
+.gitignore

@@ -1,6 +1,7 @@
 #include "minishell.h"
 
 // unistd.h에 매크로 상수로 저장되어 있는 STDIN_FILENO, STDOUT_FILENO,STDERR_FILENO
+extern char **environ;
 
 void descriptor_input(void)
 {
@@ -29,63 +30,60 @@ void descriptor_output(int flag)
     write(STDOUT_FILENO, "test\n", 5);
 }
 
-int ft_getlen(char *str)
+
+
+
+int init_discriptor(char **discriptor, int option)
 {
-    int i;
-
-    i = 0;
-    while (str[i])
-        i++;
-    //printf("%s len : %d\n", str, i);
-    return (i);
-}
-
-char *ft_cpstr(char *str)
-{
-    char *temp;
-    int i;
-
-    i = 0;
-    temp = (char *)malloc(ft_getlen(str) + 1);
-    while (str[i])
+    int temp;
+    if (discriptor[0] != NULL)
     {
-        temp[i] = str[i];
-        i++;
+        temp = open(discriptor[0], O_RDONLY);
+        if (dup2(temp, STDIN_FILENO) == -1)
+            return (-1);
+        close(temp);
     }
-    temp[i] = '\0';
-    return temp;
-}
-char **parse(int argc, char *argv[])
-{
-    char **command_list;
-    int i;
-
-    i = 1;
-    command_list = (char **)malloc(sizeof(char *) * (argc - 1));
-    while (i < argc)
+    if (discriptor[1] != NULL)
     {
-        printf("argv[%d] : %s\n", i, argv[i]);
-        command_list[i] = ft_cpstr(argv[i]);
-        printf("cp success! - %s\n", command_list[i]);
-        i++;
+        temp = option ? open(discriptor[1], O_WRONLY | O_APPEND | O_CREAT, 0644) : open(discriptor[1], O_WRONLY | O_CREAT, 0644);
+        if (dup2(temp, STDOUT_FILENO) == -1)
+        {
+            printf ("%s, %d\n", discriptor[1], temp);
+            return (-1);
+        }
+        close(temp);
     }
-    return command_list;
-}
-
-int main(int argc, char *argv[])
-{
-    char **command_list;
-    command_list = parse(argc, argv);
-    //descriptor_input();
     return (0);
-    /*
-        int fd[2];
+}
 
-    pipe(fd);
-
-    pid_t pid = fork();
-    if (pid == 0) {
-
+int descriptor(t_cmd *cmd)
+{
+    if (init_discriptor(cmd->discriptor, cmd->option))
+    {
+        printf("error!\n");
+        return -1;
     }
-    */
+    char* temp[3];
+    temp[0] = "head";
+    temp[1] = "-5";
+    temp[2] = NULL;
+    execve("/usr/bin/head", temp, environ);
+    return (0);
+}
+
+int main(int argc, char **argv, char **envp)
+{
+    t_cmd *tmp;
+    char discriptor[2];
+    
+    tmp = (t_cmd*)malloc(sizeof(t_cmd));
+
+    tmp->discriptor[0] = "environ.txt";
+    tmp->discriptor[1] = "qwer.txt";
+    tmp->option = 0;
+    
+    
+    descriptor(tmp);
+    printf("끝!\n");
+    return (0);
 }

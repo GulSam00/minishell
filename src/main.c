@@ -6,21 +6,11 @@
 /*   By: sham <sham@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/25 14:09:22 by sham              #+#    #+#             */
-/*   Updated: 2021/11/13 18:56:18 by sham             ###   ########.fr       */
+/*   Updated: 2021/11/22 16:43:39 by sham             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
-
-int ft_getlen(char *str)
-{
-    int i;
-
-    i = 0;
-    while (str[i])
-        i++;
-    return (i);
-}
 
 int ft_pwd(void)
 {
