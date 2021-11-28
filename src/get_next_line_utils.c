@@ -6,11 +6,11 @@
 /*   By: sham <sham@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/13 11:42:59 by sham              #+#    #+#             */
-/*   Updated: 2021/11/24 20:01:52 by sham             ###   ########.fr       */
+/*   Updated: 2021/11/28 16:12:46 by sham             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "get_next_line.h"
+#include "minishell.h"
 
 size_t ft_strlen(const char *s)
 {
