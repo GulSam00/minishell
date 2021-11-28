@@ -6,7 +6,7 @@
 /*   By: sham <sham@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/25 14:17:39 by sham              #+#    #+#             */
-/*   Updated: 2021/11/28 13:47:10 by nasong           ###   ########.fr       */
+/*   Updated: 2021/11/28 15:30:41 by nasong           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,19 +25,11 @@ enum e_cmd_type
 {
 	CMD = 0,
 	ARG,
-	IN_DISCRIPOTR, // input
-	OUT_DISCRIPOTR, // output
+	IN_DISCRIPTOR, // input
+	OUT_DISCRIPTOR, // output
 	OPTION,
 	CMD_TYPE_MAX
 };
-
-struct s_cmd
-{
-	char *cmd;
-	char *arg; // **arg
-	char *discriptor[2]; // null, 0:input, 1:output
-	int option;
-}	typedef t_cmd;
 
 struct s_data
 {
@@ -51,9 +43,21 @@ struct s_list
 	int size;
 }	typedef t_list;
 
-int	add_list(t_list *list, t_data *new_data);
-int *add_cmd_list(t_list *list, t_cmd *new_cmd);
-int free_cmd_list (t_list *list);
-void print_cmd_list(t_list *list);
+struct s_cmd
+{
+	char *cmd;
+	struct s_list arg; // **arg
+	char *discriptor[2]; // null, 0:input, 1:output
+	int option;
+}	typedef t_cmd;
 
+
+int	add_list(t_list *list, t_data *new_data);
+int add_data(t_list *list, void *new_contents);
+int free_cmd_list (t_list *list);
+int	free_str_list(t_list *list);
+void print_cmd_list(t_list *list);
+void print_str_list(t_list *list);
+
+int ft_parser(t_list *cmd_list, char *input);
 #endif
