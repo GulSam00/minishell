@@ -6,67 +6,11 @@
 /*   By: sham <sham@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/25 14:09:22 by sham              #+#    #+#             */
-/*   Updated: 2021/11/22 16:43:39 by sham             ###   ########.fr       */
+/*   Updated: 2021/11/28 17:38:20 by sham             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
-
-int ft_pwd(void)
-{
-    char path[MAX_PATH];
-    printf("path %s\n", getcwd(path, MAX_PATH + 1));
-    printf("path %s\n", getcwd(NULL, 0));
-
-    // if (!getcwd(path, MAX_PATH + 1))
-    if (!getcwd(NULL, 0))
-        return (-1);
-    printf("%s\n", path);
-    //free(path);
-    return (0);
-}
-int ft_chdir(char *cmd)
-{
-
-    char *path;
-    path = getcwd(NULL, 0);
-    printf("before path : %s\n", path);
-    printf("Result : %d\n", chdir(cmd));
-    path = getcwd(NULL, 0);
-    printf("after path : %s\n", path);
-
-    if (!chdir(cmd))
-        return (-1);
-    return (0);
-}
-
-int ft_echo(int fd, int option, char *cmd)
-{
-    // 임시 변편
-    int result;
-
-    fd = 1;
-    result += write(fd, cmd, ft_getlen(cmd));
-    if (option)
-        result += write(fd, "\n", 1);
-    return result;
-}
-
-int cmpstr(char *str1, char *str2)
-{
-    int i;
-
-    i = 0;
-    while (str1[i])
-    {
-        if (str1[i] != str2[i])
-            return -1;
-        i++;
-    }
-    if (str2[i])
-        return -1;
-    return 0;
-}
 
 int check_command(char *str)
 {

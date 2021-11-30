@@ -6,7 +6,7 @@
 /*   By: sham <sham@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/25 14:17:39 by sham              #+#    #+#             */
-/*   Updated: 2021/11/28 16:13:11 by sham             ###   ########.fr       */
+/*   Updated: 2021/11/30 18:02:17 by sham             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,16 +33,25 @@
 
 typedef struct s_cmd
 {
-    char *cmd;  // 명령어. pwd, cat 같은 내장 함수일 수도 있고 echo같은 우리가 구현한 builtin 일수도 있다.
+    char **cmd;  // 명령어. pwd, cat 같은 내장 함수일 수도 있고 echo같은 우리가 구현한 builtin 일수도 있다. execve로 실행할 때 배열의 첫번째에 명령어를 넣어야 하기 때문에 cmd[0] = "cat", "pwd"가 들어가게 된다.
     char **arg; // 마지막 array 다음에는 NULL이 들어있어야 함.
-    char *discriptor[2];
+    t_dis *dis;
+    t_cmd *next;
 } t_cmd;
 
-typedef struct s_list
+typedef struct s_dis
 {
-    void *content;
-    struct s_list *next;
-} t_list;
+    char type; // <, <<, >, >>
+    char *dst;
+    struct s_dis *next;
+} t_dis;
+
+
+typedef struct s_env
+{
+    char *env; // env 시 나오는 명령어를 개행을 기준으로 나눠
+    struct s_dis *next;
+} t_env;
 
 char *get_next_line(void);
 size_t ft_strlen(const char *str);

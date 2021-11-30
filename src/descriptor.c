@@ -67,20 +67,24 @@ int route_d(char *discriptor, char *dst)
     return (0);
 }
 
-int descriptor(void)
+int check_builtin(t_cmd *cmd, t_env *ft_env)
 {
+    
+}
+
+int init_descriptor(t_cmd *cmd, t_env *ft_env)
+{
+    int code;
     pid_t pid;
-    t_cmd *tmp;
-
-    tmp = (t_cmd *)malloc(sizeof(t_cmd));
-
-    tmp->discriptor[0] = "environ.txt";
-    tmp->discriptor[1] = "qwer.txt";
-    char *temp[3];
-    temp[0] = "cat";
-    temp[1] = NULL;
-
-    pid = fork();
+    while (cmd->next)
+    {
+        code = check_builtin(cmd, ft_env);
+        cmd = cmd->next;
+    }
+ // $PATH
+ // /Users/sham/.brew/bin:/Users/sham/.brew/bin:/Users/sham/.brew/bin:/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin:/usr/local/munki 
+ // : 를 기준으로 나눠서 검증해야 한다.
+     pid = fork();
 
     if (pid > 0)
     { // 부모 코드
@@ -88,12 +92,7 @@ int descriptor(void)
     }
     else if (pid == 0)
     { // 자식 코드
-        if (route_d(">", "text.txt"))
-        {
-            printf("error!\n");
-            return (-1);
-        }
-        printf("scuccec\n");
+       
         execve("/bin/cat", temp, environ);
         exit(0);
     }
@@ -108,17 +107,14 @@ int descriptor(void)
 
 int main(int argc, char **argv, char **envp)
 {
-    /* readline함수의 리턴값을 저장하기위해 임의로 포인터를 하나 선언한다 */
     char *str;
-    /* 무한루프를 돌리면서 readline();함수를 반복적으로 호출할 것이다 */
+    // 환경변수
     while (1)
     {
-        /* readline함수가 호출되면 인자(prompt : )를 터미널에 출력하고 저장할 라인을 입력받는다 */
-        str = readline("nanoshell$ "); /* read함수는 저장한 문자열의 메모리주소를 반환한다 */
-        descriptor();
+        str = readline("nanoshell$ "); 
+        init_descriptor();
         add_history(str);
 
-        /* 라인은 힙메모리에 저장되기때문에 다 사용한 메모리는 할당을 해제해줘야한다 */
         free(str);
     }
     /* 함수종료 */
