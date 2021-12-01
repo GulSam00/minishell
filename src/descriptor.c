@@ -48,75 +48,24 @@ int ft_d_left_heredoc(char *dst)
     return (0);
 }
 
-int route_d(char *discriptor, char *dst)
+int init_descriptor(t_dis *dis)
 {
-
-    if (ft_cmpstr(discriptor, ">") == 0)
-        ft_d_right_paste(dst);
-    else if (ft_cmpstr(discriptor, ">>") == 0)
-        ft_d_right_append(dst);
-    else if (ft_cmpstr(discriptor, "<") == 0)
-        ft_d_left_normal(dst);
-    else if (ft_cmpstr(discriptor, "<<") == 0)
-        ft_d_left_heredoc(dst);
-    else
+    while (dis->next)
     {
-        printf("no match!\n");
+        if (!ft_cmpstr(dis->type, ">"))
+            ft_d_right_paste(dis->dst);
+        else if (!ft_cmpstr(dis->type, ">>"))
+            ft_d_right_append(dis->dst);
+        else if (!ft_cmpstr(dis->type, "<"))
+            ft_d_left_normal(dis->dst);
+        else if (!ft_cmpstr(dis->type, "<<"))
+            ft_d_left_heredoc(dis->dst);
+        else
+    {
+        ft_error_message("no match!\n");
         return (-1);
     }
-    return (0);
-}
-
-int check_builtin(t_cmd *cmd, t_env *ft_env)
-{
-    
-}
-
-int init_descriptor(t_cmd *cmd, t_env *ft_env)
-{
-    int code;
-    pid_t pid;
-    while (cmd->next)
-    {
-        code = check_builtin(cmd, ft_env);
-        cmd = cmd->next;
-    }
- // $PATH
- // /Users/sham/.brew/bin:/Users/sham/.brew/bin:/Users/sham/.brew/bin:/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin:/usr/local/munki 
- // : 를 기준으로 나눠서 검증해야 한다.
-     pid = fork();
-
-    if (pid > 0)
-    { // 부모 코드
-        printf("부모코드\n");
-    }
-    else if (pid == 0)
-    { // 자식 코드
-       
-        execve("/bin/cat", temp, environ);
-        exit(0);
-    }
-    else
-    { // fork 실패
-        printf("fork Fail! \n");
-        return -1;
     }
 
-    return (0);
-}
-
-int main(int argc, char **argv, char **envp)
-{
-    char *str;
-    // 환경변수
-    while (1)
-    {
-        str = readline("nanoshell$ "); 
-        init_descriptor();
-        add_history(str);
-
-        free(str);
-    }
-    /* 함수종료 */
     return (0);
 }

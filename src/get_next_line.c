@@ -6,7 +6,7 @@
 /*   By: sham <sham@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/24 20:00:49 by sham              #+#    #+#             */
-/*   Updated: 2021/11/28 16:15:08 by sham             ###   ########.fr       */
+/*   Updated: 2021/12/01 14:38:04 by sham             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ char *get_next_line(void)
         ft_free(save);
         save = temp;
     }
-    if (read_buf == FAIL)
+    if (read_buf == -1)
         return (NULL);
     return (save);
 }

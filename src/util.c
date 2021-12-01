@@ -6,7 +6,7 @@
 /*   By: sham <sham@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/22 16:42:35 by sham              #+#    #+#             */
-/*   Updated: 2021/11/28 17:38:30 by sham             ###   ########.fr       */
+/*   Updated: 2021/12/01 12:00:10 by sham             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,9 +54,10 @@ int ft_cmpstr(char *str1, char *str2)
     return 0;
 }
 
-int ft_error_message(int log)
+int ft_error_message(char *message)
 {
-    write(2, "error\n", 6);
+    write(2, message, ft_getlen(message));
+    write(2, "\n", 1);
 
     return (-1);
 }
