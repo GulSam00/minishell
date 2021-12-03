@@ -6,7 +6,7 @@
 /*   By: sham <sham@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/25 14:17:39 by sham              #+#    #+#             */
-/*   Updated: 2021/12/01 16:50:47 by sham             ###   ########.fr       */
+/*   Updated: 2021/12/03 13:55:28 by sham             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,8 +41,9 @@
 typedef struct s_cmd
 {
     char **arg;  // 명령어. pwd, cat 같은 내장 함수일 수도 있고 echo같은 우리가 구현한 builtin 일수도 있다. execve로 실행할 때 배열의 첫번째에 명령어를 넣어야 하기 때문에 cmd[0] = "cat", "pwd"가 들어가게 된다.
+        int func_type;
     struct s_dis *dis;
-    int fd[2];
+    // struct s_cmd *prev;
     struct s_cmd *next;
 } t_cmd;
 
