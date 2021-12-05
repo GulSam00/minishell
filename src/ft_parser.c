@@ -6,7 +6,7 @@
 /*   By: nasong <nasong@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/05 19:53:07 by nasong            #+#    #+#             */
-/*   Updated: 2021/12/05 21:01:48 by nasong           ###   ########.fr       */
+/*   Updated: 2021/12/05 21:11:42 by nasong           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -242,6 +242,5 @@ int ft_parser(t_list *cmd_list, char *input)
 	add_cmd(cmd_list, &word_list);
 	free_str_list(&word_list);
 	//print_cmd_list(cmd_list);
-	free_cmd_list(cmd_list);
 	return (0);
 }
