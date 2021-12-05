@@ -6,7 +6,7 @@
 /*   By: nasong <nasong@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/28 13:13:18 by nasong            #+#    #+#             */
-/*   Updated: 2021/12/05 20:31:02 by nasong           ###   ########.fr       */
+/*   Updated: 2021/12/05 21:34:54 by nasong           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,52 +96,3 @@ int	free_str_list(t_list *list)
 	list->size = 0;
 	return (1);
 }
-
-void print_cmd_list(t_list *list)
-{
-	t_data *now;
-	t_cmd *target;
-	int index;
-
-	if (list == 0)
-	{
-		printf("NULL LIST\n");
-		return ;
-	}
-	now = list->front;
-	printf("\n=====PRINT CMD LIST / SIZE: %d===\n", list->size);
-	while (now != 0)
-	{
-		index = 0;
-		target = now->contents;
-		printf("cmd: %s | arg: %s\n", target->cmd, target->arg);
-		print_str_list(&target->arg_list);
-		now = now->next;
-	}
-	printf("=====PRINT CMD LIST END===\n");
-}
-
-void print_str_list(t_list *list)
-{
-	t_data *now;
-	char *target;
-	int index;
-
-	if (list == 0)
-	{
-		printf("NULL LIST\n");
-		return ;
-	}
-	index = 0;
-	now = list->front;
-	printf("\n---PRINT STR LIST / SIZE: %d---\n", list->size);
-	while (now != 0)
-	{
-		target = now->contents;
-		printf("[%d] %s\n", index, target);
-		now = now->next;
-		index++;
-	}
-	printf("---PRINT STR LIST END---\n");
-}
-

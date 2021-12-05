@@ -6,7 +6,7 @@
 /*   By: sham <sham@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/25 14:17:39 by sham              #+#    #+#             */
-/*   Updated: 2021/12/05 20:25:44 by nasong           ###   ########.fr       */
+/*   Updated: 2021/12/05 21:53:10 by nasong           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,6 +59,11 @@ struct s_cmd
 	struct s_list discriptor;
 }	typedef t_cmd;
 
+struct s_env
+{
+	char *key;
+	char *value;
+}	typedef t_env;
 
 int	add_list(t_list *list, t_data *new_data);
 int add_data(t_list *list, void *new_contents);
@@ -68,4 +73,11 @@ void print_cmd_list(t_list *list);
 void print_str_list(t_list *list);
 
 int ft_parser(t_list *cmd_list, char *input);
+
+
+/* libft */
+char	*ft_strdup(const char *str);
+char	*ft_strndup(const char *str, int size);
+char	*ft_strjoin(const char *str1, const char *str2);
+int ft_strlen(const char *str);
 #endif
