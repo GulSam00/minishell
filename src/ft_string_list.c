@@ -1,39 +1,38 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_print_list.c                                    :+:      :+:    :+:   */
+/*   ft_string_list.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: nasong <nasong@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/12/05 21:31:09 by nasong            #+#    #+#             */
-/*   Updated: 2021/12/05 21:31:58 by nasong           ###   ########.fr       */
+/*   Created: 2021/12/05 21:56:01 by nasong            #+#    #+#             */
+/*   Updated: 2021/12/05 21:58:23 by nasong           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void print_cmd_list(t_list *list)
+int	free_str_list(t_list *list)
 {
 	t_data *now;
-	t_cmd *target;
-	int index;
+	t_data *next;
 
 	if (list == 0)
-	{
-		printf("NULL LIST\n");
-		return ;
-	}
+		return (-1);
+	if (list->size == 0 || list->front == 0)
+		return (0);
 	now = list->front;
-	printf("\n=====PRINT CMD LIST / SIZE: %d===\n", list->size);
 	while (now != 0)
 	{
-		index = 0;
-		target = now->contents;
-		printf("cmd: %s | arg: %s\n", target->cmd, target->arg);
-		print_str_list(&target->arg_list);
-		now = now->next;
+		next = now->next;
+		free(now->contents);
+		free(now);
+		now = next;
+		list->size--;
 	}
-	printf("=====PRINT CMD LIST END===\n");
+	list->front = 0;
+	list->size = 0;
+	return (1);
 }
 
 void print_str_list(t_list *list)
@@ -59,4 +58,3 @@ void print_str_list(t_list *list)
 	}
 	printf("---PRINT STR LIST END---\n");
 }
-
