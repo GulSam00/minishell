@@ -6,7 +6,7 @@
 /*   By: nasong <nasong@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/28 13:13:18 by nasong            #+#    #+#             */
-/*   Updated: 2021/11/28 15:35:40 by nasong           ###   ########.fr       */
+/*   Updated: 2021/12/05 18:52:18 by nasong           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,6 @@ int add_data(t_list *list, void *new_contents)
 	{
 		return (-1);
 	}
-
 	new_data->contents = new_contents;
 	new_data->next = 0;
 	return (add_list(list, new_data));

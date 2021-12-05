@@ -6,7 +6,7 @@
 /*   By: nasong <nasong@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/28 13:47:39 by nasong            #+#    #+#             */
-/*   Updated: 2021/12/05 17:42:16 by nasong           ###   ########.fr       */
+/*   Updated: 2021/12/05 18:52:41 by nasong           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,6 +93,11 @@ char *get_word(char *str)
 
 enum e_cmd_type get_type(char *word)
 {
+	int len;
+
+	len = ft_strlen(word);
+	if (len == 1 && word[0] == '|')
+		return (PIPE);
 	return (ARG);
 }
 
@@ -156,11 +161,12 @@ int add_cmd(t_list *cmd_list, t_list *word_list)
 		}
 		else //ARG
 		{
-			add_data(&new_cmd->arg, copy); 
+			add_data(&new_cmd->arg, copy);
 		}
 		now_word = now_word->next;
 	}
-	add_data(cmd_list, new_cmd);
+	if (new_cmd != 0)
+		add_data(cmd_list, new_cmd);
 	return (0);
 }
 
@@ -168,6 +174,8 @@ int ft_parser(t_list *cmd_list, char *input)
 {
 	t_list word_list;
 
+	cmd_list->front = 0;
+	cmd_list->size = 0;
 	word_list.front = 0;
 	word_list.size = 0;
 	if (quotes_check(input) == -1)
@@ -182,7 +190,6 @@ int ft_parser(t_list *cmd_list, char *input)
 	print_str_list(&word_list);
 
 	add_cmd(cmd_list, &word_list);
-
 	free_str_list(&word_list);
 	print_cmd_list(cmd_list);
 
