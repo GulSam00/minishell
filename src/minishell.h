@@ -6,7 +6,7 @@
 /*   By: sham <sham@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/25 14:17:39 by sham              #+#    #+#             */
-/*   Updated: 2021/11/28 15:30:41 by nasong           ###   ########.fr       */
+/*   Updated: 2021/12/04 18:05:49 by nasong           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,10 +25,18 @@ enum e_cmd_type
 {
 	CMD = 0,
 	ARG,
-	IN_DISCRIPTOR, // input
-	OUT_DISCRIPTOR, // output
+	DISCRIPTOR,
 	OPTION,
-	CMD_TYPE_MAX
+	CMD_TYPE_MAX,
+	PIPE
+};
+
+enum e_discriptor_type
+{
+	IN,
+	OUT,
+	DOUBLE_IN,
+	DOUBLE_OUT
 };
 
 struct s_data
@@ -47,8 +55,7 @@ struct s_cmd
 {
 	char *cmd;
 	struct s_list arg; // **arg
-	char *discriptor[2]; // null, 0:input, 1:output
-	int option;
+	struct s_list discriptor;
 }	typedef t_cmd;
 
 
