@@ -6,7 +6,7 @@
 /*   By: nasong <nasong@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/05 19:53:07 by nasong            #+#    #+#             */
-/*   Updated: 2021/12/05 20:29:17 by nasong           ###   ########.fr       */
+/*   Updated: 2021/12/05 20:37:17 by nasong           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -112,7 +112,7 @@ char *get_word(char *str)
 				idx++;
 			break;
 		}
-		if (str[idx] == ' ')
+		if (str[idx] == ' ' && quotes == 0)
 			break;
 		idx++;
 	}
