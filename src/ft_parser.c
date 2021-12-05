@@ -6,7 +6,7 @@
 /*   By: nasong <nasong@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/05 19:53:07 by nasong            #+#    #+#             */
-/*   Updated: 2021/12/05 21:52:58 by nasong           ###   ########.fr       */
+/*   Updated: 2021/12/05 22:21:37 by nasong           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -135,10 +135,7 @@ int add_cmd(t_list *cmd_list, t_list *word_list)
 			new_cmd = (t_cmd *)malloc(sizeof(t_cmd));
 			if (new_cmd == 0)
 				return (-1);
-			new_cmd->arg_list.front = 0;
-			new_cmd->arg_list.size = 0;
-			new_cmd->discriptor.front = 0;
-			new_cmd->discriptor.size = 0;
+			init_cmd(new_cmd);
 		}
 		type = get_type(now_word->contents);
 		copy = ft_strndup(now_word->contents, ft_strlen(now_word->contents));
@@ -170,10 +167,8 @@ int ft_parser(t_list *cmd_list, char *input)
 {
 	t_list word_list;
 
-	cmd_list->front = 0;
-	cmd_list->size = 0;
-	word_list.front = 0;
-	word_list.size = 0;
+	init_list(cmd_list);
+	init_list(&word_list);
 	if (quotes_check(input) == -1)
 		return (-1);
 	printf("QUOTES TEST : OK\n");	

@@ -6,11 +6,17 @@
 /*   By: nasong <nasong@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/28 13:13:18 by nasong            #+#    #+#             */
-/*   Updated: 2021/12/05 21:58:42 by nasong           ###   ########.fr       */
+/*   Updated: 2021/12/05 22:13:20 by nasong           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+
+void	init_list(t_list *list)
+{
+	list->front = 0;
+	list->size = 0;
+}
 
 int add_data(t_list *list, void *new_contents)
 {

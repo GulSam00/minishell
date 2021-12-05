@@ -6,11 +6,19 @@
 /*   By: nasong <nasong@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/05 21:57:01 by nasong            #+#    #+#             */
-/*   Updated: 2021/12/05 21:57:54 by nasong           ###   ########.fr       */
+/*   Updated: 2021/12/05 22:20:42 by nasong           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+
+void	init_cmd(t_cmd *cmd)
+{
+	cmd->cmd = 0;
+	cmd->arg = 0;
+	init_list(&cmd->arg_list);	
+	init_list(&cmd->discriptor);	
+}
 
 int	free_cmd_list(t_list *list)
 {

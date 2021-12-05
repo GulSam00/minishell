@@ -6,7 +6,7 @@
 /*   By: sham <sham@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/25 14:17:39 by sham              #+#    #+#             */
-/*   Updated: 2021/12/05 21:53:10 by nasong           ###   ########.fr       */
+/*   Updated: 2021/12/05 22:16:28 by nasong           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,6 +65,8 @@ struct s_env
 	char *value;
 }	typedef t_env;
 
+void	init_list(t_list *list);
+void	init_cmd(t_cmd *cmd);
 int	add_list(t_list *list, t_data *new_data);
 int add_data(t_list *list, void *new_contents);
 int free_cmd_list (t_list *list);
@@ -80,4 +82,5 @@ char	*ft_strdup(const char *str);
 char	*ft_strndup(const char *str, int size);
 char	*ft_strjoin(const char *str1, const char *str2);
 int ft_strlen(const char *str);
+int     ft_strncmp(const char *str1, const char *str2, int len);
 #endif

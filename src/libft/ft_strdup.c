@@ -6,17 +6,17 @@
 /*   By: nasong <nasong@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/05 21:40:42 by nasong            #+#    #+#             */
-/*   Updated: 2021/12/05 21:46:20 by nasong           ###   ########.fr       */
+/*   Updated: 2021/12/05 22:19:22 by nasong           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell"
+#include "../minishell.h"
 
 char	*ft_strdup(const char *str)
 {
 	int	len;
 	int	index;
-	char	result;
+	char	*result;
 
 	index = 0;
 	len = ft_strlen(str) + 1;

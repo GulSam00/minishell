@@ -6,11 +6,11 @@
 /*   By: nasong <nasong@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/05 21:51:56 by nasong            #+#    #+#             */
-/*   Updated: 2021/12/05 21:52:26 by nasong           ###   ########.fr       */
+/*   Updated: 2021/12/05 22:19:42 by nasong           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#include "../minishell.h"
 
 char	*ft_strjoin(const char *str1, const char *str2)
 {
