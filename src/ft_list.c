@@ -6,7 +6,7 @@
 /*   By: nasong <nasong@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/28 13:13:18 by nasong            #+#    #+#             */
-/*   Updated: 2021/12/05 18:52:18 by nasong           ###   ########.fr       */
+/*   Updated: 2021/12/05 20:31:02 by nasong           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -109,18 +109,16 @@ void print_cmd_list(t_list *list)
 		return ;
 	}
 	now = list->front;
-	printf("\n===PRINT CMD LIST / SIZE: %d===\n", list->size);
+	printf("\n=====PRINT CMD LIST / SIZE: %d===\n", list->size);
 	while (now != 0)
 	{
 		index = 0;
 		target = now->contents;
-		printf("cmd %s | arg ", target->cmd);
-		print_str_list(&target->arg);
-		//printf("%s, ", target->arg);
-		printf("\n");
+		printf("cmd: %s | arg: %s\n", target->cmd, target->arg);
+		print_str_list(&target->arg_list);
 		now = now->next;
 	}
-	printf("===PRINT CMD LIST END===\n");
+	printf("=====PRINT CMD LIST END===\n");
 }
 
 void print_str_list(t_list *list)

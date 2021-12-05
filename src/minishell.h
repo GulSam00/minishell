@@ -6,7 +6,7 @@
 /*   By: sham <sham@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/25 14:17:39 by sham              #+#    #+#             */
-/*   Updated: 2021/12/05 18:33:38 by nasong           ###   ########.fr       */
+/*   Updated: 2021/12/05 20:25:44 by nasong           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,8 @@ struct s_list
 struct s_cmd
 {
 	char *cmd;
-	struct s_list arg; // **arg
+	char *arg;
+	struct s_list arg_list;
 	struct s_list discriptor;
 }	typedef t_cmd;
 
