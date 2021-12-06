@@ -6,7 +6,7 @@
 /*   By: sham <sham@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/25 14:17:39 by sham              #+#    #+#             */
-/*   Updated: 2021/12/03 13:55:28 by sham             ###   ########.fr       */
+/*   Updated: 2021/12/06 10:30:00 by sham             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,38 +38,71 @@
 // STDOUT_FILENO 1
 // STDERR_FILENO 2
 
-typedef struct s_cmd
+enum e_cmd_type
 {
-    char **arg;  // 명령어. pwd, cat 같은 내장 함수일 수도 있고 echo같은 우리가 구현한 builtin 일수도 있다. execve로 실행할 때 배열의 첫번째에 명령어를 넣어야 하기 때문에 cmd[0] = "cat", "pwd"가 들어가게 된다.
-        int func_type;
-    struct s_dis *dis;
-    // struct s_cmd *prev;
-    struct s_cmd *next;
-} t_cmd;
+	CMD = 0,
+	ARG,
+	DISCRIPTOR,
+	OPTION,
+	CMD_TYPE_MAX,
+	PIPE
+};
 
-typedef struct s_dis
+enum e_discriptor_type
 {
-    char *type; // <, <<, >, >>
-    char *dst;
-    struct s_dis *next;
-} t_dis;
+	IN,
+	OUT,
+	DOUBLE_IN,
+	DOUBLE_OUT
+};
 
-
-typedef struct s_env
+struct s_data
 {
-    char *env; // env 시 나오는 명령어를 개행을 기준으로 나눠
-    struct s_dis *next;
-} t_env;
+	void *contents;
+	struct s_data *next;
+}	typedef t_data;
 
-char *get_next_line(void);
-size_t ft_strlen(const char *str);
-char *ft_strjoin(char const *s1, char const *s2);
-char *ft_strndup(const char *str, ssize_t offst);
+struct s_list
+{
+	void *front;
+	int size;
+}	typedef t_list;
 
-int ft_getlen(char *str);
-char *ft_cpstr(char *str);
-int ft_cmpstr(char *str1, char *str2);
-int ft_error_message(char *message);
-char **parse(int argc, char *argv[]);
+struct s_cmd
+{
+	char *cmd; // 명령어
+	char *arg; // 전체 명령어
+	struct s_list arg_list;
+	struct s_list discriptor;
+}	typedef t_cmd;
 
+struct s_env
+{
+	char *key;
+	char *value;
+}	typedef t_env;
+
+/* list */
+void	init_list(t_list *list);
+void	init_cmd(t_cmd *cmd);
+int	add_list(t_list *list, t_data *new_data);
+int add_data(t_list *list, void *new_contents);
+int free_cmd_list (t_list *list);
+int	free_str_list(t_list *list);
+void print_cmd_list(t_list *list);
+void print_str_list(t_list *list);
+void print_env_list(t_list *list);
+void	pop_env_with_key(t_list *list, char *key);
+void	init_env(t_env *env, char *key, char *value);
+int	free_env_list(t_list *list);
+
+int ft_parser(t_list *cmd_list, char *input);
+
+
+/* libft */
+char	*ft_strdup(const char *str);
+char	*ft_strndup(const char *str, int size);
+char	*ft_strjoin(const char *str1, const char *str2);
+int ft_strlen(const char *str);
+int     ft_strncmp(const char *str1, const char *str2, int len);
 #endif
