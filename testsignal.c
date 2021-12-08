@@ -31,7 +31,7 @@ void setting_signal()
                                  // signal(SIGTERM, sig_handler);
 }
 
-int main(int argc, char **argv, char **envp)
+int main(void)
 {
     char *str;
     struct termios term;
