@@ -6,11 +6,11 @@
 /*   By: sham <sham@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/05 19:53:07 by nasong            #+#    #+#             */
-/*   Updated: 2021/12/06 10:29:07 by sham             ###   ########.fr       */
+/*   Updated: 2021/12/06 11:03:23 by sham             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#include "../minishell.h"
 
 int quotes_check(char *str)
 {
@@ -180,6 +180,14 @@ int ft_parser(t_list *cmd_list, char *input)
 	}
 	add_cmd(cmd_list, &word_list);
 	free_str_list(&word_list);
-	//print_cmd_list(cmd_list);
+	print_cmd_list(cmd_list);
+	return (0);
+}
+
+int main(int argc, char **argv)
+{
+	t_list *list;
+	list = malloc(sizeof(t_list));
+	ft_parser(list, argv[1]);
 	return (0);
 }

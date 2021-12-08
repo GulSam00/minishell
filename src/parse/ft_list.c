@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   ft_list.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nasong <nasong@student.42seoul.kr>         +#+  +:+       +#+        */
+/*   By: sham <sham@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/28 13:13:18 by nasong            #+#    #+#             */
-/*   Updated: 2021/12/05 22:13:20 by nasong           ###   ########.fr       */
+/*   Updated: 2021/12/06 10:42:26 by sham             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#include "../minishell.h"
 
 void	init_list(t_list *list)
 {

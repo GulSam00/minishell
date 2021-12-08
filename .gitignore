@@ -3,4 +3,5 @@ test/
 .vscode/
 rep/
 rep1/
+garbage/
 .gitignore

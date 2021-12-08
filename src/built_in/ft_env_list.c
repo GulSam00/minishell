@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   ft_env_list.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nasong <nasong@student.42seoul.kr>         +#+  +:+       +#+        */
+/*   By: sham <sham@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/05 22:10:18 by nasong            #+#    #+#             */
-/*   Updated: 2021/12/05 22:38:23 by nasong           ###   ########.fr       */
+/*   Updated: 2021/12/06 10:41:10 by sham             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#include "../minishell.h"
 
 void	init_env(t_env *env, char *key, char *value)
 {

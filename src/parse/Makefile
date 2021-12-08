@@ -6,16 +6,15 @@
 #    By: sham <sham@student.42.fr>                  +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/06/01 16:48:56 by sham              #+#    #+#              #
-#    Updated: 2021/12/08 17:15:54 by sham             ###   ########.fr        #
+#    Updated: 2021/12/06 10:46:44 by sham             ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 
-NAME = nanoshell
+NAME = parse
 CC = gcc
-CFLAGS = -lreadline
-READLINE = -lreadline -L/Users/sham/.brew/opt/readline/lib -I/Users/sham/.brew/opt/readline/include
-MAIN_SRCS = $(addprefix src/, temp.c)
+# CFLAGS = -lreadline
+MAIN_SRCS = $(addprefix ../libft/, ft_strdup.c ft_strjoin.c ft_strlen.c ft_strncmp.c) ft_cmd_list.c ft_list.c ft_parser.c ft_string_list.c
 OBJS = $(MAIN_SRCS:.c=.o)		
 
 .PHONY : all clean fclean re
