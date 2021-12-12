@@ -6,7 +6,7 @@
 /*   By: nasong <nasong@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/28 13:13:18 by nasong            #+#    #+#             */
-/*   Updated: 2021/12/05 22:13:20 by nasong           ###   ########.fr       */
+/*   Updated: 2021/12/12 11:48:43 by nasong           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,20 +16,6 @@ void	init_list(t_list *list)
 {
 	list->front = 0;
 	list->size = 0;
-}
-
-int add_data(t_list *list, void *new_contents)
-{
-	t_data *new_data;
-
-	new_data = (t_data *)malloc(sizeof(t_data));
-	if (new_data == 0)
-	{
-		return (-1);
-	}
-	new_data->contents = new_contents;
-	new_data->next = 0;
-	return (add_list(list, new_data));
 }
 
 int add_list(t_list *list, t_data *new_data)
@@ -54,4 +40,18 @@ int add_list(t_list *list, t_data *new_data)
 		list->size++;
 	}
 	return (1);
+}
+
+int add_data(t_list *list, void *new_contents)
+{
+	t_data *new_data;
+
+	new_data = (t_data *)malloc(sizeof(t_data));
+	if (new_data == 0)
+	{
+		return (-1);
+	}
+	new_data->contents = new_contents;
+	new_data->next = 0;
+	return (add_list(list, new_data));
 }
