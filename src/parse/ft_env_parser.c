@@ -1,25 +1,31 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_echo.c                                          :+:      :+:    :+:   */
+/*   ft_env_parser.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: sham <sham@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/11/28 17:19:38 by sham              #+#    #+#             */
-/*   Updated: 2021/12/12 16:09:46 by sham             ###   ########.fr       */
+/*   Created: 2021/12/12 15:47:44 by nasong            #+#    #+#             */
+/*   Updated: 2021/12/12 17:00:32 by sham             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
-int ft_echo(int fd, int option, char *cmd)
+int ft_env_parser(t_list *env_list, char **envp)
 {
-    // 임시 변편
-    int result;
+	char **split;
+	int index;
+	t_env *new_env;
 
-    fd = 1;
-    result += write(STDOUT_FILENO, cmd, ft_strlen(cmd));
-    if (option)
-        result += write(fd, "\n", 1);
-    return result;
+	index = 0;
+	while (envp[index] != 0)
+	{
+		new_env = malloc(sizeof(t_env));
+		split = ft_split(envp[index], '=');
+		init_env(new_env, split[0], split[1]);
+		add_data(env_list, new_env);
+		index++;
+	}
+	return (0);
 }

@@ -1,21 +1,29 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_string_list.c                                   :+:      :+:    :+:   */
+/*   ft_discriptor_list.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: nasong <nasong@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/12/05 21:56:01 by nasong            #+#    #+#             */
-/*   Updated: 2021/12/05 21:58:23 by nasong           ###   ########.fr       */
+/*   Created: 2021/12/12 13:56:39 by nasong            #+#    #+#             */
+/*   Updated: 2021/12/12 14:24:34 by nasong           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-int	free_str_list(t_list *list)
+void	init_discriptor(t_discriptor *discriptor, char *file_name, enum e_discriptor_type type)
+{
+	discriptor->file_name = file_name;
+	discriptor.type = type;
+}
+
+int	free_discriptor_list(t_list *list)
 {
 	t_data *now;
 	t_data *next;
+	t_discriptor *target;
+	t_data *temp;
 
 	if (list == 0)
 		return (-1);
@@ -25,9 +33,12 @@ int	free_str_list(t_list *list)
 	while (now != 0)
 	{
 		next = now->next;
-		free(now->contents);
-		free(now);
+		target = now->contents;
+		free(target->file_name);
+		//free
+		temp = now;
 		now = next;
+		free(temp);
 		list->size--;
 	}
 	list->front = 0;
@@ -35,26 +46,23 @@ int	free_str_list(t_list *list)
 	return (1);
 }
 
-void print_str_list(t_list *list)
+void print_discriptor_list(t_list *list)
 {
 	t_data *now;
-	char *target;
-	int index;
+	t_discriptor *target;
 
 	if (list == 0)
 	{
 		printf("NULL LIST\n");
 		return ;
 	}
-	index = 0;
 	now = list->front;
-	printf("\n---PRINT STR LIST / SIZE: %d---\n", list->size);
+	printf("\n=====PRINT DISCRIPTOR LIST / SIZE: %d===\n", list->size);
 	while (now != 0)
 	{
 		target = now->contents;
-		printf("[%d] %s\n", index, target);
+		printf("file name: %s | type: %d\n", target->file_name, target->type);
 		now = now->next;
-		index++;
 	}
-	printf("---PRINT STR LIST END---\n");
+	printf("=====PRINT DISCRIPTOR LIST END===\n");
 }

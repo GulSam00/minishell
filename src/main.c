@@ -6,7 +6,7 @@
 /*   By: sham <sham@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/25 14:09:22 by sham              #+#    #+#             */
-/*   Updated: 2021/12/08 20:19:58 by sham             ###   ########.fr       */
+/*   Updated: 2021/12/12 16:59:00 by sham             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,28 +22,39 @@ void sig_handler(int signal)
 
     if (rl_on_new_line() == -1) // readline으로 설정한 문자열을 한 번 출력한다?
         exit(1);
-    rl_replace_line("", 1); // 프롬프트에 이미 친 문자열을 싹 날려준다.
-    rl_redisplay();         // 프롬프트 커서가 움직이지 않게 해준다.
+
+    // rl_replace_line("", 1); // 프롬프트에 이미 친 문자열을 싹 날려준다. 왜 안돼!!!
+
+    rl_redisplay(); // 프롬프트 커서가 움직이지 않게 해준다.
 }
 
 void setting_signal()
 {
     signal(SIGINT, sig_handler); // CTRL + C
     signal(SIGQUIT, SIG_IGN);    // CTRL + /
-                                 // signal(SIGTERM, sig_handler);
 }
 int main(int argc, char **argv, char **envp)
 {
     char *str;
+    t_list cmd_list;
+    init_list(&cmd_list);
+
+    t_list env_list;
+    init_list(&env_list);
+    ft_env_parser(&env_list, envp);
+
     struct termios term;
     tcgetattr(STDIN_FILENO, &term);
     term.c_lflag &= ~(ECHOCTL);
     tcsetattr(STDIN_FILENO, TCSANOW, &term);
     setting_signal();
+
+    printf("%d, %s\n", argc, *argv);
     // 환경변수
     while (1)
     {
         str = readline("nanoshell$ ");
+        ft_parser(&cmd_list, str);
         if (!str)
         {
             printf("\033[1A");
@@ -57,9 +68,9 @@ int main(int argc, char **argv, char **envp)
         }
         else
         {
-            fork_cmd(cmd, env);
+            // fork_cmd(cmd, env);
             add_history(str);
-            printf("%s\n", str);
+            fork_cmd(&cmd_list, &env_list);
             free(str);
         }
     }
