@@ -3,24 +3,24 @@
 /*                                                        :::      ::::::::   */
 /*   ft_cmd_list.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nasong <nasong@student.42seoul.kr>         +#+  +:+       +#+        */
+/*   By: sham <sham@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/05 21:57:01 by nasong            #+#    #+#             */
-/*   Updated: 2021/12/12 14:31:32 by nasong           ###   ########.fr       */
+/*   Updated: 2021/12/12 14:52:28 by sham             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void	init_cmd(t_cmd *cmd)
+void init_cmd(t_cmd *cmd)
 {
 	cmd->cmd = 0;
 	cmd->arg = 0;
-	init_list(&cmd->arg_list);	
-	init_list(&cmd->discriptor);	
+	init_list(&cmd->arg_list);
+	init_list(&cmd->discriptor);
 }
 
-int	free_cmd_list(t_list *list)
+int free_cmd_list(t_list *list)
 {
 	t_data *now;
 	t_data *next;
@@ -72,7 +72,7 @@ void print_cmd_list(t_list *list)
 	if (list == 0)
 	{
 		printf("NULL LIST\n");
-		return ;
+		return;
 	}
 	now = list->front;
 	printf("\n=====PRINT CMD LIST / SIZE: %d===\n", list->size);
