@@ -6,7 +6,7 @@
 /*   By: nasong <nasong@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/05 22:10:18 by nasong            #+#    #+#             */
-/*   Updated: 2021/12/05 22:38:23 by nasong           ###   ########.fr       */
+/*   Updated: 2021/12/12 16:36:28 by nasong           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,10 +18,36 @@ void	init_env(t_env *env, char *key, char *value)
 	env->value = value;
 }
 
+char	*get_value(t_list *list, char *find_key)
+{
+	t_data *now;
+	t_env *target;
+	int	key_len;
+	int	now_key_len;
+
+	if (list == 0)
+		return (0);
+	now = list->front;
+	key_len = ft_strlen(find_key);
+	while (now != 0)
+	{
+		target = now->contents;
+		now_key_len = ft_strlen(target->key);
+		if (now_key_len == key_len)
+		{
+			if (ft_strncmp(target->key, find_key, key_len) == 0)
+				return (target->value);
+		}
+		now = now->next;
+	}
+	return (0);
+}
+
 void	pop_env_with_key(t_list *list, char *key)
 {
-	t_env *now;
-	t_env *pre;
+	t_data *now;
+	t_data *pre;
+	t_env *target;
 	int	key_len;
 	int	now_key_len;
 
@@ -32,21 +58,22 @@ void	pop_env_with_key(t_list *list, char *key)
 	key_len = ft_strlen(key);
 	while (now != 0)
 	{
-		now_key_len = ft_strlen(now->key);
-		if ((key_len == now_key_len) && (ft_strncmp(key, now->key, key_len)))
+		target = now->contents;
+		now_key_len = ft_strlen(target->key);
+		if ((key_len == now_key_len) && (ft_strncmp(key, target->key, key_len)))
 		{
 			if (pre == 0)
 			{
 				list->front = now->next;
-				free(now->key);
-				free(now->value);
+				free(target->key);
+				free(target->value);
 				free(now);
 			}
 			else
 			{
 				pre->next = now->next;
-				free(now->key);
-				free(now->value);
+				free(target->key);
+				free(target->value);
 				free(now);
 			}
 			list->size--;
@@ -62,6 +89,7 @@ int	free_env_list(t_list *list)
 	t_data *now;
 	t_data *next;
 	t_env *target;
+	t_data *temp;
 
 	if (list == 0)
 		return (-1);
@@ -75,7 +103,9 @@ int	free_env_list(t_list *list)
 		free(target->key);
 		free(target->value);
 		//free
+		temp = now;
 		now = next;
+		free(temp);
 		list->size--;
 	}
 	list->front = 0;
