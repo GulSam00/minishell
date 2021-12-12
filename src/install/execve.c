@@ -6,23 +6,33 @@
 /*   By: sham <sham@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/01 12:04:51 by sham              #+#    #+#             */
-/*   Updated: 2021/12/12 16:05:32 by sham             ###   ########.fr       */
+/*   Updated: 2021/12/12 16:38:02 by sham             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
-// void excuve_cmd_built_in(t_cmd *cmd, t_env *ft_env, int result)
-// {
-//     // 공통 : 파일 디스크립터 조정
-//     // 실행하고 exit으로 종료?
-// }
+void excuve_cmd_built_in(t_cmd *cmd, t_env *ft_env, int result)
+{
+    if (ft_env)
+    {
+        printf("env\n");
+    }
+    // 공통 : 파일 디스크립터 조정
+    // 실행하고 exit으로 종료?
+}
 
-// void excuve_cmd_normal(t_cmd *cmd, t_env *ft_env, int result)
-// {
-//     // 공통 : 파일 디스크립터 조정
-//     // 포크 떠서 실행하고 부모 프로세스는 exit으로 종료?
-// }
+void excuve_cmd_normal(t_cmd *cmd, t_env *ft_env, int result)
+{
+    if (ft_env)
+    {
+        printf("env\n");
+    }
+
+    exit(0);
+    // 공통 : 파일 디스크립터 조정
+    // 포크 떠서 실행하고 부모 프로세스는 exit으로 종료?
+}
 
 void excuve_cmd(t_cmd *cmd, t_env *ft_env)
 {
@@ -34,14 +44,14 @@ void excuve_cmd(t_cmd *cmd, t_env *ft_env)
         exit(-1);
     }
     printf("result : %d\n", result);
-    // else if (result > 0)
-    // {
-    //     excuve_cmd_built_in(cmd, ft_env, result);
-    // }
-    // else
-    // {
-    //     excuve_cmd_normal(cmd, ft_env, result);
-    // }
+    else if (result > 0)
+    {
+        excuve_cmd_built_in(cmd, ft_env, result);
+    }
+    else
+    {
+        excuve_cmd_normal(cmd, ft_env, result);
+    }
     exit(0);
 }
 
