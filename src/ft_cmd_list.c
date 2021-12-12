@@ -6,7 +6,7 @@
 /*   By: nasong <nasong@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/05 21:57:01 by nasong            #+#    #+#             */
-/*   Updated: 2021/12/05 22:28:03 by nasong           ###   ########.fr       */
+/*   Updated: 2021/12/12 11:15:18 by nasong           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,7 @@ int	free_cmd_list(t_list *list)
 	t_data *now;
 	t_data *next;
 	t_cmd *target;
+	t_data *temp;
 
 	if (list == 0)
 		return (-1);
@@ -35,8 +36,14 @@ int	free_cmd_list(t_list *list)
 	{
 		next = now->next;
 		target = now->contents;
-		//free
+		free_str_list(&target->arg_list);
+		//free descriptor;
+		free(target->cmd);
+		free(target->arg);
+		free(target);
+		temp = now;
 		now = next;
+		free(temp);
 		list->size--;
 	}
 	list->front = 0;
