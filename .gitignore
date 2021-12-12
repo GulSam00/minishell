@@ -1,8 +1,10 @@
+.gitignore
 *.txt
 test/
 .vscode/
 rep/
 rep1/
 garbage/
-.gitignore
 .DS_Store
+*.o
+nanoshell

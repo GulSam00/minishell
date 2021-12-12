@@ -135,4 +135,6 @@ size_t ft_strlcpy(char *destination, const char *source, size_t n);
 /* install */
 void fork_cmd(t_list *cmd_list, t_list *env_list);
 int check_cmd(t_cmd *cmd, t_list *env_list);
+int check_bulit_in(t_cmd *cmd, t_list *env_list);
+
 #endif

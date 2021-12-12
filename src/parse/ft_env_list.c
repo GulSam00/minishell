@@ -6,7 +6,7 @@
 /*   By: sham <sham@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/05 22:10:18 by nasong            #+#    #+#             */
-/*   Updated: 2021/12/12 17:35:49 by nasong           ###   ########.fr       */
+/*   Updated: 2021/12/12 17:46:06 by sham             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,6 @@ char **env_to_char(t_list *env_list)
 {
 	char **result;
 	int index;
-	char *str;
 	t_data *now_env;
 	t_env *target;
 
@@ -38,6 +37,8 @@ char **env_to_char(t_list *env_list)
 		now_env = now_env->next;
 		index++;
 	}
+	result[index] = NULL;
+
 	return (result);
 }
 
