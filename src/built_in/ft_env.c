@@ -1,4 +1,16 @@
-#include "minishell.h"
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   ft_env.c                                           :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: sham <sham@student.42.fr>                  +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2021/12/06 10:41:40 by sham              #+#    #+#             */
+/*   Updated: 2021/12/06 10:41:51 by sham             ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
+#include "../minishell.h"
 
 int ft_strlen(char *str)
 {
@@ -12,7 +24,7 @@ int ft_strlen(char *str)
     return (len);
 }
 
-char    *ft_strdup(char *str)
+char *ft_strdup(char *str)
 {
     char *new_str;
     int len;
@@ -30,7 +42,7 @@ char    *ft_strdup(char *str)
     return (new_str);
 }
 
-int     ft_strncmp(char *str1, char *str2, int len)
+int ft_strncmp(char *str1, char *str2, int len)
 {
     int i;
 
@@ -46,7 +58,7 @@ int     ft_strncmp(char *str1, char *str2, int len)
     return (1);
 }
 
-void    test_env()
+void test_env()
 {
     t_env_list env_list;
 
@@ -61,7 +73,7 @@ void    test_env()
     ft_env(&env_list);
 }
 
-void    free_all_envs(t_env_list *env_list)
+void free_all_envs(t_env_list *env_list)
 {
     t_env *now;
     t_env *next;
@@ -78,7 +90,7 @@ void    free_all_envs(t_env_list *env_list)
     env_list->size = 0;
 }
 
-void    ft_unset(t_env_list *env_list, char *key)
+void ft_unset(t_env_list *env_list, char *key)
 {
     t_env *now;
     t_env *pre;
@@ -86,7 +98,7 @@ void    ft_unset(t_env_list *env_list, char *key)
     int env_key_len;
 
     if (env_list == 0)
-        return ;
+        return;
     now = env_list->front;
     pre = 0;
     key_len = ft_strlen(key);
@@ -109,7 +121,7 @@ void    ft_unset(t_env_list *env_list, char *key)
                 now = pre->next;
             }
             env_list->size--;
-            return ;
+            return;
         }
         else
         {
@@ -119,7 +131,7 @@ void    ft_unset(t_env_list *env_list, char *key)
     }
 }
 
-void    ft_export(t_env_list *env_list, char *key, char *value)
+void ft_export(t_env_list *env_list, char *key, char *value)
 {
     t_env *new;
     t_env *now;
@@ -145,12 +157,12 @@ void    ft_export(t_env_list *env_list, char *key, char *value)
     }
 }
 
-void    ft_env(t_env_list *env_list)
+void ft_env(t_env_list *env_list)
 {
     t_env *now;
 
     if (env_list->front == 0 || env_list->size == 0)
-        return ;
+        return;
     now = env_list->front;
     int i = 0;
     while (now != 0)

@@ -1,16 +1,14 @@
-/* ************************************************************************** */
-/*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: sham <sham@student.42.fr>                  +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/10/25 14:09:22 by sham              #+#    #+#             */
-/*   Updated: 2021/12/08 20:19:58 by sham             ###   ########.fr       */
-/*                                                                            */
-/* ************************************************************************** */
+#include <signal.h>
+#include <stdbool.h>
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+#include <readline/readline.h>
+#include <readline/history.h>
+#include <unistd.h>
+#include <termios.h>
 
-#include "minishell.h"
+// gcc testsignal.c -lreadline -L/Users/sham/.brew/opt/readline/lib -I/Users/sham/.brew/opt/readline/include
 
 void sig_handler(int signal)
 {
@@ -32,7 +30,8 @@ void setting_signal()
     signal(SIGQUIT, SIG_IGN);    // CTRL + /
                                  // signal(SIGTERM, sig_handler);
 }
-int main(int argc, char **argv, char **envp)
+
+int main(void)
 {
     char *str;
     struct termios term;
@@ -40,7 +39,7 @@ int main(int argc, char **argv, char **envp)
     term.c_lflag &= ~(ECHOCTL);
     tcsetattr(STDIN_FILENO, TCSANOW, &term);
     setting_signal();
-    // 환경변수
+
     while (1)
     {
         str = readline("nanoshell$ ");
@@ -57,11 +56,11 @@ int main(int argc, char **argv, char **envp)
         }
         else
         {
-            fork_cmd(cmd, env);
             add_history(str);
             printf("%s\n", str);
             free(str);
         }
     }
+    /* 함수종료 */
     return (0);
 }
