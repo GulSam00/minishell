@@ -6,7 +6,7 @@
 /*   By: sham <sham@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/05 22:10:18 by nasong            #+#    #+#             */
-/*   Updated: 2021/12/12 16:45:20 by sham             ###   ########.fr       */
+/*   Updated: 2021/12/12 17:35:49 by nasong           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,29 @@ void init_env(t_env *env, char *key, char *value)
 {
 	env->key = key;
 	env->value = value;
+}
+
+char **env_to_char(t_list *env_list)
+{
+	char **result;
+	int index;
+	char *str;
+	t_data *now_env;
+	t_env *target;
+
+	result = (char **)malloc(sizeof(char *) * (env_list->size + 1));
+	if (result == 0)
+		return (0);
+	index = 0;
+	now_env = env_list->front;
+	while (now_env != 0)
+	{
+		target = now_env->contents;
+		result[index] = ft_strjoin_with_char(target->key, target->value, '=');
+		now_env = now_env->next;
+		index++;
+	}
+	return (result);
 }
 
 char *get_value(t_list *list, char *find_key)

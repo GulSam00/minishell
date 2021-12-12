@@ -6,7 +6,7 @@
 /*   By: sham <sham@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/25 14:17:39 by sham              #+#    #+#             */
-/*   Updated: 2021/12/12 16:58:57 by sham             ###   ########.fr       */
+/*   Updated: 2021/12/12 17:36:01 by nasong           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -111,6 +111,7 @@ void pop_env_with_key(t_list *list, char *key);
 void init_env(t_env *env, char *key, char *value);
 char *get_value(t_list *list, char *find_key);
 int free_env_list(t_list *list);
+char **env_to_char(t_list *env_list);
 void init_discriptor(t_discriptor *discriptor, char *file_name, enum e_discriptor_type type);
 int free_discriptor_list(t_list *list);
 void print_discriptor_list(t_list *list);
@@ -124,6 +125,7 @@ char *ft_strdup(const char *str);
 char *ft_strndup(const char *str, int size);
 char *ft_strjoin(const char *str1, const char *str2);
 char *ft_strjoin_path(const char *str1, const char *str2);
+char *ft_strjoin_with_char(const char *str1, const char *str2, const char c);
 int ft_strlen(const char *str);
 int ft_strncmp(const char *str1, const char *str2, int len);
 int ft_cmpstr(char *str1, char *str2);
