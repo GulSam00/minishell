@@ -6,7 +6,7 @@
 /*   By: sham <sham@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/25 14:17:39 by sham              #+#    #+#             */
-/*   Updated: 2021/12/12 14:02:40 by sham             ###   ########.fr       */
+/*   Updated: 2021/12/12 14:44:16 by sham             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,10 +78,9 @@ struct s_list
 
 struct s_cmd
 {
-	char *cmd; // 명령어(커맨드)
-	char *arg; // 프롬프트에 입력한 문자열?
+	char *cmd;	// 명령어(커맨드)
+	char **arg; // 프롬프트에 입력한 문자열?
 	struct s_list arg_list;
-	struct s_list discriptor;
 } typedef t_cmd;
 
 struct s_env
@@ -106,10 +105,10 @@ int free_env_list(t_list *list);
 int ft_parser(t_list *cmd_list, char *input);
 
 /* libft */
-char	*ft_strdup(const char *str);
-char	*ft_strndup(const char *str, int size);
-char	*ft_strjoin(const char *str1, const char *str2);
+char *ft_strdup(const char *str);
+char *ft_strndup(const char *str, int size);
+char *ft_strjoin(const char *str1, const char *str2);
 int ft_strlen(const char *str);
-int     ft_strncmp(const char *str1, const char *str2, int len);
+int ft_strncmp(const char *str1, const char *str2, int len);
 
 #endif

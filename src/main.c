@@ -6,7 +6,7 @@
 /*   By: sham <sham@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/25 14:09:22 by sham              #+#    #+#             */
-/*   Updated: 2021/12/12 14:06:37 by sham             ###   ########.fr       */
+/*   Updated: 2021/12/12 14:43:55 by sham             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,14 +22,13 @@ void sig_handler(int signal)
 
     if (rl_on_new_line() == -1) // readline으로 설정한 문자열을 한 번 출력한다?
         exit(1);
-    rl_redisplay();         // 프롬프트 커서가 움직이지 않게 해준다.
+    rl_redisplay(); // 프롬프트 커서가 움직이지 않게 해준다.
 }
 
 void setting_signal()
 {
     signal(SIGINT, sig_handler); // CTRL + C
     signal(SIGQUIT, SIG_IGN);    // CTRL + /
-                                 // signal(SIGTERM, sig_handler);
 }
 int main(void)
 {
