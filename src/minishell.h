@@ -6,7 +6,7 @@
 /*   By: sham <sham@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/25 14:17:39 by sham              #+#    #+#             */
-/*   Updated: 2021/12/12 16:38:53 by sham             ###   ########.fr       */
+/*   Updated: 2021/12/12 16:45:23 by sham             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,35 +37,6 @@
 
 #include <sys/types.h> // stat 헤더
 #include <sys/stat.h>  // stat 헤더
-
-// enum e_bulit_in_code
-// {
-// 	CD = 1,
-// 	ECHO,
-// 	ENV,
-// 	EXIT,
-// 	EXPORT,
-// 	PWD,
-// 	UNSET
-// };
-
-enum e_cmd_type
-{
-	CMD = 0,
-	ARG,
-	DISCRIPTOR,
-	OPTION,
-	CMD_TYPE_MAX,
-	PIPE
-};
-
-enum e_discriptor_type
-{
-	IN,
-	OUT,
-	DOUBLE_IN,
-	DOUBLE_OUT
-};
 
 struct s_data
 {
@@ -109,12 +80,14 @@ void print_str_list(t_list *list);
 void print_env_list(t_list *list);
 void pop_env_with_key(t_list *list, char *key);
 void init_env(t_env *env, char *key, char *value);
+char *get_value(t_list *list, char *find_key);
 int free_env_list(t_list *list);
 void init_discriptor(t_discriptor *discriptor, char *file_name, enum e_discriptor_type type);
 int free_discriptor_list(t_list *list);
 void print_discriptor_list(t_list *list);
 
 int ft_parser(t_list *cmd_list, char *input);
+int ft_env_parser(t_list *env_list, char **envp);
 enum e_cmd_type get_type(char *word);
 
 /* libft */
@@ -124,9 +97,3 @@ char *ft_strjoin(const char *str1, const char *str2);
 char *ft_strjoin_path(const char *str1, const char *str2);
 int ft_strlen(const char *str);
 int ft_strncmp(const char *str1, const char *str2, int len);
-
-/* intall */
-void fork_cmd(t_list list);
-int check_cmd(t_cmd *cmd, t_env *ft_env);
-int ft_cmpstr(char *str1, char *str2);
-#endif
