@@ -6,13 +6,11 @@
 /*   By: sham <sham@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/01 12:14:06 by sham              #+#    #+#             */
-/*   Updated: 2021/12/12 17:39:20 by sham             ###   ########.fr       */
+/*   Updated: 2021/12/12 17:45:34 by sham             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
-
-extern char **environ;
 
 void excuve_cmd_bult_in(t_cmd *cmd, t_list *env_list)
 {
@@ -26,11 +24,12 @@ void excuve_cmd_bult_in(t_cmd *cmd, t_list *env_list)
 
 void excuve_cmd_normal(char *filename, t_cmd *cmd, t_list *env_list)
 {
-    if (env_list)
-    {
-        ;
-    }
-    execve(filename, cmd->arg, environ);
+    char **argv_env;
+    int i = 0;
+    argv_env = env_to_char(env_list);
+    while (argv_env[i])
+        printf("%s\n", argv_env[i++]);
+    execve(filename, cmd->arg, argv_env);
     exit(0);
     // 공통 : 파일 디스크립터 조정
     // 포크 떠서 실행하고 부모 프로세스는 exit으로 종료?
