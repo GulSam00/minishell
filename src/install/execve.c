@@ -6,56 +6,56 @@
 /*   By: sham <sham@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/01 12:04:51 by sham              #+#    #+#             */
-/*   Updated: 2021/12/12 16:38:02 by sham             ###   ########.fr       */
+/*   Updated: 2021/12/12 16:59:40 by sham             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
-void excuve_cmd_built_in(t_cmd *cmd, t_env *ft_env, int result)
-{
-    if (ft_env)
-    {
-        printf("env\n");
-    }
-    // 공통 : 파일 디스크립터 조정
-    // 실행하고 exit으로 종료?
-}
+// void excuve_cmd_built_in(t_cmd *cmd, t_env *ft_env, int result)
+// {
+//     if (ft_env)
+//     {
+//         printf("env\n");
+//     }
+//     // 공통 : 파일 디스크립터 조정
+//     // 실행하고 exit으로 종료?
+// }
 
-void excuve_cmd_normal(t_cmd *cmd, t_env *ft_env, int result)
-{
-    if (ft_env)
-    {
-        printf("env\n");
-    }
+// void excuve_cmd_normal(t_cmd *cmd, t_env *ft_env, int result)
+// {
+//     if (ft_env)
+//     {
+//         printf("env\n");
+//     }
 
-    exit(0);
-    // 공통 : 파일 디스크립터 조정
-    // 포크 떠서 실행하고 부모 프로세스는 exit으로 종료?
-}
+//     exit(0);
+//     // 공통 : 파일 디스크립터 조정
+//     // 포크 떠서 실행하고 부모 프로세스는 exit으로 종료?
+// }
 
-void excuve_cmd(t_cmd *cmd, t_env *ft_env)
+void excuve_cmd(t_cmd *cmd, t_list *env_list)
 {
     int result;
-    result = check_cmd(cmd, ft_env);
+    result = check_cmd(cmd, env_list);
     if (result == -1)
     {
         write(2, "존재하지 않는 함수!\n", 29);
         exit(-1);
     }
     printf("result : %d\n", result);
-    else if (result > 0)
-    {
-        excuve_cmd_built_in(cmd, ft_env, result);
-    }
-    else
-    {
-        excuve_cmd_normal(cmd, ft_env, result);
-    }
+    // else if (result > 0)
+    // {
+    //     excuve_cmd_built_in(cmd, ft_env, result);
+    // }
+    // else
+    // {
+    //     excuve_cmd_normal(cmd, ft_env, result);
+    // }
     exit(0);
 }
 
-void fork_cmd(t_list list)
+void fork_cmd(t_list *cmd_list, t_list *env_list)
 {
     pid_t pid;
     int fd[2];
@@ -66,7 +66,7 @@ void fork_cmd(t_list list)
     t_env *temp;
     temp = NULL;
 
-    data = list.front;
+    data = cmd_list->front;
     while (data)
     {
         cmd = data->contents;
@@ -96,7 +96,7 @@ void fork_cmd(t_list list)
             //     dup2(fd[1], STDOUT_FILENO);
             //     close(fd[1]);
             // }
-            excuve_cmd(cmd, temp);
+            excuve_cmd(cmd, env_list);
         }
         data = data->next;
         if (prev_input != -1)

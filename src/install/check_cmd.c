@@ -6,24 +6,22 @@
 /*   By: sham <sham@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/01 12:14:06 by sham              #+#    #+#             */
-/*   Updated: 2021/12/12 16:38:43 by sham             ###   ########.fr       */
+/*   Updated: 2021/12/12 16:53:59 by sham             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
-extern char **environ;
-
-int check_cmd(t_cmd *cmd, t_env *ft_env)
+int check_cmd(t_cmd *cmd, t_list *env_list)
 {
-    if (ft_env)
-    {
-        printf("env\n");
-    }
+
     struct stat sb;
     int i;
     int result;
-    char **path;
+
+    char **split;
+    split = ft_split(get_value(env_list, "PATH"), ':');
+
     char *built_in_list[7] = {"cd", "echo", "env", "exit", "export", "pwd", "unset"};
     // 빌트인 함수인지를 검증한다.
     i = 0;
@@ -34,9 +32,6 @@ int check_cmd(t_cmd *cmd, t_env *ft_env)
             return (i + 1);
         i++;
     }
-    printf("%s\n", environ[1]);
-    path = ft_strdup(&environ[1][5]);
-    printf("%s\n", path);
 
     printf("검사할 문자열 : %s\n", cmd->arg[0]);
     // 빌드인 함수의 리스트와 하나도 일치하지 않는다.
@@ -44,14 +39,14 @@ int check_cmd(t_cmd *cmd, t_env *ft_env)
     // 내장 명령어가 절대 주소인지, 상대 주소인지를 모두 고려해야만 한다.
     // 이차원 배열로 들어올 것.
     result = stat(cmd->arg[0], &sb);
-    if (result)
+    if (result == -1)
     {
-        while (path) // 이차원 배열이나 연결리스트
+        while (*split) // 이차원 배열이나 연결리스트
         {
-            result = stat(ft_strjoin_path(*path, cmd->arg[0]), &sb);
+            result = stat(ft_strjoin_path(*split, cmd->arg[0]), &sb);
             if (!result)
                 return (0);
-            path++;
+            split++;
         }
     }
 

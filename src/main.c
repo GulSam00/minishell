@@ -6,7 +6,7 @@
 /*   By: sham <sham@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/25 14:09:22 by sham              #+#    #+#             */
-/*   Updated: 2021/12/12 15:51:45 by sham             ###   ########.fr       */
+/*   Updated: 2021/12/12 16:59:00 by sham             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,21 +33,28 @@ void setting_signal()
     signal(SIGINT, sig_handler); // CTRL + C
     signal(SIGQUIT, SIG_IGN);    // CTRL + /
 }
-int main(void)
+int main(int argc, char **argv, char **envp)
 {
     char *str;
-    t_list list;
-    init_list(&list);
+    t_list cmd_list;
+    init_list(&cmd_list);
+
+    t_list env_list;
+    init_list(&env_list);
+    ft_env_parser(&env_list, envp);
+
     struct termios term;
     tcgetattr(STDIN_FILENO, &term);
     term.c_lflag &= ~(ECHOCTL);
     tcsetattr(STDIN_FILENO, TCSANOW, &term);
     setting_signal();
+
+    printf("%d, %s\n", argc, *argv);
     // 환경변수
     while (1)
     {
         str = readline("nanoshell$ ");
-        ft_parser(&list, str);
+        ft_parser(&cmd_list, str);
         if (!str)
         {
             printf("\033[1A");
@@ -63,7 +70,7 @@ int main(void)
         {
             // fork_cmd(cmd, env);
             add_history(str);
-            fork_cmd(list);
+            fork_cmd(&cmd_list, &env_list);
             free(str);
         }
     }

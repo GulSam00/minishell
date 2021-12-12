@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   ft_env_parser.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nasong <nasong@student.42seoul.kr>         +#+  +:+       +#+        */
+/*   By: sham <sham@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/12 15:47:44 by nasong            #+#    #+#             */
-/*   Updated: 2021/12/12 15:53:48 by nasong           ###   ########.fr       */
+/*   Updated: 2021/12/12 17:00:32 by sham             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#include "../minishell.h"
 
-int	ft_env_parser(t_list *env_list, char **envp)
+int ft_env_parser(t_list *env_list, char **envp)
 {
 	char **split;
 	int index;

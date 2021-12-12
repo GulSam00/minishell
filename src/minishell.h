@@ -6,7 +6,7 @@
 /*   By: sham <sham@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/25 14:17:39 by sham              #+#    #+#             */
-/*   Updated: 2021/12/12 16:45:23 by sham             ###   ########.fr       */
+/*   Updated: 2021/12/12 16:58:57 by sham             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,35 @@
 
 #include <sys/types.h> // stat 헤더
 #include <sys/stat.h>  // stat 헤더
+
+// enum e_bulit_in_code
+// {
+// 	CD = 1,
+// 	ECHO,
+// 	ENV,
+// 	EXIT,
+// 	EXPORT,
+// 	PWD,
+// 	UNSET
+// };
+
+enum e_cmd_type
+{
+	CMD = 0,
+	ARG,
+	DISCRIPTOR,
+	OPTION,
+	CMD_TYPE_MAX,
+	PIPE
+};
+
+enum e_discriptor_type
+{
+	IN,
+	OUT,
+	DOUBLE_IN,
+	DOUBLE_OUT
+};
 
 struct s_data
 {
@@ -97,3 +126,11 @@ char *ft_strjoin(const char *str1, const char *str2);
 char *ft_strjoin_path(const char *str1, const char *str2);
 int ft_strlen(const char *str);
 int ft_strncmp(const char *str1, const char *str2, int len);
+int ft_cmpstr(char *str1, char *str2);
+char **ft_split(char const *s, char c);
+size_t ft_strlcpy(char *destination, const char *source, size_t n);
+
+/* install */
+void fork_cmd(t_list *cmd_list, t_list *env_list);
+int check_cmd(t_cmd *cmd, t_list *env_list);
+#endif
