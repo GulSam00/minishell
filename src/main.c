@@ -6,7 +6,7 @@
 /*   By: sham <sham@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/25 14:09:22 by sham              #+#    #+#             */
-/*   Updated: 2021/12/08 20:19:58 by sham             ###   ########.fr       */
+/*   Updated: 2021/12/12 14:06:37 by sham             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,6 @@ void sig_handler(int signal)
 
     if (rl_on_new_line() == -1) // readline으로 설정한 문자열을 한 번 출력한다?
         exit(1);
-    rl_replace_line("", 1); // 프롬프트에 이미 친 문자열을 싹 날려준다.
     rl_redisplay();         // 프롬프트 커서가 움직이지 않게 해준다.
 }
 
@@ -32,9 +31,11 @@ void setting_signal()
     signal(SIGQUIT, SIG_IGN);    // CTRL + /
                                  // signal(SIGTERM, sig_handler);
 }
-int main(int argc, char **argv, char **envp)
+int main(void)
 {
     char *str;
+    t_list list;
+    init_list(&list);
     struct termios term;
     tcgetattr(STDIN_FILENO, &term);
     term.c_lflag &= ~(ECHOCTL);
@@ -44,6 +45,7 @@ int main(int argc, char **argv, char **envp)
     while (1)
     {
         str = readline("nanoshell$ ");
+        ft_parser(&list, str);
         if (!str)
         {
             printf("\033[1A");
@@ -57,7 +59,7 @@ int main(int argc, char **argv, char **envp)
         }
         else
         {
-            fork_cmd(cmd, env);
+            // fork_cmd(cmd, env);
             add_history(str);
             printf("%s\n", str);
             free(str);

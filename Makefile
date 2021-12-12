@@ -6,32 +6,35 @@
 #    By: sham <sham@student.42.fr>                  +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/06/01 16:48:56 by sham              #+#    #+#              #
-#    Updated: 2021/12/08 21:36:57 by sham             ###   ########.fr        #
+#    Updated: 2021/12/12 14:10:37 by sham             ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 
 NAME = nanoshell
-CC = gcc -Werror -Wall -Wextra
+CC = gcc
+CFLAGS = -Werror -Wall -Wextra 
 FLAG = -lreadline -L/Users/sham/.brew/opt/readline/lib -I/Users/sham/.brew/opt/readline/include
 # READLINE = -Werror -Wall -Wextra -lreadline -L/Users/sham/.brew/opt/readline/lib -I/Users/sham/.brew/opt/readline/include
-MAIN_SRCS = $(addprefix src/, temp.c)
+MAIN_SRCS = $(addprefix src/list/, ft_cmd_list.c ft_list.c ft_parser.c ft_string_list.c) src/main.c
+LIBFT_SRCS = $(addprefix src/libft/, ft_strdup.c ft_strjoin.c ft_strlen.c ft_strncmp.c)
 SIGNAL_SRCS = testsignal.c
-OBJS = $(MAIN_SRCS:.c=.o)
+MAIN_OBJS = $(MAIN_SRCS:.c=.o)
+LIBFT_OBJS = $(LIBFT_SRCS:.c=.o)
 SIGNAL_OBJS = $(SIGNAL_SRCS:.c=.o)
 .PHONY : all clean fclean re
 
 all : $(NAME)
 
 signal : $(SIGNAL_OBJS)
-	$(CC) $(FLAG) $(SIGNAL_OBJS) -o signal
+	$(CC) $(CFLAGS) $(SIGNAL_OBJS) -o signal
 
 
-$(NAME) : $(MAIN_SRCS)
-	$(CC) $(OBJS) -o $(NAME) 
+$(NAME) : $(MAIN_OBJS) $(LIBFT_OBJS)
+	$(CC) $(CFLAGS) -lreadline $(MAIN_OBJS) $(LIBFT_OBJS) -o $(NAME) 
 
 clean :
-	rm -rf $(OBJS) $(SIGNAL_OBJS)
+	rm -rf $(MAIN_OBJS) $(LIBFT_OBJS) $(SIGNAL_OBJS)
 
 fclean : clean
 	rm -rf $(NAME)

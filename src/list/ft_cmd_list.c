@@ -1,21 +1,30 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_string_list.c                                   :+:      :+:    :+:   */
+/*   ft_cmd_list.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nasong <nasong@student.42seoul.kr>         +#+  +:+       +#+        */
+/*   By: sham <sham@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/12/05 21:56:01 by nasong            #+#    #+#             */
-/*   Updated: 2021/12/05 21:58:23 by nasong           ###   ########.fr       */
+/*   Created: 2021/12/05 21:57:01 by nasong            #+#    #+#             */
+/*   Updated: 2021/12/12 14:05:02 by sham             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#include "../minishell.h"
 
-int	free_str_list(t_list *list)
+void	init_cmd(t_cmd *cmd)
+{
+	cmd->cmd = 0;
+	cmd->arg = 0;
+	init_list(&cmd->arg_list);	
+	init_list(&cmd->discriptor);	
+}
+
+int	free_cmd_list(t_list *list)
 {
 	t_data *now;
 	t_data *next;
+	t_cmd *target;
 
 	if (list == 0)
 		return (-1);
@@ -25,8 +34,8 @@ int	free_str_list(t_list *list)
 	while (now != 0)
 	{
 		next = now->next;
-		free(now->contents);
-		free(now);
+		target = now->contents;
+		//free
 		now = next;
 		list->size--;
 	}
@@ -35,10 +44,10 @@ int	free_str_list(t_list *list)
 	return (1);
 }
 
-void print_str_list(t_list *list)
+void print_cmd_list(t_list *list)
 {
 	t_data *now;
-	char *target;
+	t_cmd *target;
 	int index;
 
 	if (list == 0)
@@ -46,15 +55,15 @@ void print_str_list(t_list *list)
 		printf("NULL LIST\n");
 		return ;
 	}
-	index = 0;
 	now = list->front;
-	printf("\n---PRINT STR LIST / SIZE: %d---\n", list->size);
+	printf("\n=====PRINT CMD LIST / SIZE: %d===\n", list->size);
 	while (now != 0)
 	{
+		index = 0;
 		target = now->contents;
-		printf("[%d] %s\n", index, target);
+		printf("cmd: %s | arg: %s\n", target->cmd, target->arg);
+		print_str_list(&target->arg_list);
 		now = now->next;
-		index++;
 	}
-	printf("---PRINT STR LIST END---\n");
+	printf("=====PRINT CMD LIST END===\n");
 }

@@ -6,7 +6,7 @@
 /*   By: sham <sham@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/25 14:17:39 by sham              #+#    #+#             */
-/*   Updated: 2021/12/05 22:38:47 by nasong           ###   ########.fr       */
+/*   Updated: 2021/12/12 14:02:40 by sham             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,10 +34,6 @@
 #include <unistd.h>
 #include <fcntl.h>
 #include <termios.h> // 터미널 헤더
-
-// STDIN_FILENO 0
-// STDOUT_FILENO 1
-// STDERR_FILENO 2
 
 enum e_cmd_type
 {
@@ -67,6 +63,7 @@ enum e_discriptor_type
 // 	PWD,
 // 	UNSET
 // };
+
 struct s_data // 디스크립터, 명령어
 {
 	void *contents;
@@ -106,69 +103,7 @@ void print_env_list(t_list *list);
 void pop_env_with_key(t_list *list, char *key);
 void init_env(t_env *env, char *key, char *value);
 int free_env_list(t_list *list);
-
 int ft_parser(t_list *cmd_list, char *input);
-
-enum e_cmd_type
-{
-	CMD = 0,
-	ARG,
-	DISCRIPTOR,
-	OPTION,
-	CMD_TYPE_MAX,
-	PIPE
-};
-
-enum e_discriptor_type
-{
-	IN,
-	OUT,
-	DOUBLE_IN,
-	DOUBLE_OUT
-};
-
-struct s_data
-{
-	void *contents;
-	struct s_data *next;
-}	typedef t_data;
-
-struct s_list
-{
-	void *front;
-	int size;
-}	typedef t_list;
-
-struct s_cmd
-{
-	char *cmd;
-	char *arg;
-	struct s_list arg_list;
-	struct s_list discriptor;
-}	typedef t_cmd;
-
-struct s_env
-{
-	char *key;
-	char *value;
-}	typedef t_env;
-
-/* list */
-void	init_list(t_list *list);
-void	init_cmd(t_cmd *cmd);
-int	add_list(t_list *list, t_data *new_data);
-int add_data(t_list *list, void *new_contents);
-int free_cmd_list (t_list *list);
-int	free_str_list(t_list *list);
-void print_cmd_list(t_list *list);
-void print_str_list(t_list *list);
-void print_env_list(t_list *list);
-void	pop_env_with_key(t_list *list, char *key);
-void	init_env(t_env *env, char *key, char *value);
-int	free_env_list(t_list *list);
-
-int ft_parser(t_list *cmd_list, char *input);
-
 
 /* libft */
 char	*ft_strdup(const char *str);
