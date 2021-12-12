@@ -6,7 +6,7 @@
 #    By: sham <sham@student.42.fr>                  +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/06/01 16:48:56 by sham              #+#    #+#              #
-#    Updated: 2021/12/12 17:57:52 by sham             ###   ########.fr        #
+#    Updated: 2021/12/12 20:39:54 by sham             ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -14,7 +14,7 @@
 NAME = nanoshell
 CC = gcc
 CFLAGS = -Werror -Wall -Wextra 
-READLINE_FLAG = -lreadline -L${HOME}/.brew/opt/readline/lib -I${HOME}/.brew/opt/readline/include
+READLINE_FLAGS = -lreadline -L${HOME}/.brew/opt/readline/lib -I${HOME}/.brew/opt/readline/include
 # READLINE = -Werror -Wall -Wextra -lreadline -L/Users/sham/.brew/opt/readline/lib -I/Users/sham/.brew/opt/readline/include
 MAIN_SRCS =  $(addprefix src/, main.c) src/install/execve.c src/install/fork.c
 PARSE_SRCS = $(addprefix src/parse/, ft_cmd_list.c ft_list.c ft_env_list.c ft_parser.c ft_string_list.c ft_check_type.c ft_env_parser.c)
@@ -31,7 +31,7 @@ all : $(NAME)
 
 
 $(NAME) : $(MAIN_OBJS) $(LIBFT_OBJS) $(PARSE_OBJS)
-	$(CC) $(CFLAGS) $(READLINE_FLAG) $(MAIN_OBJS) $(LIBFT_OBJS) $(PARSE_OBJS) -o $(NAME) 
+	$(CC) $(CFLAGS) $(READLINE_FLAGS) $(MAIN_OBJS) $(LIBFT_OBJS) $(PARSE_OBJS) -o $(NAME) 
 
 
 clean :

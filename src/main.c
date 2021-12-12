@@ -6,7 +6,7 @@
 /*   By: sham <sham@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/25 14:09:22 by sham              #+#    #+#             */
-/*   Updated: 2021/12/12 18:36:43 by sham             ###   ########.fr       */
+/*   Updated: 2021/12/12 20:43:34 by sham             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ void sig_handler(int signal)
 {
     if (signal == SIGINT)
     {
-        //printf("\033[K"); 지워버리는 것을 원하지는 않았음.
+        // printf("\033[K"); //지워버리는 것을 원하지는 않았음.
         printf("nanoshell$ \n");
     }
 
@@ -43,7 +43,6 @@ int init_main(t_list *cmd_list, t_list *env_list, char **envp)
     init_list(cmd_list);
     init_list(env_list);
     result += ft_env_parser(env_list, envp);
-
     result += tcgetattr(STDIN_FILENO, &term);
     term.c_lflag &= ~(ECHOCTL);
     result += tcsetattr(STDIN_FILENO, TCSANOW, &term);
@@ -61,13 +60,12 @@ int main(int argc, char **argv, char **envp)
         return (-1);
     if (argc && argv)
         ;
-    // 환경변수
     while (1)
     {
         str = readline("nanoshell$ ");
-        ft_parser(&cmd_list, str);
         if (!str)
         {
+            free(str);
             printf("\033[1A");
             printf("\033[10C");
             printf(" exit\n");
@@ -81,10 +79,12 @@ int main(int argc, char **argv, char **envp)
         {
             // fork_cmd(cmd, env);
             add_history(str);
+            ft_parser(&cmd_list, str);
+
             fork_cmd(&cmd_list, &env_list);
             free(str);
         }
     }
-    printf("end!\n");
+    printf("main end!\n");
     return (0);
 }

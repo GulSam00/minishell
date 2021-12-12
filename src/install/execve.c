@@ -6,13 +6,13 @@
 /*   By: sham <sham@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/01 12:04:51 by sham              #+#    #+#             */
-/*   Updated: 2021/12/12 18:25:15 by sham             ###   ########.fr       */
+/*   Updated: 2021/12/12 20:24:18 by sham             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
-void excuve_cmd_bult_in(t_cmd *cmd, t_list *env_list)
+void execve_cmd_bult_in(t_cmd *cmd, t_list *env_list)
 {
     if (env_list && cmd)
     {
@@ -22,7 +22,7 @@ void excuve_cmd_bult_in(t_cmd *cmd, t_list *env_list)
     // 실행하고 exit으로 종료?
 }
 
-void excuve_cmd_normal(char *filename, t_cmd *cmd, t_list *env_list)
+void execve_cmd_normal(char *filename, t_cmd *cmd, t_list *env_list)
 {
     char **argv_env;
     pid_t pid;
@@ -33,7 +33,7 @@ void excuve_cmd_normal(char *filename, t_cmd *cmd, t_list *env_list)
     if (pid == 0)
         execve(filename, cmd->arg, argv_env);
     // 왜 파이프 연결이 되지 않는가? 닫아주지 않았기 때문에?
-    close(STDOUT_FILENO);
+    // close(STDOUT_FILENO);
 
     return;
     // 공통 : 파일 디스크립터 조정
@@ -53,7 +53,7 @@ int check_bulit_in(t_cmd *cmd, t_list *env_list)
         result = ft_cmpstr(cmd->arg[0], built_in_list[i]);
         if (!result)
         {
-            excuve_cmd_bult_in(cmd, env_list);
+            execve_cmd_bult_in(cmd, env_list);
             return (0);
         }
         i++;
@@ -76,7 +76,7 @@ int check_cmd(t_cmd *cmd, t_list *env_list)
     // 이차원 배열로 들어올 것.
     if (!stat(cmd->arg[0], &sb))
     {
-        excuve_cmd_normal(cmd->arg[0], cmd, env_list);
+        execve_cmd_normal(cmd->arg[0], cmd, env_list);
         return (0);
     }
     // 절대 주소가 아니기에 PATH와 합쳐서 하나하나 대입해본다.
@@ -86,7 +86,7 @@ int check_cmd(t_cmd *cmd, t_list *env_list)
         result = stat(full_path, &sb);
         if (!result)
         {
-            excuve_cmd_normal(full_path, cmd, env_list);
+            execve_cmd_normal(full_path, cmd, env_list);
             return (0);
         }
         split++;
@@ -98,7 +98,7 @@ int check_cmd(t_cmd *cmd, t_list *env_list)
     return (-1);
 }
 
-void excuve_cmd(t_cmd *cmd, t_list *env_list)
+void execve_cmd(t_cmd *cmd, t_list *env_list)
 {
     int result;
 

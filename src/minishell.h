@@ -6,7 +6,7 @@
 /*   By: sham <sham@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/25 14:17:39 by sham              #+#    #+#             */
-/*   Updated: 2021/12/12 18:39:35 by sham             ###   ########.fr       */
+/*   Updated: 2021/12/12 18:48:35 by sham             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -134,6 +134,6 @@ size_t ft_strlcpy(char *destination, const char *source, size_t n);
 
 /* install */
 void fork_cmd(t_list *cmd_list, t_list *env_list);
-void excuve_cmd(t_cmd *cmd, t_list *env_list);
+void execve_cmd(t_cmd *cmd, t_list *env_list);
 
 #endif
