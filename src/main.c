@@ -6,7 +6,7 @@
 /*   By: sham <sham@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/25 14:09:22 by sham              #+#    #+#             */
-/*   Updated: 2021/12/12 16:59:00 by sham             ###   ########.fr       */
+/*   Updated: 2021/12/12 18:36:43 by sham             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,23 +33,34 @@ void setting_signal()
     signal(SIGINT, sig_handler); // CTRL + C
     signal(SIGQUIT, SIG_IGN);    // CTRL + /
 }
+
+int init_main(t_list *cmd_list, t_list *env_list, char **envp)
+{
+    int result;
+    struct termios term;
+
+    result = 0;
+    init_list(cmd_list);
+    init_list(env_list);
+    result += ft_env_parser(env_list, envp);
+
+    result += tcgetattr(STDIN_FILENO, &term);
+    term.c_lflag &= ~(ECHOCTL);
+    result += tcsetattr(STDIN_FILENO, TCSANOW, &term);
+    setting_signal();
+    return (result);
+}
+
 int main(int argc, char **argv, char **envp)
 {
     char *str;
     t_list cmd_list;
-    init_list(&cmd_list);
-
     t_list env_list;
-    init_list(&env_list);
-    ft_env_parser(&env_list, envp);
 
-    struct termios term;
-    tcgetattr(STDIN_FILENO, &term);
-    term.c_lflag &= ~(ECHOCTL);
-    tcsetattr(STDIN_FILENO, TCSANOW, &term);
-    setting_signal();
-
-    printf("%d, %s\n", argc, *argv);
+    if (init_main(&cmd_list, &env_list, envp))
+        return (-1);
+    if (argc && argv)
+        ;
     // 환경변수
     while (1)
     {
@@ -74,5 +85,6 @@ int main(int argc, char **argv, char **envp)
             free(str);
         }
     }
+    printf("end!\n");
     return (0);
 }

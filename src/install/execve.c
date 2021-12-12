@@ -6,11 +6,97 @@
 /*   By: sham <sham@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/01 12:04:51 by sham              #+#    #+#             */
-/*   Updated: 2021/12/12 17:36:57 by sham             ###   ########.fr       */
+/*   Updated: 2021/12/12 18:25:15 by sham             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
+
+void excuve_cmd_bult_in(t_cmd *cmd, t_list *env_list)
+{
+    if (env_list && cmd)
+    {
+        printf("빌트인!\n");
+    }
+    // 공통 : 파일 디스크립터 조정
+    // 실행하고 exit으로 종료?
+}
+
+void excuve_cmd_normal(char *filename, t_cmd *cmd, t_list *env_list)
+{
+    char **argv_env;
+    pid_t pid;
+
+    argv_env = env_to_char(env_list);
+
+    pid = fork();
+    if (pid == 0)
+        execve(filename, cmd->arg, argv_env);
+    // 왜 파이프 연결이 되지 않는가? 닫아주지 않았기 때문에?
+    close(STDOUT_FILENO);
+
+    return;
+    // 공통 : 파일 디스크립터 조정
+    // 포크 떠서 실행하고 부모 프로세스는 exit으로 종료?
+}
+
+int check_bulit_in(t_cmd *cmd, t_list *env_list)
+{
+
+    int i;
+    int result;
+    char *built_in_list[7] = {"cd", "echo", "env", "exit", "export", "pwd", "unset"};
+    // 빌트인 함수인지를 검증한다.
+    i = 0;
+    while (i < 7)
+    {
+        result = ft_cmpstr(cmd->arg[0], built_in_list[i]);
+        if (!result)
+        {
+            excuve_cmd_bult_in(cmd, env_list);
+            return (0);
+        }
+        i++;
+    }
+    return (-1);
+}
+
+int check_cmd(t_cmd *cmd, t_list *env_list)
+{
+
+    struct stat sb;
+    int result;
+    char *full_path;
+    char **split;
+
+    split = ft_split(get_value(env_list, "PATH"), ':');
+    // 빌드인 함수의 리스트와 하나도 일치하지 않는다.
+    // 내장 명령어를 검증한다.
+    // 내장 명령어가 절대 주소인지, 상대 주소인지를 모두 고려해야만 한다.
+    // 이차원 배열로 들어올 것.
+    if (!stat(cmd->arg[0], &sb))
+    {
+        excuve_cmd_normal(cmd->arg[0], cmd, env_list);
+        return (0);
+    }
+    // 절대 주소가 아니기에 PATH와 합쳐서 하나하나 대입해본다.
+    while (*split) // 이차원 배열이나 연결리스트
+    {
+        full_path = ft_strjoin_path(*split, cmd->arg[0]);
+        result = stat(full_path, &sb);
+        if (!result)
+        {
+            excuve_cmd_normal(full_path, cmd, env_list);
+            return (0);
+        }
+        split++;
+    }
+
+    // $PATH
+    // /Users/sham/.brew/bin:/Users/sham/.brew/bin:/Users/sham/.brew/bin:/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin:/usr/local/munki
+    // : 를 기준으로 나눠서 검증해야 한다.
+    return (-1);
+}
 
 void excuve_cmd(t_cmd *cmd, t_list *env_list)
 {
@@ -28,55 +114,4 @@ void excuve_cmd(t_cmd *cmd, t_list *env_list)
     }
     printf("함수 끝!\n");
     exit(0);
-}
-
-void fork_cmd(t_list *cmd_list, t_list *env_list)
-{
-    pid_t pid;
-    int fd[2];
-    int prev_input = -1;
-    t_data *data;
-    t_cmd *cmd;
-
-    t_env *temp;
-    temp = NULL;
-
-    data = cmd_list->front;
-    while (data)
-    {
-        cmd = data->contents;
-        pipe(fd);
-        pid = fork();
-        pipe(fd);
-        if (pid == 0)
-        {
-            // 자식 코드
-            // prev, next를 검사해서 파이프를 연결한다
-            // if (prev_input == -1)
-            // {
-            //     close(fd[0]);
-            //     dup2(fd[1], STDOUT_FILENO);
-            //     close(fd[1]);
-            // }
-            // else if (data->next == NULL)
-            // {
-            //     close(fd[1]);
-            //     dup2(prev_input, STDIN_FILENO);
-            //     close(prev_input);
-            // }
-            // else
-            // {
-            //     dup2(prev_input, STDIN_FILENO);
-            //     close(prev_input);
-            //     dup2(fd[1], STDOUT_FILENO);
-            //     close(fd[1]);
-            // }
-            excuve_cmd(cmd, env_list);
-        }
-        data = data->next;
-        if (prev_input != -1)
-            close(prev_input);
-        prev_input = fd[0];
-    }
-    return;
 }
