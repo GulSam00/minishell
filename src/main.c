@@ -6,7 +6,7 @@
 /*   By: sham <sham@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/25 14:09:22 by sham              #+#    #+#             */
-/*   Updated: 2021/12/12 14:43:55 by sham             ###   ########.fr       */
+/*   Updated: 2021/12/12 15:51:45 by sham             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,9 @@ void sig_handler(int signal)
 
     if (rl_on_new_line() == -1) // readline으로 설정한 문자열을 한 번 출력한다?
         exit(1);
+
+    // rl_replace_line("", 1); // 프롬프트에 이미 친 문자열을 싹 날려준다. 왜 안돼!!!
+
     rl_redisplay(); // 프롬프트 커서가 움직이지 않게 해준다.
 }
 
@@ -60,7 +63,7 @@ int main(void)
         {
             // fork_cmd(cmd, env);
             add_history(str);
-            printf("%s\n", str);
+            fork_cmd(list);
             free(str);
         }
     }

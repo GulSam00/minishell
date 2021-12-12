@@ -6,7 +6,7 @@
 /*   By: sham <sham@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/28 17:19:38 by sham              #+#    #+#             */
-/*   Updated: 2021/12/01 12:12:40 by sham             ###   ########.fr       */
+/*   Updated: 2021/12/12 16:09:46 by sham             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ int ft_echo(int fd, int option, char *cmd)
     int result;
 
     fd = 1;
-    result += write(STDOUT_FILENO, cmd, ft_getlen(cmd));
+    result += write(STDOUT_FILENO, cmd, ft_strlen(cmd));
     if (option)
         result += write(fd, "\n", 1);
     return result;

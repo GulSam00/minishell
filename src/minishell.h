@@ -6,7 +6,7 @@
 /*   By: sham <sham@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/25 14:17:39 by sham              #+#    #+#             */
-/*   Updated: 2021/12/12 14:48:34 by sham             ###   ########.fr       */
+/*   Updated: 2021/12/12 16:25:59 by sham             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,9 @@
 #include <unistd.h>
 #include <fcntl.h>
 #include <termios.h> // 터미널 헤더
+
+#include <sys/types.h> // stat 헤더
+#include <sys/stat.h>  // stat 헤더
 
 // enum e_bulit_in_code
 // {
@@ -89,7 +92,6 @@ struct s_env
 	char *key;
 	char *value;
 } typedef t_env;
-
 struct s_discriptor
 {
 	char *file_name;
@@ -119,8 +121,12 @@ enum e_cmd_type get_type(char *word);
 char *ft_strdup(const char *str);
 char *ft_strndup(const char *str, int size);
 char *ft_strjoin(const char *str1, const char *str2);
-char *ft_strjoin_with_space(const char *str1, const char *str2);
+char *ft_strjoin_path(const char *str1, const char *str2);
 int ft_strlen(const char *str);
 int ft_strncmp(const char *str1, const char *str2, int len);
 
+/* intall */
+void fork_cmd(t_list list);
+int check_cmd(t_cmd *cmd, t_env *ft_env);
+int ft_cmpstr(char *str1, char *str2);
 #endif
