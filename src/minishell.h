@@ -6,7 +6,7 @@
 /*   By: sham <sham@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/25 14:17:39 by sham              #+#    #+#             */
-/*   Updated: 2021/12/12 18:48:35 by sham             ###   ########.fr       */
+/*   Updated: 2021/12/13 11:13:05 by sham             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,9 +27,9 @@
 #define PIPE_WRITE 1
 #endif
 
+#include <stdio.h>			   // <readline/readline.h>보다 먼저 선언되야 함.
 #include <readline/readline.h> // 프롬프트 헤더
 #include <readline/history.h>  // 프롬프트 헤더
-#include <stdio.h>
 #include <stdlib.h>
 #include <unistd.h>
 #include <fcntl.h>
