@@ -6,7 +6,7 @@
 /*   By: sham <sham@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/01 12:04:51 by sham              #+#    #+#             */
-/*   Updated: 2021/12/15 17:17:51 by sham             ###   ########.fr       */
+/*   Updated: 2021/12/15 17:47:26 by sham             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,9 +18,9 @@ void execve_cmd_bult_in(char *cmd_name, t_cmd *cmd, t_list *env_list)
         ft_cd(cmd->arg[1], env_list);
     else if (!ft_cmpstr(cmd_name, "pwd"))
         ft_pwd();
-    if (env_list && cmd)
-    {
-    }
+    else if (!ft_cmpstr(cmd_name, "echo"))
+        ft_echo(cmd->arg);
+    
     // 공통 : 파일 디스크립터 조정
     // 실행하고 exit으로 종료?
 }
