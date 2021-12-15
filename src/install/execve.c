@@ -6,7 +6,7 @@
 /*   By: sham <sham@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/01 12:04:51 by sham              #+#    #+#             */
-/*   Updated: 2021/12/15 12:27:39 by sham             ###   ########.fr       */
+/*   Updated: 2021/12/15 12:49:05 by sham             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,19 +25,13 @@ void execve_cmd_bult_in(t_cmd *cmd, t_list *env_list)
 void execve_cmd_normal(char *filename, t_cmd *cmd, t_list *env_list)
 {
     char **argv_env;
-    pid_t pid;
 
     argv_env = env_to_char(env_list);
-
-    pid = fork();
-    if (pid == 0)
-        execve(filename, cmd->arg, argv_env);
-    // 왜 파이프 연결이 되지 않는가? 닫아주지 않았기 때문에?
-    // close(STDOUT_FILENO);
-
-    return;
-    // 공통 : 파일 디스크립터 조정
     // 포크 떠서 실행하고 부모 프로세스는 exit으로 종료?
+
+    // pid = fork();
+    // if (pid == 0)
+    execve(filename, cmd->arg, argv_env);
 }
 
 int check_bulit_in(t_cmd *cmd, t_list *env_list)
@@ -73,7 +67,7 @@ int check_cmd(t_cmd *cmd, t_list *env_list)
     // 빌드인 함수의 리스트와 하나도 일치하지 않는다.
     // 내장 명령어를 검증한다.
     // 내장 명령어가 절대 주소인지, 상대 주소인지를 모두 고려해야만 한다.
-    // 이차원 배열로 들어올 것.
+    // 이차원 배열로 PATH 환경변수를 쪼개줄 것.
     if (!stat(cmd->arg[0], &sb))
     {
         execve_cmd_normal(cmd->arg[0], cmd, env_list);
@@ -109,7 +103,7 @@ void execve_cmd(t_cmd *cmd, t_list *env_list)
     }
     if (result == -1)
     {
-        write(2, "존재하지 않는 함수!\n", 29);
+        ft_error("존재하지 않는 함수!\n");
         exit(-1);
     }
     exit(0);
