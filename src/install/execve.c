@@ -6,7 +6,7 @@
 /*   By: sham <sham@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/01 12:04:51 by sham              #+#    #+#             */
-/*   Updated: 2021/12/15 16:17:54 by sham             ###   ########.fr       */
+/*   Updated: 2021/12/15 17:17:51 by sham             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 void execve_cmd_bult_in(char *cmd_name, t_cmd *cmd, t_list *env_list)
 {
     if (!ft_cmpstr(cmd_name, "cd"))
-        ft_cd(cmd->arg[1]);
+        ft_cd(cmd->arg[1], env_list);
     else if (!ft_cmpstr(cmd_name, "pwd"))
         ft_pwd();
     if (env_list && cmd)
@@ -50,7 +50,7 @@ int check_bulit_in(t_cmd *cmd, t_list *env_list)
         result = ft_cmpstr(cmd->arg[0], built_in_list[i]);
         if (!result)
         {
-            execve_cmd_bult_in(built_in_list[i], cmd, env_list );
+            execve_cmd_bult_in(built_in_list[i], cmd, env_list);
             return (0);
         }
         i++;

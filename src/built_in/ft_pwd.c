@@ -6,7 +6,7 @@
 /*   By: sham <sham@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/28 17:22:08 by sham              #+#    #+#             */
-/*   Updated: 2021/12/15 16:18:34 by sham             ###   ########.fr       */
+/*   Updated: 2021/12/15 17:19:21 by sham             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,9 +15,10 @@
 int ft_pwd(void)
 {
     char *path;
+
     path = getcwd(NULL, 0);
     write(0, path, ft_strlen(path));
-        write(0, "\n",1);   
+    write(0, "\n", 1);   
 
     return (0);
 }
