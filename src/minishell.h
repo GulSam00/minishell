@@ -6,7 +6,7 @@
 /*   By: sham <sham@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/25 14:17:39 by sham              #+#    #+#             */
-/*   Updated: 2021/12/15 12:48:41 by sham             ###   ########.fr       */
+/*   Updated: 2021/12/15 16:58:10 by sham             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -137,5 +137,9 @@ void ft_error(char *message);
 void fork_cmd(t_list *cmd_list, t_list *env_list);
 void execve_cmd(t_cmd *cmd, t_list *env_list);
 int handle_dis(t_cmd *cmd);
+int check_bulit_in(t_cmd *cmd, t_list *env_list);
 
+/* bulit_in */
+void ft_cd(char *path);
+int ft_pwd(void);
 #endif

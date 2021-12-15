@@ -6,7 +6,7 @@
 #    By: sham <sham@student.42.fr>                  +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/06/01 16:48:56 by sham              #+#    #+#              #
-#    Updated: 2021/12/15 12:50:32 by sham             ###   ########.fr        #
+#    Updated: 2021/12/15 16:16:31 by sham             ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -20,19 +20,20 @@ MAIN_SRCS =  $(addprefix src/, main.c)
 INSTALL_SRCS = $(addprefix src/install/, execve.c fork.c handle_dis.c)
 PARSE_SRCS = $(addprefix src/parse/, ft_cmd_list.c ft_list.c ft_env_list.c ft_parser.c ft_string_list.c ft_check_type.c ft_env_parser.c)
 LIBFT_SRCS = $(addprefix src/libft/, ft_strdup.c ft_strjoin.c ft_strlen.c ft_strncmp.c ft_cmpstr.c ft_split.c ft_strlcpy.c ft_error.c)
+BUILT_IN_SRCS = $(addprefix src/built_in/, ft_cd.c ft_pwd.c)
 
 MAIN_OBJS = $(MAIN_SRCS:.c=.o)
 INSTALL_OBJS = $(INSTALL_SRCS:.c=.o)
 PARSE_OBJS = $(PARSE_SRCS:.c=.o)
 LIBFT_OBJS = $(LIBFT_SRCS:.c=.o)
-
+BUILT_IN_OBJS = $(BUILT_IN_SRCS:.c=.o) 
 
 all : $(NAME)
 
 
 
-$(NAME) : $(MAIN_OBJS) $(LIBFT_OBJS) $(PARSE_OBJS) $(INSTALL_OBJS)
-	$(CC) $(CFLAGS) $(LINKING_FLAGS) $(MAIN_OBJS) $(LIBFT_OBJS) $(PARSE_OBJS) $(INSTALL_OBJS) -o $(NAME) 
+$(NAME) : $(MAIN_OBJS) $(LIBFT_OBJS) $(PARSE_OBJS) $(INSTALL_OBJS) $(BUILT_IN_OBJS)
+	$(CC) $(CFLAGS) $(LINKING_FLAGS) $(MAIN_OBJS) $(LIBFT_OBJS) $(PARSE_OBJS) $(INSTALL_OBJS) $(BUILT_IN_OBJS) -o $(NAME) 
 
 %.o: %.c
 	$(CC) $(CFLAGS) $(COMFILE_FLAGS) -c $< -o $@

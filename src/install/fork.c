@@ -6,7 +6,7 @@
 /*   By: sham <sham@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/12 17:56:29 by sham              #+#    #+#             */
-/*   Updated: 2021/12/15 13:15:09 by sham             ###   ########.fr       */
+/*   Updated: 2021/12/15 17:03:51 by sham             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,12 +51,17 @@ void fork_cmd(t_list *cmd_list, t_list *env_list)
 
     if (cmd_list->size == 1)
     {
-        pid = fork();
-        if (pid == 0)
+        cmd = data->contents;
+        if (check_bulit_in(cmd, env_list))
         {
-            cmd = data->contents;
+    pid = fork();
+        if (pid == 0)
             execve_cmd(cmd, env_list);
+        else 
+            waitpid(pid, &pid_result, 0);
         }
+    
+
     }
     else
     {
@@ -64,6 +69,8 @@ void fork_cmd(t_list *cmd_list, t_list *env_list)
         {
             cmd = data->contents;
             pipe(fd);
+          
+            // printf ("%d %d\n", fd[0], fd[1]);
             pid = fork();
             if (pid == 0)
             {
@@ -71,13 +78,14 @@ void fork_cmd(t_list *cmd_list, t_list *env_list)
                 execve_cmd(cmd, env_list);
             }
             data = data->next;
-            // close(fd[1]);
+            close(fd[1]);
             if (prev_input != -1)
                 close(prev_input);
             prev_input = fd[0];
         }
+            close(prev_input);
+            waitpid(pid, &pid_result, 0);
+
     }
-    // close(prev_input);
-    waitpid(pid, &pid_result, 0);
     return;
 }

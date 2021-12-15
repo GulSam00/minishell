@@ -6,23 +6,26 @@
 /*   By: sham <sham@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/01 12:04:51 by sham              #+#    #+#             */
-/*   Updated: 2021/12/15 12:49:05 by sham             ###   ########.fr       */
+/*   Updated: 2021/12/15 16:17:54 by sham             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
-void execve_cmd_bult_in(t_cmd *cmd, t_list *env_list)
+void execve_cmd_bult_in(char *cmd_name, t_cmd *cmd, t_list *env_list)
 {
+    if (!ft_cmpstr(cmd_name, "cd"))
+        ft_cd(cmd->arg[1]);
+    else if (!ft_cmpstr(cmd_name, "pwd"))
+        ft_pwd();
     if (env_list && cmd)
     {
-        printf("빌트인!\n");
     }
     // 공통 : 파일 디스크립터 조정
     // 실행하고 exit으로 종료?
 }
 
-void execve_cmd_normal(char *filename, t_cmd *cmd, t_list *env_list)
+void execve_cmd_normal(char *cmd_name, t_cmd *cmd, t_list *env_list)
 {
     char **argv_env;
 
@@ -31,7 +34,7 @@ void execve_cmd_normal(char *filename, t_cmd *cmd, t_list *env_list)
 
     // pid = fork();
     // if (pid == 0)
-    execve(filename, cmd->arg, argv_env);
+    execve(cmd_name, cmd->arg, argv_env);
 }
 
 int check_bulit_in(t_cmd *cmd, t_list *env_list)
@@ -47,7 +50,7 @@ int check_bulit_in(t_cmd *cmd, t_list *env_list)
         result = ft_cmpstr(cmd->arg[0], built_in_list[i]);
         if (!result)
         {
-            execve_cmd_bult_in(cmd, env_list);
+            execve_cmd_bult_in(built_in_list[i], cmd, env_list );
             return (0);
         }
         i++;
