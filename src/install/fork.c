@@ -6,7 +6,7 @@
 /*   By: sham <sham@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/12 17:56:29 by sham              #+#    #+#             */
-/*   Updated: 2021/12/15 13:09:59 by sham             ###   ########.fr       */
+/*   Updated: 2021/12/15 13:15:09 by sham             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ static void pid_child(int prev_input, int *fd, t_data *data)
     }
     else if (data->next == NULL)
     {
-
+        ft_error("마지막 파이프!\n");
         close(fd[1]); // 입력 파이프, 마지막은 넣어줄 파이프가 없다.
         dup2(prev_input, STDIN_FILENO);
         close(prev_input);
@@ -71,11 +71,13 @@ void fork_cmd(t_list *cmd_list, t_list *env_list)
                 execve_cmd(cmd, env_list);
             }
             data = data->next;
+            // close(fd[1]);
             if (prev_input != -1)
                 close(prev_input);
             prev_input = fd[0];
         }
     }
+    // close(prev_input);
     waitpid(pid, &pid_result, 0);
     return;
 }
