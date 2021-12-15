@@ -1,16 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   init_cmd.c                                         :+:      :+:    :+:   */
+/*   init_dis.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: sham <sham@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/03 13:26:04 by sham              #+#    #+#             */
-/*   Updated: 2021/12/06 11:37:19 by sham             ###   ########.fr       */
+/*   Updated: 2021/12/15 12:35:33 by sham             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#include "../minishell.h"
 
 // unistd.h에 매크로 상수로 저장되어 있는 STDIN_FILENO, STDOUT_FILENO,STDERR_FILENO
 extern char **environ;
@@ -60,24 +60,30 @@ int ft_d_left_heredoc(char *dst)
     return (0);
 }
 
-int init_dis(t_dis *dis)
+int handle_discriptor(t_cmd *cmd)
 {
-    while (dis)
+    t_list *dis_list;
+    t_data *cur_dis;
+    t_discriptor *dis;
+    dis_list = cmd->discriptor;
+    cur_dis = dis_list->front;
+    while (cur_dis)
     {
-        if (!ft_cmpstr(dis->type, ">"))
-            ft_d_right_paste(dis->dst);
-        else if (!ft_cmpstr(dis->type, ">>"))
-            ft_d_right_append(dis->dst);
-        else if (!ft_cmpstr(dis->type, "<"))
-            ft_d_left_normal(dis->dst);
-        else if (!ft_cmpstr(dis->type, "<<"))
-            ft_d_left_heredoc(dis->dst);
+        dis = cur_dis->contents;
+        if (dis->type == IN)
+            ft_d_right_paste(dis->file_name);
+        else if (dis->type == DOUBLE_IN)
+            ft_d_right_append(dis->file_name);
+        else if (dis->type == OUT)
+            ft_d_left_normal(dis->file_name);
+        else if (dis->type == DOUBLE_OUT)
+            ft_d_left_heredoc(dis->file_name);
         else
-    {
-        ft_error_message("no match!\n");
-        return (-1);
-    }
-    dis = dis->next;
+        {
+            ft_error_message("no match!\n");
+            return (-1);
+        }
+        cur_dis = cur_dis->next;
     }
 
     return (0);
@@ -87,7 +93,7 @@ int init_dis(t_dis *dis)
 // {
 //     int fd[2];
 //     int prev_input;
-    
+
 //     while (cmd->next)
 //     {
 //         pipe(fd);

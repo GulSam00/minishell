@@ -6,7 +6,7 @@
 /*   By: sham <sham@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/25 14:09:22 by sham              #+#    #+#             */
-/*   Updated: 2021/12/13 12:36:10 by sham             ###   ########.fr       */
+/*   Updated: 2021/12/13 13:31:44 by sham             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,10 +77,8 @@ int main(int argc, char **argv, char **envp)
         }
         else
         {
-            // fork_cmd(cmd, env);
             add_history(str);
             ft_parser(&cmd_list, str);
-
             fork_cmd(&cmd_list, &env_list);
             free(str);
         }

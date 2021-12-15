@@ -6,7 +6,7 @@
 /*   By: sham <sham@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/01 12:04:51 by sham              #+#    #+#             */
-/*   Updated: 2021/12/12 20:24:18 by sham             ###   ########.fr       */
+/*   Updated: 2021/12/15 12:27:39 by sham             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,9 +67,9 @@ int check_cmd(t_cmd *cmd, t_list *env_list)
     struct stat sb;
     int result;
     char *full_path;
-    char **split;
+    char **path;
 
-    split = ft_split(get_value(env_list, "PATH"), ':');
+    path = ft_split(get_value(env_list, "PATH"), ':');
     // 빌드인 함수의 리스트와 하나도 일치하지 않는다.
     // 내장 명령어를 검증한다.
     // 내장 명령어가 절대 주소인지, 상대 주소인지를 모두 고려해야만 한다.
@@ -80,16 +80,16 @@ int check_cmd(t_cmd *cmd, t_list *env_list)
         return (0);
     }
     // 절대 주소가 아니기에 PATH와 합쳐서 하나하나 대입해본다.
-    while (*split) // 이차원 배열이나 연결리스트
+    while (*path) // 이차원 배열이나 연결리스트
     {
-        full_path = ft_strjoin_path(*split, cmd->arg[0]);
+        full_path = ft_strjoin_path(*path, cmd->arg[0]);
         result = stat(full_path, &sb);
         if (!result)
         {
             execve_cmd_normal(full_path, cmd, env_list);
             return (0);
         }
-        split++;
+        path++;
     }
 
     // $PATH
@@ -112,6 +112,5 @@ void execve_cmd(t_cmd *cmd, t_list *env_list)
         write(2, "존재하지 않는 함수!\n", 29);
         exit(-1);
     }
-    printf("함수 끝!\n");
     exit(0);
 }

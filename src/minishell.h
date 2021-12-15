@@ -6,7 +6,7 @@
 /*   By: sham <sham@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/25 14:17:39 by sham              #+#    #+#             */
-/*   Updated: 2021/12/13 11:13:05 by sham             ###   ########.fr       */
+/*   Updated: 2021/12/15 12:34:38 by sham             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,10 +61,10 @@ enum e_cmd_type
 
 enum e_discriptor_type
 {
-	IN,
-	OUT,
-	DOUBLE_IN,
-	DOUBLE_OUT
+	IN,		   // <
+	OUT,	   // >
+	DOUBLE_IN, // <<
+	DOUBLE_OUT // >>
 };
 
 struct s_data

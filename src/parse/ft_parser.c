@@ -6,7 +6,7 @@
 /*   By: sham <sham@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/05 19:53:07 by nasong            #+#    #+#             */
-/*   Updated: 2021/12/12 15:11:52 by sham             ###   ########.fr       */
+/*   Updated: 2021/12/15 12:29:09 by sham             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -156,7 +156,7 @@ int ft_parser(t_list *cmd_list, char *input)
 	init_list(&word_list);
 	if (quotes_check(input) == -1)
 		return (-1);
-	printf("QUOTES TEST : OK\n");
+	// printf("QUOTES TEST : OK\n");
 
 	if (div_input(&word_list, input) == -1)
 	{
@@ -165,6 +165,6 @@ int ft_parser(t_list *cmd_list, char *input)
 	}
 	add_cmd(cmd_list, &word_list);
 	free_str_list(&word_list);
-	print_cmd_list(cmd_list);
+	// print_cmd_list(cmd_list);
 	return (0);
 }
