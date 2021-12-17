@@ -6,7 +6,7 @@
 /*   By: sham <sham@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/01 12:04:51 by sham              #+#    #+#             */
-/*   Updated: 2021/12/17 11:36:53 by sham             ###   ########.fr       */
+/*   Updated: 2021/12/17 12:24:35 by sham             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,13 +30,16 @@ void execve_cmd_bult_in(char *cmd_name, t_cmd *cmd, t_list *env_list)
 void execve_cmd_normal(char *cmd_name, t_cmd *cmd, t_list *env_list)
 {
     char **argv_env;
-
+    char *error_message;
     argv_env = env_to_char(env_list);
     // 포크 떠서 실행하고 부모 프로세스는 exit으로 종료?
 
     // pid = fork();
     // if (pid == 0)
     execve(cmd_name, cmd->arg, argv_env);
+    // ft_error("wrong!\n");
+    // error_message = strerror(errno);
+    // ft_error(error_message);
 }
 
 int check_bulit_in(t_cmd *cmd, t_list *env_list)

@@ -6,7 +6,7 @@
 /*   By: sham <sham@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/25 14:17:39 by sham              #+#    #+#             */
-/*   Updated: 2021/12/17 11:34:55 by sham             ###   ########.fr       */
+/*   Updated: 2021/12/17 12:25:17 by sham             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,8 @@
 
 #include <sys/types.h> // stat 헤더
 #include <sys/stat.h>  // stat 헤더
+#include <string.h>	   // strerror
+#include <errno.h>	   // errno 에러 전역 변수
 
 // enum e_bulit_in_code
 // {
