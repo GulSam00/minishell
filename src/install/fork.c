@@ -6,7 +6,7 @@
 /*   By: sham <sham@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/12 17:56:29 by sham              #+#    #+#             */
-/*   Updated: 2021/12/17 15:27:11 by sham             ###   ########.fr       */
+/*   Updated: 2021/12/17 19:09:49 by sham             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,6 +44,7 @@ void fork_cmd(t_list *cmd_list, t_list *env_list)
     int pid_result;
     t_data *data;
     t_cmd *cmd;
+    signal(SIGINT, SIG_IGN); // CTRL + /
 
     prev_input = -1;
     data = cmd_list->front;
@@ -59,7 +60,7 @@ void fork_cmd(t_list *cmd_list, t_list *env_list)
             else
             {
                 waitpid(pid, &pid_result, 0);
-                printf("%d\n", WEXITSTATUS(pid_result));
+                // printf("%d\n", WEXITSTATUS(pid_result));
             }
         }
     }
@@ -85,7 +86,10 @@ void fork_cmd(t_list *cmd_list, t_list *env_list)
         }
         close(prev_input);
         waitpid(pid, &pid_result, 0);
-        printf("%d\n", WEXITSTATUS(pid_result));
+
+        // printf("%d\n", WEXITSTATUS(pid_result));
     }
+    signal(SIGINT, sig_handler); // CTRL + /
+
     return;
 }

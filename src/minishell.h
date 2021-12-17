@@ -6,7 +6,7 @@
 /*   By: sham <sham@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/25 14:17:39 by sham              #+#    #+#             */
-/*   Updated: 2021/12/17 14:47:55 by sham             ###   ########.fr       */
+/*   Updated: 2021/12/17 18:57:25 by sham             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,6 +39,7 @@
 #include <sys/stat.h>  // stat 헤더
 #include <string.h>	   // strerror
 #include <errno.h>	   // errno 에러 전역 변수
+#include <signal.h>
 
 // enum e_bulit_in_code
 // {
@@ -50,6 +51,7 @@
 // 	PWD,
 // 	UNSET
 // };
+int signal_flag;
 
 enum e_cmd_type
 {
@@ -148,5 +150,8 @@ void ft_exit(char *argv[]);
 
 /* error */
 void ft_error(char *cmd, char *arg, char *message);
+
+/* signal */
+void sig_handler(int signal);
 
 #endif

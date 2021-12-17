@@ -6,7 +6,7 @@
 /*   By: sham <sham@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/01 12:04:51 by sham              #+#    #+#             */
-/*   Updated: 2021/12/17 15:26:23 by sham             ###   ########.fr       */
+/*   Updated: 2021/12/17 19:16:15 by sham             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,18 +27,47 @@ void execve_cmd_bult_in(char *cmd_name, t_cmd *cmd, t_list *env_list)
     // 실행하고 exit으로 종료?
 }
 
+static void ano_sig_handler(int signal)
+{
+
+    // printf("%d\n", signal_flag);
+    if (signal == SIGINT)
+    {
+        printf("\n");
+    }
+    if (signal == SIGQUIT)
+    {
+        printf("Quit: 3\n");
+    }
+
+    // if (rl_on_new_line() == -1) // readline으로 설정한 문자열을 한 번 출력한다?
+    //     exit(1);
+    // rl_on_new_line();
+    // rl_on_new_line();
+
+    // rl_on_new_line();
+}
+
 void execve_cmd_normal(char *cmd_name, t_cmd *cmd, t_list *env_list)
 {
     char **argv_env;
+    pid_t pid;
+    int status;
+
     argv_env = env_to_char(env_list);
     // 포크 떠서 실행하고 부모 프로세스는 exit으로 종료?
+    if (!ft_cmpstr(cmd->arg[0], "cat"))
+    {
+        signal(SIGINT, ano_sig_handler);
+        signal(SIGQUIT, ano_sig_handler);
+    }
+    pid = fork();
 
-    // pid = fork();
-    // if (pid == 0)
-    execve(cmd_name, cmd->arg, argv_env);
-    // ft_error("wrong!\n");
-    // error_message = strerror(errno);
-    // ft_error(error_message);
+    if (pid == 0)
+        execve(cmd_name, cmd->arg, argv_env);
+    else
+        waitpid(pid, &status, 0); // 삭제 시 cat 정상 입력 안됨, Ctrl + \ 도...
+    exit(0);
 }
 
 int check_bulit_in(t_cmd *cmd, t_list *env_list)
@@ -115,5 +144,6 @@ void execve_cmd(t_cmd *cmd, t_list *env_list)
         exit(-1);
         // 상태코드 127
     }
+
     exit(0);
 }
