@@ -6,7 +6,7 @@
 #    By: sham <sham@student.42.fr>                  +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/06/01 16:48:56 by sham              #+#    #+#              #
-#    Updated: 2021/12/15 17:47:38 by sham             ###   ########.fr        #
+#    Updated: 2021/12/17 11:35:03 by sham             ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -20,7 +20,7 @@ MAIN_SRCS =  $(addprefix src/, main.c)
 INSTALL_SRCS = $(addprefix src/install/, execve.c fork.c handle_dis.c)
 PARSE_SRCS = $(addprefix src/parse/, ft_cmd_list.c ft_list.c ft_env_list.c ft_parser.c ft_string_list.c ft_check_type.c ft_env_parser.c)
 LIBFT_SRCS = $(addprefix src/libft/, ft_strdup.c ft_strjoin.c ft_strlen.c ft_strncmp.c ft_cmpstr.c ft_split.c ft_strlcpy.c ft_error.c)
-BUILT_IN_SRCS = $(addprefix src/built_in/, ft_cd.c ft_pwd.c ft_echo.c)
+BUILT_IN_SRCS = $(addprefix src/built_in/, ft_cd.c ft_pwd.c ft_echo.c ft_exit.c)
 
 MAIN_OBJS = $(MAIN_SRCS:.c=.o)
 INSTALL_OBJS = $(INSTALL_SRCS:.c=.o)

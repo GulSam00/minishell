@@ -6,7 +6,7 @@
 /*   By: sham <sham@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/01 12:04:51 by sham              #+#    #+#             */
-/*   Updated: 2021/12/15 17:47:26 by sham             ###   ########.fr       */
+/*   Updated: 2021/12/17 11:36:53 by sham             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,9 @@ void execve_cmd_bult_in(char *cmd_name, t_cmd *cmd, t_list *env_list)
         ft_pwd();
     else if (!ft_cmpstr(cmd_name, "echo"))
         ft_echo(cmd->arg);
-    
+    else if (!ft_cmpstr(cmd_name, "exit"))
+        ft_exit(cmd->arg);
+
     // 공통 : 파일 디스크립터 조정
     // 실행하고 exit으로 종료?
 }
@@ -106,7 +108,9 @@ void execve_cmd(t_cmd *cmd, t_list *env_list)
     }
     if (result == -1)
     {
-        ft_error("존재하지 않는 함수!\n");
+        ft_error("bash: ");
+        ft_error(cmd->arg[0]);
+        ft_error(": command not found\n");
         exit(-1);
     }
     exit(0);

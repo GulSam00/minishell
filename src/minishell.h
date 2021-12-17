@@ -6,7 +6,7 @@
 /*   By: sham <sham@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/25 14:17:39 by sham              #+#    #+#             */
-/*   Updated: 2021/12/15 18:01:26 by sham             ###   ########.fr       */
+/*   Updated: 2021/12/17 11:34:55 by sham             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -143,5 +143,6 @@ int check_bulit_in(t_cmd *cmd, t_list *env_list);
 void ft_cd(char *path, t_list *env_list);
 int ft_pwd(void);
 void ft_echo(char *argv[]);
+void ft_exit(char *argv[]);
 
 #endif

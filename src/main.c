@@ -6,7 +6,7 @@
 /*   By: sham <sham@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/25 14:09:22 by sham              #+#    #+#             */
-/*   Updated: 2021/12/13 13:31:44 by sham             ###   ########.fr       */
+/*   Updated: 2021/12/17 11:36:57 by sham             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ void sig_handler(int signal)
     if (signal == SIGINT)
     {
         // printf("\033[K"); //지워버리는 것을 원하지는 않았음.
-        printf("nanoshell$ \n");
+        printf("bash$ \n");
     }
 
     if (rl_on_new_line() == -1) // readline으로 설정한 문자열을 한 번 출력한다?
@@ -62,7 +62,7 @@ int main(int argc, char **argv, char **envp)
         ;
     while (1)
     {
-        str = readline("nanoshell$ ");
+        str = readline("bash$ ");
         if (!str)
         {
             free(str);
