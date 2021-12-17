@@ -6,7 +6,7 @@
 /*   By: sham <sham@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/25 14:17:39 by sham              #+#    #+#             */
-/*   Updated: 2021/12/17 12:25:17 by sham             ###   ########.fr       */
+/*   Updated: 2021/12/17 14:47:55 by sham             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -133,7 +133,6 @@ int ft_strncmp(const char *str1, const char *str2, int len);
 int ft_cmpstr(char *str1, char *str2);
 char **ft_split(char const *s, char c);
 size_t ft_strlcpy(char *destination, const char *source, size_t n);
-void ft_error(char *message);
 
 /* install */
 void fork_cmd(t_list *cmd_list, t_list *env_list);
@@ -146,5 +145,8 @@ void ft_cd(char *path, t_list *env_list);
 int ft_pwd(void);
 void ft_echo(char *argv[]);
 void ft_exit(char *argv[]);
+
+/* error */
+void ft_error(char *cmd, char *arg, char *message);
 
 #endif

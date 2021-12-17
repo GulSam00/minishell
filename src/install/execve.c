@@ -6,7 +6,7 @@
 /*   By: sham <sham@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/01 12:04:51 by sham              #+#    #+#             */
-/*   Updated: 2021/12/17 12:24:35 by sham             ###   ########.fr       */
+/*   Updated: 2021/12/17 14:52:56 by sham             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,6 @@ void execve_cmd_bult_in(char *cmd_name, t_cmd *cmd, t_list *env_list)
 void execve_cmd_normal(char *cmd_name, t_cmd *cmd, t_list *env_list)
 {
     char **argv_env;
-    char *error_message;
     argv_env = env_to_char(env_list);
     // 포크 떠서 실행하고 부모 프로세스는 exit으로 종료?
 
@@ -112,9 +111,10 @@ void execve_cmd(t_cmd *cmd, t_list *env_list)
     if (result == -1)
     {
         ft_error("bash: ");
-        ft_error(cmd->arg[0]);
-        ft_error(": command not found\n");
+        ft_error(cmd->arg[0], NULL, "command not found");
+
         exit(-1);
+        // 상태코드 127
     }
     exit(0);
 }
