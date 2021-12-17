@@ -6,11 +6,12 @@
 /*   By: sham <sham@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/15 12:47:55 by sham              #+#    #+#             */
-/*   Updated: 2021/12/17 14:47:04 by sham             ###   ########.fr       */
+/*   Updated: 2021/12/17 15:22:23 by sham             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
+
 void ft_error(char *cmd, char *arg, char *message)
 {
     write(2, "bash: ", 7);

@@ -6,7 +6,7 @@
 /*   By: sham <sham@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/01 12:04:51 by sham              #+#    #+#             */
-/*   Updated: 2021/12/17 14:52:56 by sham             ###   ########.fr       */
+/*   Updated: 2021/12/17 15:26:23 by sham             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -110,7 +110,6 @@ void execve_cmd(t_cmd *cmd, t_list *env_list)
     }
     if (result == -1)
     {
-        ft_error("bash: ");
         ft_error(cmd->arg[0], NULL, "command not found");
 
         exit(-1);

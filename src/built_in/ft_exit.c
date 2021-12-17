@@ -6,13 +6,20 @@
 /*   By: sham <sham@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/17 11:11:37 by sham              #+#    #+#             */
-/*   Updated: 2021/12/17 14:54:45 by sham             ###   ########.fr       */
+/*   Updated: 2021/12/17 15:13:20 by sham             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
-static int ft_atoi(const char *str)
+static int ft_is_num(char *str)
+{
+    if (!str)
+        return (-1);
+    else
+        return (0);
+}
+static int ft_atoi(char *str)
 {
     long sign;
     long num;
@@ -47,22 +54,21 @@ void ft_exit(char *argv[])
         write(1, "exit \n", 7);
         exit(0);
     }
-    else if (argv[2] == NULL)
+    else if (!ft_is_num(argv[1]))
+    {
+        ft_error("exit", argv[1], "numeric argument required"); // https://velog.io/@hidaehyunlee/minishell-4.-%EC%A2%85%EB%A3%8C%EC%83%81%ED%83%9C%EC%99%80-%EC%97%90%EB%9F%AC%EB%A9%94%EC%84%B8%EC%A7%80-%EC%B2%98%EB%A6%AC 참조. exit의 에러는 특별한 에러라 별도 처리.
+        exit(255);
+        // exit의 인자가 숫자가 아닐 경우 255 상태코드로 exit
+    }
+    else if (ft_is_num(argv[1]) && argv[2] == NULL) //  숫자인지 아닌지 식별, 숫자 뒤에 문자열 있어도 걸러내야 함
     {
         write(1, "exit \n", 7);
-        if (ft_atoi(argv[1])) //  숫자인지 아닌지 식별, 숫자 뒤에 문자열 있어도 걸러내야 함
-        {
-            exit(ft_atoi(argv[1]));
-            // 상태 코드가 exit의 인자로 들어감.
-        }
-        else
-        {
-            ft_error("exit", argv[1], "numeric argument required"); // https://velog.io/@hidaehyunlee/minishell-4.-%EC%A2%85%EB%A3%8C%EC%83%81%ED%83%9C%EC%99%80-%EC%97%90%EB%9F%AC%EB%A9%94%EC%84%B8%EC%A7%80-%EC%B2%98%EB%A6%AC 참조. exit의 에러는 특별한 에러라 별도 처리.
-            exit(255);                                              // exit의 인자가 숫자가 아닐 경우 255 상태코드로 exit
-        }
+        exit(ft_atoi(argv[1]));
+        // 상태 코드가 exit의 인자로 들어감.
     }
     else
     {
         ft_error("exit", NULL, "too many arguments");
+        // 상태코드 1
     }
 }

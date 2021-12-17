@@ -6,7 +6,7 @@
 /*   By: sham <sham@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/12 17:56:29 by sham              #+#    #+#             */
-/*   Updated: 2021/12/17 14:49:46 by sham             ###   ########.fr       */
+/*   Updated: 2021/12/17 15:27:11 by sham             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,13 +51,16 @@ void fork_cmd(t_list *cmd_list, t_list *env_list)
     if (cmd_list->size == 1)
     {
         cmd = data->contents;
-        if (check_bulit_in(cmd, env_list))
+        if (check_bulit_in(cmd, env_list)) // 빌트인일 경우 종료 상태 수정.
         {
             pid = fork();
             if (pid == 0)
                 execve_cmd(cmd, env_list);
             else
+            {
                 waitpid(pid, &pid_result, 0);
+                printf("%d\n", WEXITSTATUS(pid_result));
+            }
         }
     }
     else
@@ -82,6 +85,7 @@ void fork_cmd(t_list *cmd_list, t_list *env_list)
         }
         close(prev_input);
         waitpid(pid, &pid_result, 0);
+        printf("%d\n", WEXITSTATUS(pid_result));
     }
     return;
 }
