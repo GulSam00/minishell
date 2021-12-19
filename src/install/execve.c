@@ -6,7 +6,7 @@
 /*   By: sham <sham@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/01 12:04:51 by sham              #+#    #+#             */
-/*   Updated: 2021/12/17 19:16:15 by sham             ###   ########.fr       */
+/*   Updated: 2021/12/19 19:38:52 by sham             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 
 void execve_cmd_bult_in(char *cmd_name, t_cmd *cmd, t_list *env_list)
 {
+    handle_dis(cmd);
     if (!ft_cmpstr(cmd_name, "cd"))
         ft_cd(cmd->arg[1], env_list);
     else if (!ft_cmpstr(cmd_name, "pwd"))
@@ -39,13 +40,6 @@ static void ano_sig_handler(int signal)
     {
         printf("Quit: 3\n");
     }
-
-    // if (rl_on_new_line() == -1) // readline으로 설정한 문자열을 한 번 출력한다?
-    //     exit(1);
-    // rl_on_new_line();
-    // rl_on_new_line();
-
-    // rl_on_new_line();
 }
 
 void execve_cmd_normal(char *cmd_name, t_cmd *cmd, t_list *env_list)
@@ -53,6 +47,8 @@ void execve_cmd_normal(char *cmd_name, t_cmd *cmd, t_list *env_list)
     char **argv_env;
     pid_t pid;
     int status;
+
+    handle_dis(cmd);
 
     argv_env = env_to_char(env_list);
     // 포크 떠서 실행하고 부모 프로세스는 exit으로 종료?

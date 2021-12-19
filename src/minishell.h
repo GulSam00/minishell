@@ -6,7 +6,7 @@
 /*   By: sham <sham@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/25 14:17:39 by sham              #+#    #+#             */
-/*   Updated: 2021/12/17 18:57:25 by sham             ###   ########.fr       */
+/*   Updated: 2021/12/19 20:05:27 by sham             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,6 @@
 // 	PWD,
 // 	UNSET
 // };
-int signal_flag;
 
 enum e_cmd_type
 {
@@ -65,10 +64,10 @@ enum e_cmd_type
 
 enum e_discriptor_type
 {
-	IN,		   // <
-	OUT,	   // >
-	DOUBLE_IN, // <<
-	DOUBLE_OUT // >>
+	IN,		   // <, 0
+	OUT,	   // >, 1
+	DOUBLE_IN, // <<, 2
+	DOUBLE_OUT // >>, 3
 };
 
 struct s_data
