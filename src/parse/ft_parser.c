@@ -113,9 +113,12 @@ int add_cmd(t_list *cmd_list, t_list *word_list)
 	enum e_cmd_type type;
 	t_cmd *new_cmd;
 	t_data *now_word;
+    char *discriptor;
+    t_discriptor *new_discriptor;
 
 	new_cmd = 0;
 	now_word = word_list->front;
+    discriptor = 0;
 	while (now_word != 0)
 	{
 		if (new_cmd == 0)
@@ -133,10 +136,23 @@ int add_cmd(t_list *cmd_list, t_list *word_list)
 			add_data(cmd_list, new_cmd);
 			new_cmd = 0;
 		}
-
+        else if (type == DISCRIPTOR)
+        {
+            discriptor = copy;
+        }
 		else //ARG
 		{
-			add_data(&new_cmd->arg_list, copy);
+            if (discriptor != 0)
+            {
+                new_discriptor = (t_discriptor *)malloc(sizeof(t_discriptor));
+                if (new_discriptor == 0)
+                    return (-1);
+                init_discriptor(new_discriptor, copy, IN);
+                discriptor = 0;
+                add_data(&new_cmd->discriptor, new_discriptor);
+            }
+            else
+			    add_data(&new_cmd->arg_list, copy);
 		}
 		now_word = now_word->next;
 	}

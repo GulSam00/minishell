@@ -82,7 +82,8 @@ void print_cmd_list(t_list *list)
 		target = now->contents;
 		printf("cmd: %s\n", target->cmd);
 		print_str_list(&target->arg_list);
-		print_arg(target->arg);
+		//print_arg(target->arg);
+        print_discriptor_list(&target->discriptor);
 		now = now->next;
 	}
 	printf("=====PRINT CMD LIST END===\n");
