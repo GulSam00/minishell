@@ -10,12 +10,32 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#include "../minishell.h"
 
 void	init_discriptor(t_discriptor *discriptor, char *file_name, enum e_discriptor_type type)
 {
 	discriptor->file_name = file_name;
-	discriptor.type = type;
+	discriptor->type = type;
+}
+
+enum e_discriptor_type get_discriptor_type(char *word)
+{
+    int len;
+
+    len = ft_strlen(word);
+    if (word[0] == '<')
+    {
+        if (len == 1)
+            return (IN);
+        return (DOUBLE_IN);
+    }
+    else
+    {
+        if (len == 1)
+            return (OUT);
+        return (DOUBLE_OUT);
+    }
+
 }
 
 int	free_discriptor_list(t_list *list)
