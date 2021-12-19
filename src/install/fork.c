@@ -6,7 +6,7 @@
 /*   By: sham <sham@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/12 17:56:29 by sham              #+#    #+#             */
-/*   Updated: 2021/12/17 19:09:49 by sham             ###   ########.fr       */
+/*   Updated: 2021/12/19 15:46:49 by sham             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,8 +70,6 @@ void fork_cmd(t_list *cmd_list, t_list *env_list)
         {
             cmd = data->contents;
             pipe(fd);
-
-            // printf ("%d %d\n", fd[0], fd[1]);
             pid = fork();
             if (pid == 0)
             {
@@ -89,7 +87,7 @@ void fork_cmd(t_list *cmd_list, t_list *env_list)
 
         // printf("%d\n", WEXITSTATUS(pid_result));
     }
-    signal(SIGINT, sig_handler); // CTRL + /
+    signal(SIGINT, sig_handler); // CTRL + C
 
     return;
 }
