@@ -119,7 +119,7 @@ char **env_to_char(t_list *env_list);
 void init_discriptor(t_discriptor *discriptor, char *file_name, enum e_discriptor_type type);
 int free_discriptor_list(t_list *list);
 void print_discriptor_list(t_list *list);
-
+enum e_discriptor_type get_discriptor_type(char *word);
 int ft_parser(t_list *cmd_list, char *input);
 int ft_env_parser(t_list *env_list, char **envp);
 enum e_cmd_type get_type(char *word);
