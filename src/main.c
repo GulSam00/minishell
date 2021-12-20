@@ -6,7 +6,7 @@
 /*   By: sham <sham@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/25 14:09:22 by sham              #+#    #+#             */
-/*   Updated: 2021/12/20 11:58:04 by sham             ###   ########.fr       */
+/*   Updated: 2021/12/20 18:22:52 by sham             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,7 +67,7 @@ int main(int argc, char **argv, char **envp)
         ;
     while (1)
     {
-        printf("sc : %d\n", sc);
+        // printf("sc : %d\n", sc);
         str = readline("bash$ ");
         if (!str)
         {

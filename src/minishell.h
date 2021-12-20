@@ -6,7 +6,7 @@
 /*   By: sham <sham@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/25 14:17:39 by sham              #+#    #+#             */
-/*   Updated: 2021/12/20 14:37:29 by sham             ###   ########.fr       */
+/*   Updated: 2021/12/20 17:19:04 by sham             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -97,6 +97,11 @@ struct s_discriptor
 	enum e_discriptor_type type;
 } typedef t_discriptor;
 
+struct heredoc_list
+{
+	char *str;
+	struct heredoc_list *next;
+} typedef t_h_list;
 /* list */
 void init_list(t_list *list);
 void init_cmd(t_cmd *cmd);

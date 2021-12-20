@@ -6,7 +6,7 @@
 /*   By: sham <sham@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/12 17:56:29 by sham              #+#    #+#             */
-/*   Updated: 2021/12/20 14:32:27 by sham             ###   ########.fr       */
+/*   Updated: 2021/12/20 18:01:06 by sham             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,7 @@ void fork_cmd(t_list *cmd_list, t_list *env_list)
     pid_t pid;
     int fd[2];
     int prev_input;
-    int pid_result;
+    int status;
     t_data *data;
     t_cmd *cmd;
     signal(SIGINT, SIG_IGN); // CTRL + /
@@ -64,9 +64,9 @@ void fork_cmd(t_list *cmd_list, t_list *env_list)
                 execve_cmd(cmd, env_list);
             else
             {
-                waitpid(pid, &pid_result, 0);
-                // printf("%d\n", WEXITSTATUS(pid_result));
-                    sc = WEXITSTATUS(pid_result);
+                waitpid(pid, &status, 0);
+                // printf("%d\n", WEXITSTATUS(status));
+                    sc = WEXITSTATUS(status);
 
             }
         }
@@ -90,10 +90,10 @@ void fork_cmd(t_list *cmd_list, t_list *env_list)
             prev_input = fd[0];
         }
         close(prev_input);
-        waitpid(pid, &pid_result, 0);
+        waitpid(pid, &status, 0);
 
-        // printf("%d\n", WEXITSTATUS(pid_result));
-        sc = WEXITSTATUS(pid_result);
+        // printf("%d\n", WEXITSTATUS(status));
+        sc = WEXITSTATUS(status);
     }
     signal(SIGINT, sig_handler); // CTRL + C
 

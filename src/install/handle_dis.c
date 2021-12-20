@@ -6,11 +6,13 @@
 /*   By: sham <sham@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/03 13:26:04 by sham              #+#    #+#             */
-/*   Updated: 2021/12/20 15:17:36 by sham             ###   ########.fr       */
+/*   Updated: 2021/12/20 18:22:41 by sham             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
+
+extern int sc;
 
 // unistd.h에 매크로 상수로 저장되어 있는 STDIN_FILENO, STDOUT_FILENO,STDERR_FILENO
 
@@ -46,17 +48,62 @@ int ft_d_left_normal(char *dst)
     return (close(temp));
 }
 
+
+void ano_sig_handler(int signal)
+{
+    if (signal == SIGINT)
+    {
+        printf ("exit!!\n");
+       exit(130);
+    }
+}
+
 int ft_d_left_heredoc(char *dst)
 {
-    printf("%s\n", dst);
-    // char *buf;
-    // while (1)
-    // {
-    //     buf = get_next_line();
-    //     if (ft_cmpstr(dst, buf) == 0)
-    //         break;
-    // }
-    // 어캐 하냐...
+    char *str;
+    int fd[2];
+    int status;
+    pid_t pid;
+
+    pipe(fd);
+    pid = fork();
+    if (pid == 0)
+    {    
+        signal(SIGINT, ano_sig_handler); 
+        close(fd[0]);
+        while (1)
+            {
+                str = readline("> ");
+                if (!str)
+                {
+                    free(str);
+                    break;
+                }
+                else if (!ft_cmpstr(str, dst))
+                {
+                    free(str);
+                    break;
+                }
+                write(fd[1], str, ft_strlen(str));
+                write(fd[1],"\n", 1);
+                free(str);
+        }
+            close(fd[1]);
+            exit(0);
+    }
+    else
+    {
+        close(fd[1]);
+        waitpid(pid, &status, 0); 
+        sc = WEXITSTATUS(status);
+        if (sc == 130)
+            exit(130);
+        if (sc == 0)
+        {
+            dup2(fd[0], STDIN_FILENO); // heredoc으로 문자열을 넣은 파이프 fd[1]을 읽는 fd[0]을 표준 입력에 복사한다.
+            close(fd[0]);
+        }
+    }
     return (0);
 }
 
@@ -73,7 +120,6 @@ int handle_dis(t_cmd *cmd)
     {
         dis = cur_dis->contents;
         // printf ("dis->type : %d\n", dis->type);
-        // printf ("dis->tpye : %s\n", dis->type);
         if (dis->type == IN)
             ft_d_left_normal(dis->file_name);
         else if (dis->type == DOUBLE_IN)
