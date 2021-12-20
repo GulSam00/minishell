@@ -6,7 +6,7 @@
 /*   By: sham <sham@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/17 11:11:37 by sham              #+#    #+#             */
-/*   Updated: 2021/12/20 11:27:26 by sham             ###   ########.fr       */
+/*   Updated: 2021/12/20 14:36:59 by sham             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,7 +67,7 @@ static long long ft_atoll(char *str)
     return ((long long)(num * sign));
 }
 
-void ft_exit(char *argv[])
+int ft_exit(char *argv[])
 {
     if (argv[1] == NULL)
     {
@@ -90,6 +90,6 @@ void ft_exit(char *argv[])
     {
         ft_error("exit", NULL, "too many arguments");
         // 상태코드 1
-        sc = 1;
+        return (1);
     }
 }

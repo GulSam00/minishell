@@ -6,15 +6,13 @@
 /*   By: sham <sham@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/28 17:19:38 by sham              #+#    #+#             */
-/*   Updated: 2021/12/20 11:55:53 by sham             ###   ########.fr       */
+/*   Updated: 2021/12/20 14:36:30 by sham             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
-extern int sc;
-
-void ft_echo(char *argv[])
+int ft_echo(char *argv[])
 {
     int option;
     int i;
@@ -35,5 +33,5 @@ void ft_echo(char *argv[])
     }
     if (!option)
         write(STDOUT_FILENO, "\n", 1);
-    sc = 0;
+    return (0);
 }

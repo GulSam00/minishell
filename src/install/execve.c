@@ -6,7 +6,7 @@
 /*   By: sham <sham@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/01 12:04:51 by sham              #+#    #+#             */
-/*   Updated: 2021/12/20 12:03:52 by sham             ###   ########.fr       */
+/*   Updated: 2021/12/20 15:15:55 by sham             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,20 +14,22 @@
 
 extern int sc;
 
-void execve_cmd_bult_in(char *cmd_name, t_cmd *cmd, t_list *env_list)
+void execve_cmd_bult_in(char *cmd_name, t_cmd *cmd, t_list *env_list, int is_forked)
 {
+    int state;
     handle_dis(cmd);
     if (!ft_cmpstr(cmd_name, "cd"))
-        ft_cd(cmd->arg[1], env_list);
+        state = ft_cd(cmd->arg[1], env_list);
     else if (!ft_cmpstr(cmd_name, "pwd"))
-        ft_pwd();
+        state = ft_pwd();
     else if (!ft_cmpstr(cmd_name, "echo"))
-        ft_echo(cmd->arg);
+        state = ft_echo(cmd->arg);
     else if (!ft_cmpstr(cmd_name, "exit"))
-        ft_exit(cmd->arg);
-
-    // 공통 : 파일 디스크립터 조정
-    // 실행하고 exit으로 종료?
+        state = ft_exit(cmd->arg);
+    if (is_forked)
+        exit(state);
+    else
+        sc = state;
 }
 
 static void ano_sig_handler(int signal)
@@ -51,7 +53,6 @@ void execve_cmd_normal(char *cmd_name, t_cmd *cmd, t_list *env_list)
     int status;
 
     handle_dis(cmd);
-
     argv_env = env_to_char(env_list);
     // 포크 떠서 실행하고 부모 프로세스는 exit으로 종료?
     if (!ft_cmpstr(cmd->arg[0], "cat"))
@@ -68,7 +69,7 @@ void execve_cmd_normal(char *cmd_name, t_cmd *cmd, t_list *env_list)
     exit(WEXITSTATUS(status));
 }
 
-int check_bulit_in(t_cmd *cmd, t_list *env_list)
+int check_bulit_in(t_cmd *cmd)
 {
 
     int i;
@@ -81,7 +82,6 @@ int check_bulit_in(t_cmd *cmd, t_list *env_list)
         result = ft_cmpstr(cmd->arg[0], built_in_list[i]);
         if (!result)
         {
-            execve_cmd_bult_in(built_in_list[i], cmd, env_list);
             return (0);
         }
         i++;
@@ -130,11 +130,11 @@ void execve_cmd(t_cmd *cmd, t_list *env_list)
 {
     int result;
 
-    result = check_bulit_in(cmd, env_list);
-    if (result == -1)
-    {
+    result = check_bulit_in(cmd);
+    if (!result)
+        execve_cmd_bult_in(cmd->arg[0], cmd, env_list, 1);
+    else
         result = check_cmd(cmd, env_list);
-    }
     if (result == -1)
     {
         ft_error(cmd->arg[0], NULL, "command not found");

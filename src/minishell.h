@@ -6,7 +6,7 @@
 /*   By: sham <sham@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/25 14:17:39 by sham              #+#    #+#             */
-/*   Updated: 2021/12/20 12:03:40 by sham             ###   ########.fr       */
+/*   Updated: 2021/12/20 14:37:29 by sham             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -133,15 +133,16 @@ size_t ft_strlcpy(char *destination, const char *source, size_t n);
 
 /* install */
 void fork_cmd(t_list *cmd_list, t_list *env_list);
-void execve_cmd(t_cmd *cmd, t_list *env_list);
 int handle_dis(t_cmd *cmd);
-int check_bulit_in(t_cmd *cmd, t_list *env_list);
+int check_bulit_in(t_cmd *cmd);
+void execve_cmd(t_cmd *cmd, t_list *env_list);
+void execve_cmd_bult_in(char *cmd_name, t_cmd *cmd, t_list *env_list, int is_forked);
 
 /* bulit_in */
-void ft_cd(char *path, t_list *env_list);
+int ft_cd(char *path, t_list *env_list);
 int ft_pwd(void);
-void ft_echo(char *argv[]);
-void ft_exit(char *argv[]);
+int ft_echo(char *argv[]);
+int ft_exit(char *argv[]);
 
 /* error */
 void ft_error(char *cmd, char *arg, char *message);

@@ -6,7 +6,7 @@
 /*   By: sham <sham@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/03 13:26:04 by sham              #+#    #+#             */
-/*   Updated: 2021/12/19 19:58:17 by sham             ###   ########.fr       */
+/*   Updated: 2021/12/20 15:17:36 by sham             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,10 +83,7 @@ int handle_dis(t_cmd *cmd)
         else if (dis->type == DOUBLE_OUT)
             ft_d_right_append(dis->file_name);
         else
-        {
-            // ft_error("no match!\n");
             return (-1);
-        }
         cur_dis = cur_dis->next;
         // printf ("dis!\n");
     }

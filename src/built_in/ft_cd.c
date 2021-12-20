@@ -6,15 +6,14 @@
 /*   By: sham <sham@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/28 17:19:34 by sham              #+#    #+#             */
-/*   Updated: 2021/12/20 12:00:15 by sham             ###   ########.fr       */
+/*   Updated: 2021/12/20 14:35:58 by sham             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
-extern int sc;
 
-void ft_cd(char *path, t_list *env_list)
+int ft_cd(char *path, t_list *env_list)
 {
     int result;
     char *home;
@@ -29,9 +28,7 @@ void ft_cd(char *path, t_list *env_list)
     else
         result = 0;
     if (result == -1)
-    {
         ft_error("cd", path, strerror(2));
-        sc = 1;
-    }
+    return (result);
     // exit(sc); 파이프와 연결됬을 때는 exit 해야 함.
 }

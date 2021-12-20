@@ -6,7 +6,7 @@
 /*   By: sham <sham@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/12 17:56:29 by sham              #+#    #+#             */
-/*   Updated: 2021/12/20 12:03:15 by sham             ###   ########.fr       */
+/*   Updated: 2021/12/20 14:32:27 by sham             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,8 +54,11 @@ void fork_cmd(t_list *cmd_list, t_list *env_list)
     if (cmd_list->size == 1)
     {
         cmd = data->contents;
-        if (check_bulit_in(cmd, env_list)) // 빌트인일 경우 종료 상태 수정.
+        if (!check_bulit_in(cmd)) // 빌트인일 경우 종료 상태 수정.
         {
+            execve_cmd_bult_in(cmd->arg[0], cmd, env_list, 0);
+        }
+        else {           
             pid = fork();
             if (pid == 0)
                 execve_cmd(cmd, env_list);
