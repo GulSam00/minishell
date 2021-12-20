@@ -6,11 +6,13 @@
 /*   By: sham <sham@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/01 12:04:51 by sham              #+#    #+#             */
-/*   Updated: 2021/12/19 19:38:52 by sham             ###   ########.fr       */
+/*   Updated: 2021/12/20 12:03:52 by sham             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
+
+extern int sc;
 
 void execve_cmd_bult_in(char *cmd_name, t_cmd *cmd, t_list *env_list)
 {
@@ -63,7 +65,7 @@ void execve_cmd_normal(char *cmd_name, t_cmd *cmd, t_list *env_list)
         execve(cmd_name, cmd->arg, argv_env);
     else
         waitpid(pid, &status, 0); // 삭제 시 cat 정상 입력 안됨, Ctrl + \ 도...
-    exit(0);
+    exit(WEXITSTATUS(status));
 }
 
 int check_bulit_in(t_cmd *cmd, t_list *env_list)
@@ -136,7 +138,6 @@ void execve_cmd(t_cmd *cmd, t_list *env_list)
     if (result == -1)
     {
         ft_error(cmd->arg[0], NULL, "command not found");
-
         exit(-1);
         // 상태코드 127
     }

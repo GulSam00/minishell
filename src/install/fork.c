@@ -6,11 +6,13 @@
 /*   By: sham <sham@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/12 17:56:29 by sham              #+#    #+#             */
-/*   Updated: 2021/12/19 15:46:49 by sham             ###   ########.fr       */
+/*   Updated: 2021/12/20 12:03:15 by sham             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
+
+extern int sc;
 
 static void pid_child(int prev_input, int *fd, t_data *data)
 {
@@ -61,6 +63,8 @@ void fork_cmd(t_list *cmd_list, t_list *env_list)
             {
                 waitpid(pid, &pid_result, 0);
                 // printf("%d\n", WEXITSTATUS(pid_result));
+                    sc = WEXITSTATUS(pid_result);
+
             }
         }
     }
@@ -86,6 +90,7 @@ void fork_cmd(t_list *cmd_list, t_list *env_list)
         waitpid(pid, &pid_result, 0);
 
         // printf("%d\n", WEXITSTATUS(pid_result));
+        sc = WEXITSTATUS(pid_result);
     }
     signal(SIGINT, sig_handler); // CTRL + C
 
