@@ -6,7 +6,7 @@
 /*   By: sham <sham@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/25 14:17:39 by sham              #+#    #+#             */
-/*   Updated: 2021/12/20 17:19:04 by sham             ###   ########.fr       */
+/*   Updated: 2021/12/20 19:07:44 by sham             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -153,6 +153,8 @@ int ft_exit(char *argv[]);
 void ft_error(char *cmd, char *arg, char *message);
 
 /* signal */
-void sig_handler(int signal);
+void main_sig_handler(int signal);
+void heredoc_sig_handler(int signal);
+void execve_sig_handler(int signal);
 
 #endif

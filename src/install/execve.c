@@ -6,7 +6,7 @@
 /*   By: sham <sham@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/01 12:04:51 by sham              #+#    #+#             */
-/*   Updated: 2021/12/20 18:05:20 by sham             ###   ########.fr       */
+/*   Updated: 2021/12/20 19:20:10 by sham             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,20 +32,6 @@ void execve_cmd_bult_in(char *cmd_name, t_cmd *cmd, t_list *env_list, int is_for
         sc = state;
 }
 
-static void ano_sig_handler(int signal)
-{
-
-    // printf("%d\n", signal_flag);
-    if (signal == SIGINT)
-    {
-        printf("\n");
-    }
-    if (signal == SIGQUIT)
-    {
-        printf("Quit: 3\n");
-    }
-}
-
 void execve_cmd_normal(char *cmd_name, t_cmd *cmd, t_list *env_list)
 {
     char **argv_env;
@@ -55,11 +41,11 @@ void execve_cmd_normal(char *cmd_name, t_cmd *cmd, t_list *env_list)
     handle_dis(cmd);
     argv_env = env_to_char(env_list);
     // 포크 떠서 실행하고 부모 프로세스는 exit으로 종료?
-    if (!ft_cmpstr(cmd->arg[0], "cat"))
-    {
-        signal(SIGINT, ano_sig_handler);
-        signal(SIGQUIT, ano_sig_handler);
-    }
+    // if (!ft_cmpstr(cmd->arg[0], "cat")) 굳이 cat에만 해줄 필요는 없지 않나?
+    // {
+        signal(SIGINT, execve_sig_handler);
+        signal(SIGQUIT, execve_sig_handler);
+    // }
     pid = fork();
 
     if (pid == 0)
@@ -103,6 +89,8 @@ int check_cmd(t_cmd *cmd, t_list *env_list)
     // 이차원 배열로 PATH 환경변수를 쪼개줄 것.
     if (!stat(cmd->arg[0], &sb))
     {
+        // printf ("cmd->arg[0] : %s\n", cmd->arg[0]);
+        // printf( "%d\n", stat("cat", &sb)); 이게 왜 됨??
         execve_cmd_normal(cmd->arg[0], cmd, env_list);
         return (0);
     }

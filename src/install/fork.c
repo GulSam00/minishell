@@ -6,7 +6,7 @@
 /*   By: sham <sham@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/12 17:56:29 by sham              #+#    #+#             */
-/*   Updated: 2021/12/20 18:01:06 by sham             ###   ########.fr       */
+/*   Updated: 2021/12/20 19:35:09 by sham             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,64 +38,73 @@ static void pid_child(int prev_input, int *fd, t_data *data)
         close(fd[1]);
     }
 }
-void fork_cmd(t_list *cmd_list, t_list *env_list)
+
+static void single_cmd(t_data *data, t_list *env_list, int status)
 {
     pid_t pid;
+    t_cmd *cmd;
+
+  cmd = data->contents;
+    if (!check_bulit_in(cmd)) // 빌트인일 경우 종료 상태 수정.
+    {
+        execve_cmd_bult_in(cmd->arg[0], cmd, env_list, 0);
+    }
+    else {           
+        pid = fork();
+        if (pid == 0)
+            execve_cmd(cmd, env_list);
+        else
+        {
+            waitpid(pid, &status, 0);
+            // printf("%d\n", WEXITSTATUS(status));
+            sc = WEXITSTATUS(status);
+        }
+    }
+}
+
+static void multi_cmd(t_data *data,  t_list *env_list, int status)
+{
+    pid_t pid;
+    t_cmd *cmd;
     int fd[2];
     int prev_input;
-    int status;
-    t_data *data;
-    t_cmd *cmd;
-    signal(SIGINT, SIG_IGN); // CTRL + /
 
     prev_input = -1;
-    data = cmd_list->front;
-
-    if (cmd_list->size == 1)
+    while (data)
     {
         cmd = data->contents;
-        if (!check_bulit_in(cmd)) // 빌트인일 경우 종료 상태 수정.
+        pipe(fd);
+        pid = fork();
+        if (pid == 0)
         {
-            execve_cmd_bult_in(cmd->arg[0], cmd, env_list, 0);
+            pid_child(prev_input, fd, data);
+            execve_cmd(cmd, env_list);
         }
-        else {           
-            pid = fork();
-            if (pid == 0)
-                execve_cmd(cmd, env_list);
-            else
-            {
-                waitpid(pid, &status, 0);
-                // printf("%d\n", WEXITSTATUS(status));
-                    sc = WEXITSTATUS(status);
-
-            }
-        }
+        data = data->next;
+        close(fd[1]);
+        if (prev_input != -1)
+            close(prev_input);
+        prev_input = fd[0];
     }
+    close(prev_input);
+    waitpid(pid, &status, 0);
+
+    // printf("%d\n", WEXITSTATUS(status));
+    sc = WEXITSTATUS(status);
+}
+
+void fork_cmd(t_list *cmd_list, t_list *env_list)
+{
+    int status;
+    // t_data *data;
+
+    signal(SIGINT, SIG_IGN); // CTRL + /
+    status = 0;
+    // data = cmd_list->front;
+    if (cmd_list->size == 1)
+      single_cmd(cmd_list->front, env_list, status);
     else
-    {
-        while (data)
-        {
-            cmd = data->contents;
-            pipe(fd);
-            pid = fork();
-            if (pid == 0)
-            {
-                pid_child(prev_input, fd, data);
-                execve_cmd(cmd, env_list);
-            }
-            data = data->next;
-            close(fd[1]);
-            if (prev_input != -1)
-                close(prev_input);
-            prev_input = fd[0];
-        }
-        close(prev_input);
-        waitpid(pid, &status, 0);
-
-        // printf("%d\n", WEXITSTATUS(status));
-        sc = WEXITSTATUS(status);
-    }
-    signal(SIGINT, sig_handler); // CTRL + C
-
+        multi_cmd(cmd_list->front, env_list, status);
+    signal(SIGINT, main_sig_handler); // CTRL + C
     return;
 }

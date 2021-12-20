@@ -21,7 +21,9 @@ int main(void)
     int ret;
     char *line;
     int i = 0;
+    int sb;
     signal(SIGINT, handler);
+
     while (1)
     {
         line = readline("input> ");

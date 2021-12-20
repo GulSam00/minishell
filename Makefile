@@ -6,7 +6,7 @@
 #    By: sham <sham@student.42.fr>                  +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/06/01 16:48:56 by sham              #+#    #+#              #
-#    Updated: 2021/12/19 19:37:23 by sham             ###   ########.fr        #
+#    Updated: 2021/12/20 19:09:54 by sham             ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -22,6 +22,7 @@ PARSE_SRCS = $(addprefix src/parse/, ft_cmd_list.c ft_list.c ft_env_list.c ft_pa
 LIBFT_SRCS = $(addprefix src/libft/, ft_strdup.c ft_strjoin.c ft_strlen.c ft_strncmp.c ft_cmpstr.c ft_split.c ft_strlcpy.c )
 BUILT_IN_SRCS = $(addprefix src/built_in/, ft_cd.c ft_pwd.c ft_echo.c ft_exit.c)
 ERROR_SRCS = $(addprefix src/error/, ft_error.c )
+SINGAL_SRCS = $(addprefix src/signal/, signal_handler.c )
 
 MAIN_OBJS = $(MAIN_SRCS:.c=.o)
 INSTALL_OBJS = $(INSTALL_SRCS:.c=.o)
@@ -29,13 +30,14 @@ PARSE_OBJS = $(PARSE_SRCS:.c=.o)
 LIBFT_OBJS = $(LIBFT_SRCS:.c=.o)
 BUILT_IN_OBJS = $(BUILT_IN_SRCS:.c=.o) 
 ERROR_OBJS = $(ERROR_SRCS:.c=.o) 
+SINGAL_OBJS = $(SINGAL_SRCS:.c=.o) 
 
 all : $(NAME)
 
 
 
-$(NAME) : $(MAIN_OBJS) $(LIBFT_OBJS) $(PARSE_OBJS) $(INSTALL_OBJS) $(BUILT_IN_OBJS) $(ERROR_OBJS)
-	$(CC) $(CFLAGS) $(LINKING_FLAGS) $(MAIN_OBJS) $(LIBFT_OBJS) $(PARSE_OBJS) $(INSTALL_OBJS) $(BUILT_IN_OBJS) $(ERROR_OBJS) -o $(NAME) 
+$(NAME) : $(MAIN_OBJS) $(LIBFT_OBJS) $(PARSE_OBJS) $(INSTALL_OBJS) $(BUILT_IN_OBJS) $(ERROR_OBJS) $(SINGAL_OBJS)
+	$(CC) $(CFLAGS) $(LINKING_FLAGS) $(MAIN_OBJS) $(LIBFT_OBJS) $(PARSE_OBJS) $(INSTALL_OBJS) $(BUILT_IN_OBJS) $(ERROR_OBJS) $(SINGAL_OBJS) -o $(NAME) 
 
 %.o: %.c
 	$(CC) $(CFLAGS) $(COMFILE_FLAGS) -c $< -o $@

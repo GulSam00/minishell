@@ -6,7 +6,7 @@
 /*   By: sham <sham@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/03 13:26:04 by sham              #+#    #+#             */
-/*   Updated: 2021/12/20 18:22:41 by sham             ###   ########.fr       */
+/*   Updated: 2021/12/20 19:22:30 by sham             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,15 +49,6 @@ int ft_d_left_normal(char *dst)
 }
 
 
-void ano_sig_handler(int signal)
-{
-    if (signal == SIGINT)
-    {
-        printf ("exit!!\n");
-       exit(130);
-    }
-}
-
 int ft_d_left_heredoc(char *dst)
 {
     char *str;
@@ -69,7 +60,7 @@ int ft_d_left_heredoc(char *dst)
     pid = fork();
     if (pid == 0)
     {    
-        signal(SIGINT, ano_sig_handler); 
+        signal(SIGINT, heredoc_sig_handler); 
         close(fd[0]);
         while (1)
             {
@@ -96,8 +87,8 @@ int ft_d_left_heredoc(char *dst)
         close(fd[1]);
         waitpid(pid, &status, 0); 
         sc = WEXITSTATUS(status);
-        if (sc == 130)
-            exit(130);
+        if (sc == 1)
+            exit(1);
         if (sc == 0)
         {
             dup2(fd[0], STDIN_FILENO); // heredoc으로 문자열을 넣은 파이프 fd[1]을 읽는 fd[0]을 표준 입력에 복사한다.
