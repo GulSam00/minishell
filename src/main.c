@@ -6,13 +6,13 @@
 /*   By: sham <sham@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/25 14:09:22 by sham              #+#    #+#             */
-/*   Updated: 2021/12/19 19:50:32 by sham             ###   ########.fr       */
+/*   Updated: 2021/12/20 11:32:50 by sham             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-int sc;
+int sc = 0;
 
 void sig_handler(int signal)
 {
@@ -67,13 +67,13 @@ int main(int argc, char **argv, char **envp)
         ;
     while (1)
     {
-        // printf("bash$ new ");
+        printf("sc : %d\n", sc);
         str = readline("bash$ ");
         if (!str)
         {
             free(str);
             printf("\033[1A");
-            printf("\033[10C");
+            printf("\033[6C");
             printf(" exit\n");
             exit(0);
         }
@@ -89,6 +89,5 @@ int main(int argc, char **argv, char **envp)
             free(str);
         }
     }
-    printf("main end!\n");
     return (0);
 }
