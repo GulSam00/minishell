@@ -6,40 +6,47 @@
 /*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/25 17:43:02 by marvin            #+#    #+#             */
-/*   Updated: 2021/12/25 17:43:02 by marvin           ###   ########.fr       */
+/*   Updated: 2021/12/25 18:32:00 by sham             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
-static void	set_built_in_array(char ***set_built_in_array)
+static char**	set_built_in_array(void)
 {
-	*set_built_in_array[0] = "cd";
-	*set_built_in_array[1] = "echo";
-	*set_built_in_array[2] = "env";
-	*set_built_in_array[3] = "exit";
-	*set_built_in_array[4] = "export";
-	*set_built_in_array[5] = "pwd";
-	*set_built_in_array[6] = "unset";
+	char **array;
+
+	array = malloc(sizeof(char *) * 7);
+
+	array[0] = "cd";
+	array[1] = "echo";
+	array[2] = "env";
+	array[3] = "exit";
+	array[4] = "export";
+	array[5] = "pwd";
+	array[6] = "unset";
+	return (array);
 }
 
 int	check_bulit_in(t_cmd *cmd)
 {
 	int		i;
 	int		result;
-	char	*built_in_list[7];
+	char	**built_in_list;
 
-	set_built_in_array(&built_in_list);
+	built_in_list = set_built_in_array();
 	i = 0;
 	while (i < 7)
 	{
 		result = ft_cmpstr(cmd->arg[0], built_in_list[i]);
 		if (!result)
 		{
+			free(built_in_list);
 			return (0);
 		}
 		i++;
 	}
+	free(built_in_list);
 	return (-1);
 }
 

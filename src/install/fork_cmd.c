@@ -6,7 +6,7 @@
 /*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/12 17:56:29 by sham              #+#    #+#             */
-/*   Updated: 2021/12/25 18:19:16 by marvin           ###   ########.fr       */
+/*   Updated: 2021/12/25 18:32:52 by sham             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,7 @@ static void	single_cmd(t_data *data, t_list *env_list, int status)
 	{
 		pid = fork();
 		if (pid == 0)
-			execve_cmd(cmd, env_list);
+			parse_cmd(cmd, env_list);
 		else
 		{
 			waitpid(pid, &status, 0);
@@ -76,7 +76,7 @@ static void	multi_cmd(t_data *data, t_list *env_list, int status)
 		if (pid == 0)
 		{
 			pid_child(prev_input, fd, data);
-			execve_cmd(cmd, env_list);
+			parse_cmd(cmd, env_list);
 		}
 		data = data->next;
 		close(fd[1]);
