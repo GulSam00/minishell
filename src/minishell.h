@@ -118,10 +118,12 @@ void init_discriptor(t_discriptor *discriptor, char *file_name, enum e_discripto
 int free_discriptor_list(t_list *list);
 void print_discriptor_list(t_list *list);
 enum e_discriptor_type get_discriptor_type(char *word);
-int ft_parser(t_list *cmd_list, char *input);
+int ft_parser(t_list *cmd_list, char *input, t_list *env_list);
 int ft_env_parser(t_list *env_list, char **envp);
 enum e_cmd_type get_type(char *word);
 
+char *ft_quotes(char *str, t_list *env_list, int first_quotes);
+int ft_div_input(t_list *word_list, char *input, t_list *env_list);
 /* libft */
 char *ft_strdup(const char *str);
 char *ft_strndup(const char *str, int size);
@@ -133,6 +135,7 @@ int ft_strncmp(const char *str1, const char *str2, int len);
 int ft_cmpstr(char *str1, char *str2);
 char **ft_split(char const *s, char c);
 size_t ft_strlcpy(char *destination, const char *source, size_t n);
+char	*ft_itoa(long n);
 
 /* install */
 void	fork_cmd(t_list *cmd_list, t_list *env_list);

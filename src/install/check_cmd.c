@@ -14,10 +14,9 @@
 
 static char**	set_built_in_array(void)
 {
-	char **array;
+	char	**array;
 
 	array = malloc(sizeof(char *) * 7);
-
 	array[0] = "cd";
 	array[1] = "echo";
 	array[2] = "env";
