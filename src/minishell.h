@@ -116,10 +116,12 @@ void init_discriptor(t_discriptor *discriptor, char *file_name, enum e_discripto
 int free_discriptor_list(t_list *list);
 void print_discriptor_list(t_list *list);
 enum e_discriptor_type get_discriptor_type(char *word);
-int ft_parser(t_list *cmd_list, char *input);
+int ft_parser(t_list *cmd_list, char *input, t_list *env_list);
 int ft_env_parser(t_list *env_list, char **envp);
 enum e_cmd_type get_type(char *word);
 
+char *ft_quotes(char *str, t_list *env_list, int first_quotes);
+int ft_div_input(t_list *word_list, char *input, t_list *env_list);
 /* libft */
 char *ft_strdup(const char *str);
 char *ft_strndup(const char *str, int size);
