@@ -11,53 +11,7 @@
 /* ************************************************************************** */
 
 #include "../minishell.h"
-
-int ft_strlen(char *str)
-{
-    int len;
-
-    len = 0;
-    while (str[len] != '\0')
-    {
-        len++;
-    }
-    return (len);
-}
-
-char *ft_strdup(char *str)
-{
-    char *new_str;
-    int len;
-    int index;
-
-    index = 0;
-    len = ft_strlen(str);
-    new_str = (char *)malloc(sizeof(char) * len);
-    while (index < len)
-    {
-        new_str[index] = str[index];
-        index++;
-    }
-    new_str[index] = '\0';
-    return (new_str);
-}
-
-int ft_strncmp(char *str1, char *str2, int len)
-{
-    int i;
-
-    i = 0;
-    while (i < len)
-    {
-        if (str1[i] == '\0' || str2[i] == '\0')
-            break;
-        if (str1[i] != str2[i])
-            return (0);
-        i++;
-    }
-    return (1);
-}
-
+/*
 void test_env()
 {
     t_env_list env_list;
@@ -71,23 +25,6 @@ void test_env()
     ft_env(&env_list);
     free_all_envs(&env_list);
     ft_env(&env_list);
-}
-
-void free_all_envs(t_env_list *env_list)
-{
-    t_env *now;
-    t_env *next;
-
-    now = env_list->front;
-    while (now != 0)
-    {
-        next = now->next;
-        free(now->key);
-        free(now->value);
-        now = next;
-    }
-    env_list->front = 0;
-    env_list->size = 0;
 }
 
 void ft_unset(t_env_list *env_list, char *key)
@@ -156,23 +93,27 @@ void ft_export(t_env_list *env_list, char *key, char *value)
         env_list->size++;
     }
 }
-
-void ft_env(t_env_list *env_list)
+*/
+int ft_env(t_list *env_list)
 {
-    t_env *now;
+    t_data *now;
+    t_env *target;
 
-    if (env_list->front == 0 || env_list->size == 0)
-        return;
+    if (env_list == 0)
+        return (0);
     now = env_list->front;
-    int i = 0;
     while (now != 0)
     {
-        write(1, " ", 1);
-        write(1, now->key, ft_strlen(now->key));
-        write(1, "|", 1);
-        write(1, now->value, ft_strlen(now->value));
-        write(1, "\n", 1);
+        target = now->contents;
+        if (target->value != 0)
+        {
+            write(STDOUT_FILENO, target->key, ft_strlen(target->key));
+            write(STDOUT_FILENO, "=", 1);
+            write(STDOUT_FILENO, target->value, ft_strlen(target->value));
+            write(STDOUT_FILENO, "\n", 1);
+        }
         now = now->next;
-        i++;
     }
+
+    return (0);
 }

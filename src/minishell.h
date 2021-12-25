@@ -150,6 +150,9 @@ int ft_cd(char *path, t_list *env_list);
 int ft_pwd(void);
 int ft_echo(char *argv[]);
 int ft_exit(char *argv[], int is_forked);
+int ft_env(t_list *env_list);
+int ft_export(t_list *env_list, char *argv[]);
+int ft_unset(t_list *env_list, char *argv[]);
 
 /* error */
 void ft_error(char *cmd, char *arg, char *message);
