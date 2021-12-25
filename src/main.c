@@ -58,7 +58,7 @@ void	prompt_while(t_list cmd_list, t_list env_list)
 		else
 		{
 			add_history(str);
-			ft_parser(&cmd_list, str);
+			ft_parser(&cmd_list, str, &env_list);
 			fork_cmd(&cmd_list, &env_list);
 			free(str);
 		}

@@ -14,8 +14,8 @@
 NAME = nanoshell
 CC = gcc
 CFLAGS = -Werror -Wall -Wextra 
-LINKING_FLAGS = -lreadline -L${HOME}/.brew/opt/readline/lib
-COMFILE_FLAGS = -I${HOME}/.brew/opt/readline/include
+LINKING_FLAGS = -lreadline -L/opt/homebrew/opt/readline/lib
+COMFILE_FLAGS = -I/opt/homebrew/opt/readline/include
 MAIN_SRCS =  $(addprefix src/, main.c)
 INSTALL_SRCS = $(addprefix src/install/, check_cmd.c execve_cmd.c fork_cmd.c handle_dis.c)
 PARSE_SRCS = $(addprefix src/parse/, ft_cmd_list.c ft_list.c ft_env_list.c ft_parser.c ft_string_list.c ft_check_type.c ft_env_parser.c ft_discriptor_list.c ft_div_input.c)

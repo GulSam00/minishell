@@ -28,7 +28,10 @@ int ft_cd(char *path, t_list *env_list)
     else
         result = 0;
     if (result == -1)
+    {
         ft_error("cd", path, strerror(2));
+        return (1);
+    }
     return (result);
     // exit(g_sc); 파이프와 연결됬을 때는 exit 해야 함.
 }
