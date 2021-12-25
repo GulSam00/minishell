@@ -1,5 +1,7 @@
 #include "../minishell.h"
 
+extern int g_sc;
+
 char *get_word(char *str)
 {
 	int idx;
@@ -53,10 +55,8 @@ char *change_word(char *str, char *sub_str, int start, int end)
     char *temp;
     char *back;
 
-    printf("start: %d, end: %d\n", start, end);
     front = ft_strndup(str, start);
     back = ft_strdup(str + end);
-    printf("front: %s\nback: %s\n", front, back); 
     temp = ft_strjoin(front, sub_str);
     free(front);
     front = temp;
@@ -64,7 +64,6 @@ char *change_word(char *str, char *sub_str, int start, int end)
     free(front);
     free(back);
     front = temp;
-    printf("front: %s\n", front);
     return (front);
 }
 
@@ -81,7 +80,12 @@ char *change_to_env(char *str, t_list *env_list, int start)
     target = ft_strndup(str + start + 1, index - start - 1);
     env = ft_strdup(get_value(env_list, target));
     if (env == 0)
-        env = ft_strdup("");
+    {
+        if (ft_strlen(target) == 1 && target[0] == '?')
+            env = ft_itoa(g_sc);
+        else
+            env = ft_strdup("");
+    }
     
     temp = change_word(str, env, start, index);
     free(target);
@@ -133,8 +137,6 @@ char *check_quotes(char *str, t_list *env_list, int quotes, int rm_quotes)
         result = temp;
         rm_quotes = 0;
     }
-
-
     return (result);
 }
 
@@ -161,7 +163,6 @@ int ft_div_input(t_list *word_list, char *input, t_list *env_list)
         free(word);
         word = result;
         result = 0;
-        printf("word: %s | result: %s\n", word, result);
 		add_data(word_list, word);
 	}
 	return (0);

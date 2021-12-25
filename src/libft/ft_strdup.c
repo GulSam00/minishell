@@ -18,6 +18,8 @@ char	*ft_strdup(const char *str)
 	int	index;
 	char	*result;
 
+    if (str == 0)
+        return (0);
 	index = 0;
 	len = ft_strlen(str) + 1;
 	result = (char *)malloc(sizeof(char) * len);
@@ -38,7 +40,7 @@ char	*ft_strndup(const char *str, int size)
 	int	index;
 
 	index = 0;
-	result = (char *)malloc(sizeof(char) *size);
+	result = (char *)malloc(sizeof(char) * size);
 	while (index < size && str[index] != '\0')
 	{
 		result[index] = str[index];

@@ -133,6 +133,7 @@ int ft_strncmp(const char *str1, const char *str2, int len);
 int ft_cmpstr(char *str1, char *str2);
 char **ft_split(char const *s, char c);
 size_t ft_strlcpy(char *destination, const char *source, size_t n);
+char	*ft_itoa(long n);
 
 /* install */
 void fork_cmd(t_list *cmd_list, t_list *env_list);
