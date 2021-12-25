@@ -126,7 +126,7 @@ int free_env_list(t_list *list)
 		target = now->contents;
 		free(target->key);
 		free(target->value);
-		//free
+		free(target);
 		temp = now;
 		now = next;
 		free(temp);
