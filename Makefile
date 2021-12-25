@@ -6,7 +6,7 @@
 #    By: sham <sham@student.42.fr>                  +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/06/01 16:48:56 by sham              #+#    #+#              #
-#    Updated: 2021/12/20 19:09:54 by sham             ###   ########.fr        #
+#    Updated: 2021/12/25 16:24:46 by sham             ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -43,7 +43,7 @@ $(NAME) : $(MAIN_OBJS) $(LIBFT_OBJS) $(PARSE_OBJS) $(INSTALL_OBJS) $(BUILT_IN_OB
 	$(CC) $(CFLAGS) $(COMFILE_FLAGS) -c $< -o $@
 
 clean :
-	rm -rf $(MAIN_OBJS) $(LIBFT_OBJS) $(PARSE_OBJS)
+	rm -rf $(MAIN_OBJS) $(LIBFT_OBJS) $(PARSE_OBJS) $(INSTALL_OBJS) $(BUILT_IN_OBJS) $(ERROR_OBJS) $(SINGAL_OBJS) 
 
 fclean : clean
 	rm -rf $(NAME)
