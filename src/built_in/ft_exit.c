@@ -6,7 +6,7 @@
 /*   By: sham <sham@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/17 11:11:37 by sham              #+#    #+#             */
-/*   Updated: 2021/12/20 14:36:59 by sham             ###   ########.fr       */
+/*   Updated: 2021/12/25 14:15:40 by sham             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,11 +67,12 @@ static long long ft_atoll(char *str)
     return ((long long)(num * sign));
 }
 
-int ft_exit(char *argv[])
+int ft_exit(char *argv[], int is_forked)
 {
     if (argv[1] == NULL)
     {
-        write(1, "exit \n", 7);
+		if (!is_forked)
+        	write(1, "exit \n", 7);
         exit(0);
     }
     else if (ft_is_num(argv[1]))

@@ -6,7 +6,7 @@
 /*   By: sham <sham@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/01 12:04:51 by sham              #+#    #+#             */
-/*   Updated: 2021/12/20 19:20:10 by sham             ###   ########.fr       */
+/*   Updated: 2021/12/25 14:11:49 by sham             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ void execve_cmd_bult_in(char *cmd_name, t_cmd *cmd, t_list *env_list, int is_for
     else if (!ft_cmpstr(cmd_name, "echo"))
         state = ft_echo(cmd->arg);
     else if (!ft_cmpstr(cmd_name, "exit"))
-        state = ft_exit(cmd->arg);
+        state = ft_exit(cmd->arg, is_forked);
     if (is_forked)
         exit(state);
     else

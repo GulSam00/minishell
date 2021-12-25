@@ -6,7 +6,7 @@
 /*   By: sham <sham@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/25 14:17:39 by sham              #+#    #+#             */
-/*   Updated: 2021/12/20 19:07:44 by sham             ###   ########.fr       */
+/*   Updated: 2021/12/25 14:12:32 by sham             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -147,7 +147,7 @@ void execve_cmd_bult_in(char *cmd_name, t_cmd *cmd, t_list *env_list, int is_for
 int ft_cd(char *path, t_list *env_list);
 int ft_pwd(void);
 int ft_echo(char *argv[]);
-int ft_exit(char *argv[]);
+int ft_exit(char *argv[], int is_forked);
 
 /* error */
 void ft_error(char *cmd, char *arg, char *message);
