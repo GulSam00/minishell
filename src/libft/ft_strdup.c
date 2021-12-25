@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_strdup.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nasong <nasong@student.42seoul.kr>         +#+  +:+       +#+        */
+/*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/05 21:40:42 by nasong            #+#    #+#             */
-/*   Updated: 2021/12/05 22:19:22 by nasong           ###   ########.fr       */
+/*   Updated: 2021/12/25 16:52:00 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,10 +14,12 @@
 
 char	*ft_strdup(const char *str)
 {
-	int	len;
-	int	index;
+	int		len;
+	int		index;
 	char	*result;
 
+    if (str == 0)
+        return (0);
 	index = 0;
 	len = ft_strlen(str) + 1;
 	result = (char *)malloc(sizeof(char) * len);
@@ -35,10 +37,10 @@ char	*ft_strdup(const char *str)
 char	*ft_strndup(const char *str, int size)
 {
 	char	*result;
-	int	index;
+	int		index;
 
 	index = 0;
-	result = (char *)malloc(sizeof(char) *size);
+	result = (char *)malloc(sizeof(char) * size);
 	while (index < size && str[index] != '\0')
 	{
 		result[index] = str[index];

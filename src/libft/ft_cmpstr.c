@@ -3,27 +3,27 @@
 /*                                                        :::      ::::::::   */
 /*   ft_cmpstr.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sham <sham@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/12 16:10:29 by sham              #+#    #+#             */
-/*   Updated: 2021/12/12 16:11:59 by sham             ###   ########.fr       */
+/*   Updated: 2021/12/25 16:50:00 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
-int ft_cmpstr(char *str1, char *str2)
+int	ft_cmpstr(char *str1, char *str2)
 {
-    int i;
+	int		i;
 
-    i = 0;
-    while (str1[i])
-    {
-        if (str1[i] != str2[i])
-            return -1;
-        i++;
-    }
-    if (str2[i])
-        return -1;
-    return 0;
+	i = 0;
+	while (str1[i])
+	{
+		if (str1[i] != str2[i])
+			return (-1);
+		i++;
+	}
+	if (str2[i])
+		return (-1);
+	return (0);
 }

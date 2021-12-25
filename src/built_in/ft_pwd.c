@@ -6,23 +6,21 @@
 /*   By: sham <sham@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/28 17:22:08 by sham              #+#    #+#             */
-/*   Updated: 2021/11/28 17:25:24 by sham             ###   ########.fr       */
+/*   Updated: 2021/12/25 15:45:23 by sham             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#include "../minishell.h"
 
-int ft_pwd(char *cmd)
+extern int g_sc;
+
+int ft_pwd(void)
 {
-
     char *path;
-    path = getcwd(NULL, 0);
-    printf("before path : %s\n", path);
-    printf("Result : %d\n", chdir(cmd));
-    path = getcwd(NULL, 0);
-    printf("after path : %s\n", path);
 
-    if (!chdir(cmd))
-        return (-1);
+    path = getcwd(NULL, STDOUT_FILENO);
+    write(STDOUT_FILENO, path, ft_strlen(path));
+    write(STDOUT_FILENO, "\n", 1);   
+    g_sc = 0;
     return (0);
 }

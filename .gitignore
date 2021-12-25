@@ -5,6 +5,7 @@ test/
 rep/
 rep1/
 garbage/
+practice/
 .DS_Store
 *.o
 nanoshell

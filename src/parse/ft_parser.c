@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_parser.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sham <sham@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/05 19:53:07 by nasong            #+#    #+#             */
-/*   Updated: 2021/12/12 15:11:52 by sham             ###   ########.fr       */
+/*   Updated: 2021/12/25 18:35:16 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,56 +34,6 @@ int quotes_check(char *str)
 	if (s_quotes % 2 != 0 || d_quotes % 2 != 0)
 		return (-1);
 	return (1);
-}
-
-char *get_word(char *str)
-{
-	int idx;
-	int quotes;
-
-	idx = 0;
-	quotes = 0;
-	if (str[idx] == '\'' || str[idx] == '\"')
-	{
-		quotes = 1;
-		idx++;
-	}
-	while (str[idx] != '\0')
-	{
-		if (str[idx] == '\'' || str[idx] == '\"')
-		{
-			if (quotes > 0)
-				idx++;
-			break;
-		}
-		if (str[idx] == ' ' && quotes == 0)
-			break;
-		idx++;
-	}
-	return (ft_strndup(str, idx));
-}
-
-int div_input(t_list *word_list, char *input)
-{
-	int now;
-	char *word;
-
-	now = 0;
-	word = 0;
-	while (input[now] != '\0')
-	{
-		if (input[now] == ' ')
-		{
-			now++;
-			continue;
-		}
-		word = get_word(input + now);
-		if (word == 0)
-			return (-1);
-		now += ft_strlen(word);
-		add_data(word_list, word);
-	}
-	return (0);
 }
 
 char **list_to_char(t_list *str_list)
@@ -164,7 +114,7 @@ int add_cmd(t_list *cmd_list, t_list *word_list)
 	return (0);
 }
 
-int ft_parser(t_list *cmd_list, char *input)
+int ft_parser(t_list *cmd_list, char *input, t_list *env_list)
 {
 	t_list word_list;
 
@@ -172,15 +122,16 @@ int ft_parser(t_list *cmd_list, char *input)
 	init_list(&word_list);
 	if (quotes_check(input) == -1)
 		return (-1);
-	printf("QUOTES TEST : OK\n");
+	// printf("QUOTES TEST : OK\n");
 
-	if (div_input(&word_list, input) == -1)
+	if (ft_div_input(&word_list, input, env_list) == -1)
 	{
 		free_str_list(&word_list);
 		return (-1);
 	}
 	add_cmd(cmd_list, &word_list);
 	free_str_list(&word_list);
-	print_cmd_list(cmd_list);
+	// print_cmd_list(cmd_list);
+	//print_cmd_list(cmd_list);
 	return (0);
 }

@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: sham <sham@student.42.fr>                  +#+  +:+       +#+         #
+#    By: marvin <marvin@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/06/01 16:48:56 by sham              #+#    #+#              #
-#    Updated: 2021/12/12 17:02:30 by sham             ###   ########.fr        #
+#    Updated: 2021/12/25 18:40:33 by marvin           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -14,30 +14,41 @@
 NAME = nanoshell
 CC = gcc
 CFLAGS = -Werror -Wall -Wextra 
-READLINE_FLAG = -lreadline -L${HOME}/.brew/opt/readline/lib -I${HOME}/.brew/opt/readline/include
-# READLINE = -Werror -Wall -Wextra -lreadline -L/Users/sham/.brew/opt/readline/lib -I/Users/sham/.brew/opt/readline/include
-MAIN_SRCS =  $(addprefix src/, main.c) src/install/execve.c src/install/check_cmd.c
-PARSE_SRCS = $(addprefix src/parse/, ft_cmd_list.c ft_list.c ft_env_list.c ft_parser.c ft_string_list.c ft_check_type.c ft_env_parser.c)
-LIBFT_SRCS = $(addprefix src/libft/, ft_strdup.c ft_strjoin.c ft_strlen.c ft_strncmp.c ft_cmpstr.c ft_split.c ft_strlcpy.c)
+LINKING_FLAGS = -lreadline -L/opt/homebrew/opt/readline/lib
+COMFILE_FLAGS = -I/opt/homebrew/opt/readline/include
+MAIN_SRCS =  $(addprefix src/, main.c)
+INSTALL_SRCS = $(addprefix src/install/, check_cmd.c execve_cmd.c fork_cmd.c handle_dis.c)
+PARSE_SRCS = $(addprefix src/parse/, ft_cmd_list.c ft_list.c ft_env_list.c ft_parser.c ft_string_list.c ft_check_type.c ft_env_parser.c ft_discriptor_list.c ft_div_input.c)
+LIBFT_SRCS = $(addprefix src/libft/, ft_strdup.c ft_strjoin.c ft_strlen.c ft_strncmp.c ft_cmpstr.c ft_split.c ft_strlcpy.c ft_itoa.c )
+BUILT_IN_SRCS = $(addprefix src/built_in/, ft_cd.c ft_pwd.c ft_echo.c ft_exit.c)
+ERROR_SRCS = $(addprefix src/error/, ft_error.c )
+SINGAL_SRCS = $(addprefix src/signal/, signal_handler.c )
 
 MAIN_OBJS = $(MAIN_SRCS:.c=.o)
+INSTALL_OBJS = $(INSTALL_SRCS:.c=.o)
 PARSE_OBJS = $(PARSE_SRCS:.c=.o)
 LIBFT_OBJS = $(LIBFT_SRCS:.c=.o)
-
-.PHONY : all clean fclean re
+BUILT_IN_OBJS = $(BUILT_IN_SRCS:.c=.o) 
+ERROR_OBJS = $(ERROR_SRCS:.c=.o) 
+SINGAL_OBJS = $(SINGAL_SRCS:.c=.o) 
 
 all : $(NAME)
 
 
 
-$(NAME) : $(MAIN_OBJS) $(LIBFT_OBJS) $(PARSE_OBJS)
-	$(CC) $(CFLAGS) $(READLINE_FLAG) $(MAIN_OBJS) $(LIBFT_OBJS) $(PARSE_OBJS) -o $(NAME) 
+$(NAME) : $(MAIN_OBJS) $(LIBFT_OBJS) $(PARSE_OBJS) $(INSTALL_OBJS) $(BUILT_IN_OBJS) $(ERROR_OBJS) $(SINGAL_OBJS)
+	$(CC) $(CFLAGS) $(LINKING_FLAGS) $(MAIN_OBJS) $(LIBFT_OBJS) $(PARSE_OBJS) $(INSTALL_OBJS) $(BUILT_IN_OBJS) $(ERROR_OBJS) $(SINGAL_OBJS) -o $(NAME) 
 
+%.o: %.c
+	$(CC) $(CFLAGS) $(COMFILE_FLAGS) -c $< -o $@
 
 clean :
-	rm -rf $(MAIN_OBJS) $(LIBFT_OBJS) $(PARSE_OBJS)
+	rm -rf $(MAIN_OBJS) $(LIBFT_OBJS) $(PARSE_OBJS) $(INSTALL_OBJS) $(BUILT_IN_OBJS) $(ERROR_OBJS) $(SINGAL_OBJS) 
 
 fclean : clean
 	rm -rf $(NAME)
 
 re : fclean all
+
+
+.PHONY : all clean fclean re
