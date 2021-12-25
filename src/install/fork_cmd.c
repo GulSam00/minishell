@@ -6,13 +6,13 @@
 /*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/12 17:56:29 by sham              #+#    #+#             */
-/*   Updated: 2021/12/25 18:32:52 by sham             ###   ########.fr       */
+/*   Updated: 2021/12/25 20:36:32 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
-extern int g_sc;
+extern int	g_sc;
 
 static void	pid_child(int prev_input, int *fd, t_data *data)
 {

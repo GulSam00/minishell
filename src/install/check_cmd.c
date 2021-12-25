@@ -12,7 +12,7 @@
 
 #include "../minishell.h"
 
-static char**	set_built_in_array(void)
+static char	**set_built_in_array(void)
 {
 	char	**array;
 

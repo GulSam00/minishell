@@ -6,15 +6,15 @@
 /*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/03 13:26:04 by sham              #+#    #+#             */
-/*   Updated: 2021/12/25 18:21:37 by marvin           ###   ########.fr       */
+/*   Updated: 2021/12/25 20:39:59 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
-extern int g_sc;
+extern int	g_sc;
 
-int	ft_d_right_paste(char *dst)
+static int	ft_d_right_paste(char *dst)
 {
 	int	temp;
 
@@ -26,7 +26,7 @@ int	ft_d_right_paste(char *dst)
 	return (close(temp));
 }
 
-int	ft_d_right_append(char *dst)
+static int	ft_d_right_append(char *dst)
 {
 	int	temp;
 
@@ -38,7 +38,7 @@ int	ft_d_right_append(char *dst)
 	return (close(temp));
 }
 
-int	ft_d_left_normal(char *dst)
+static int	ft_d_left_normal(char *dst)
 {
 	int	temp;
 
@@ -46,55 +46,6 @@ int	ft_d_left_normal(char *dst)
 	if (dup2(temp, STDIN_FILENO) == -1)
 		return (-1);
 	return (close(temp));
-}
-
-int	ft_d_left_heredoc(char *dst)
-{
-	char	*str;
-	int		fd[2];
-	int		status;
-	pid_t	pid;
-
-	pipe(fd);
-	pid = fork();
-	if (pid == 0)
-	{
-		signal(SIGINT, heredoc_sig_handler); 
-		close(fd[0]);
-		while (1)
-		{
-			str = readline("> ");
-			if (!str)
-			{
-				free(str);
-				break ;
-			}
-			else if (!ft_cmpstr(str, dst))
-			{
-				free(str);
-				break ;
-			}
-			write(fd[1], str, ft_strlen(str));
-			write(fd[1],"\n", 1);
-			free(str);
-		}
-		close(fd[1]);
-		exit(0);
-	}
-	else
-	{
-		close(fd[1]);
-		waitpid(pid, &status, 0); 
-		g_sc = WEXITSTATUS(status);
-		if (g_sc == 1)
-			exit(1);
-		if (g_sc == 0)
-		{
-			dup2(fd[0], STDIN_FILENO);
-			close(fd[0]);
-		}
-	}
-	return (0);
 }
 
 int	handle_dis(t_cmd *cmd)
