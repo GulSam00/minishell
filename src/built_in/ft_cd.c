@@ -6,16 +6,16 @@
 /*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/28 17:19:34 by sham              #+#    #+#             */
-/*   Updated: 2021/12/25 20:40:07 by marvin           ###   ########.fr       */
+/*   Updated: 2021/12/25 20:48:42 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
-int ft_cd(char *path, t_list *env_list)
+int	ft_cd(char *path, t_list *env_list)
 {
-	int result;
-	char *home;
+	int		result;
+	char	*home;
 
 	home = get_value(env_list, "HOME");
 	if (path)
@@ -32,5 +32,4 @@ int ft_cd(char *path, t_list *env_list)
 		return (1);
 	}
 	return (result);
-	// exit(g_sc); 파이프와 연결됬을 때는 exit 해야 함.
 }

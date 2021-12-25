@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_env_list.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sham <sham@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/05 22:10:18 by nasong            #+#    #+#             */
-/*   Updated: 2021/12/06 10:41:10 by sham             ###   ########.fr       */
+/*   Updated: 2021/12/25 20:54:15 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,10 +20,10 @@ void	init_env(t_env *env, char *key, char *value)
 
 void	pop_env_with_key(t_list *list, char *key)
 {
-	t_env *now;
-	t_env *pre;
-	int	key_len;
-	int	now_key_len;
+	t_env	*now;
+	t_env	*pre;
+	int		key_len;
+	int		now_key_len;
 
 	if (list == 0)
 		return ;
@@ -59,9 +59,9 @@ void	pop_env_with_key(t_list *list, char *key)
 
 int	free_env_list(t_list *list)
 {
-	t_data *now;
-	t_data *next;
-	t_env *target;
+	t_data	*now;
+	t_data	*next;
+	t_env	*target;
 
 	if (list == 0)
 		return (-1);
@@ -74,7 +74,6 @@ int	free_env_list(t_list *list)
 		target = now->contents;
 		free(target->key);
 		free(target->value);
-		//free
 		now = next;
 		list->size--;
 	}
@@ -83,10 +82,10 @@ int	free_env_list(t_list *list)
 	return (1);
 }
 
-void print_env_list(t_list *list)
+void	print_env_list(t_list *list)
 {
-	t_data *now;
-	t_env *target;
+	t_data	*now;
+	t_env	*target;
 
 	if (list == 0)
 	{
