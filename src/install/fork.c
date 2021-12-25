@@ -6,13 +6,13 @@
 /*   By: sham <sham@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/12 17:56:29 by sham              #+#    #+#             */
-/*   Updated: 2021/12/20 19:35:09 by sham             ###   ########.fr       */
+/*   Updated: 2021/12/25 15:45:23 by sham             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
-extern int sc;
+extern int g_sc;
 
 static void pid_child(int prev_input, int *fd, t_data *data)
 {
@@ -57,7 +57,7 @@ static void single_cmd(t_data *data, t_list *env_list, int status)
         {
             waitpid(pid, &status, 0);
             // printf("%d\n", WEXITSTATUS(status));
-            sc = WEXITSTATUS(status);
+            g_sc = WEXITSTATUS(status);
         }
     }
 }
@@ -85,12 +85,12 @@ static void multi_cmd(t_data *data,  t_list *env_list, int status)
         if (prev_input != -1)
             close(prev_input);
         prev_input = fd[0];
-    }
+	}
     close(prev_input);
-    waitpid(pid, &status, 0);
+	waitpid(pid, &status, 0);
 
     // printf("%d\n", WEXITSTATUS(status));
-    sc = WEXITSTATUS(status);
+    g_sc = WEXITSTATUS(status);
 }
 
 void fork_cmd(t_list *cmd_list, t_list *env_list)

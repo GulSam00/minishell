@@ -6,7 +6,7 @@
 /*   By: sham <sham@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/28 17:19:34 by sham              #+#    #+#             */
-/*   Updated: 2021/12/20 14:35:58 by sham             ###   ########.fr       */
+/*   Updated: 2021/12/25 15:45:23 by sham             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,5 +30,5 @@ int ft_cd(char *path, t_list *env_list)
     if (result == -1)
         ft_error("cd", path, strerror(2));
     return (result);
-    // exit(sc); 파이프와 연결됬을 때는 exit 해야 함.
+    // exit(g_sc); 파이프와 연결됬을 때는 exit 해야 함.
 }

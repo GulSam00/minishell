@@ -6,7 +6,7 @@
 /*   By: sham <sham@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/25 14:17:39 by sham              #+#    #+#             */
-/*   Updated: 2021/12/25 14:12:32 by sham             ###   ########.fr       */
+/*   Updated: 2021/12/25 15:47:12 by sham             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,12 +20,11 @@
 #define LLONG_MIN -9223372036854775808
 #define LONG1_MAX (long long)9223372036854775807
 
-
 #include <stdio.h>			   // <readline/readline.h>보다 먼저 선언되야 함.
 #include <readline/readline.h> // 프롬프트 헤더
 #include <readline/history.h>  // 프롬프트 헤더
-#include <stdlib.h> // malloc
-#include <unistd.h> // write
+#include <stdlib.h>			   // malloc
+#include <unistd.h>			   // write
 #include <fcntl.h>
 #include <termios.h> // 터미널 헤더
 
@@ -35,7 +34,6 @@
 #include <errno.h>	   // errno 에러 전역 변수
 #include <signal.h>
 #include <limits.h> // exit 최소값 처리
-
 
 // enum e_bulit_in_code
 // {

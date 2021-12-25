@@ -6,13 +6,13 @@
 /*   By: sham <sham@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/03 13:26:04 by sham              #+#    #+#             */
-/*   Updated: 2021/12/20 19:22:30 by sham             ###   ########.fr       */
+/*   Updated: 2021/12/25 15:45:23 by sham             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
-extern int sc;
+extern int g_sc;
 
 // unistd.h에 매크로 상수로 저장되어 있는 STDIN_FILENO, STDOUT_FILENO,STDERR_FILENO
 
@@ -86,10 +86,10 @@ int ft_d_left_heredoc(char *dst)
     {
         close(fd[1]);
         waitpid(pid, &status, 0); 
-        sc = WEXITSTATUS(status);
-        if (sc == 1)
+        g_sc = WEXITSTATUS(status);
+        if (g_sc == 1)
             exit(1);
-        if (sc == 0)
+        if (g_sc == 0)
         {
             dup2(fd[0], STDIN_FILENO); // heredoc으로 문자열을 넣은 파이프 fd[1]을 읽는 fd[0]을 표준 입력에 복사한다.
             close(fd[0]);

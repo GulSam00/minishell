@@ -6,13 +6,13 @@
 /*   By: sham <sham@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/01 12:04:51 by sham              #+#    #+#             */
-/*   Updated: 2021/12/25 14:11:49 by sham             ###   ########.fr       */
+/*   Updated: 2021/12/25 15:47:30 by sham             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
-extern int sc;
+extern int g_sc;
 
 void execve_cmd_bult_in(char *cmd_name, t_cmd *cmd, t_list *env_list, int is_forked)
 {
@@ -29,7 +29,7 @@ void execve_cmd_bult_in(char *cmd_name, t_cmd *cmd, t_list *env_list, int is_for
     if (is_forked)
         exit(state);
     else
-        sc = state;
+        g_sc = state;
 }
 
 void execve_cmd_normal(char *cmd_name, t_cmd *cmd, t_list *env_list)
@@ -37,14 +37,14 @@ void execve_cmd_normal(char *cmd_name, t_cmd *cmd, t_list *env_list)
     char **argv_env;
     pid_t pid;
     int status;
-    
+
     handle_dis(cmd);
     argv_env = env_to_char(env_list);
     // 포크 떠서 실행하고 부모 프로세스는 exit으로 종료?
     // if (!ft_cmpstr(cmd->arg[0], "cat")) 굳이 cat에만 해줄 필요는 없지 않나?
     // {
-        signal(SIGINT, execve_sig_handler);
-        signal(SIGQUIT, execve_sig_handler);
+    signal(SIGINT, execve_sig_handler);
+    signal(SIGQUIT, execve_sig_handler);
     // }
     pid = fork();
 

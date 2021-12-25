@@ -6,19 +6,19 @@
 /*   By: sham <sham@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/17 11:11:37 by sham              #+#    #+#             */
-/*   Updated: 2021/12/25 14:15:40 by sham             ###   ########.fr       */
+/*   Updated: 2021/12/25 15:47:51 by sham             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
-extern int sc;
+extern int g_sc;
 
 static int ft_is_num(char *str)
 {
     int sign;
     unsigned long long num;
     int is_num;
-    
+
     sign = 1;
     num = 0;
     is_num = 0;
@@ -66,13 +66,12 @@ static long long ft_atoll(char *str)
     }
     return ((long long)(num * sign));
 }
-
 int ft_exit(char *argv[], int is_forked)
 {
     if (argv[1] == NULL)
     {
-		if (!is_forked)
-        	write(1, "exit \n", 7);
+        if (!is_forked)
+            write(1, "exit \n", 7);
         exit(0);
     }
     else if (ft_is_num(argv[1]))
