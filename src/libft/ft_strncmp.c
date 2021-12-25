@@ -3,25 +3,25 @@
 /*                                                        :::      ::::::::   */
 /*   ft_strncmp.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nasong <nasong@student.42seoul.kr>         +#+  +:+       +#+        */
+/*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/05 22:03:02 by nasong            #+#    #+#             */
-/*   Updated: 2021/12/05 22:20:09 by nasong           ###   ########.fr       */
+/*   Updated: 2021/12/25 16:54:43 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
-int     ft_strncmp(const char *str1, const char *str2, int len)
+int	ft_strncmp(const char *str1, const char *str2, int len)
 {
-    int i;
+	int	i;
 
-    i = 0;
-    while ((str1[i] != '\0' || str2[i] != '\0') && i < len)
-    {
+	i = 0;
+	while ((str1[i] != '\0' || str2[i] != '\0') && i < len)
+	{
 		if ((unsigned char)str1[i] != (unsigned char)str2[i])
 			return ((unsigned char)str1[i] - (unsigned char)str2[i]);
-        i++;
-    }
-    return (0);
+		i++;
+	}
+	return (0);
 }
