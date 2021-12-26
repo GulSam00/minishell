@@ -6,19 +6,17 @@
 /*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/25 14:17:39 by sham              #+#    #+#             */
-/*   Updated: 2021/12/26 19:45:52 by marvin           ###   ########.fr       */
+/*   Updated: 2021/12/26 19:52:54 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef MINISHELL_H
 # define MINISHELL_H
 
-# define MAX_PATH 4096
-# define OPEN_MAX 10240
-# define PIPE_READ 0
-# define PIPE_WRITE 1
-# define LLONG_MIN -9223372036854775808
-# define LONG1_MAX (long long)9223372036854775807
+// # define MAX_PATH 4096
+// # define OPEN_MAX 10240
+// # define PIPE_READ 0
+// # define PIPE_WRITE 1
 
 # include <stdio.h>			   // <readline/readline.h>보다 먼저 선언되야 함.
 # include <readline/readline.h> // 프롬프트 헤더
