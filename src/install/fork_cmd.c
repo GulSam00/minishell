@@ -36,27 +36,24 @@ static void	pid_child(int prev_input, int *fd, t_data *data)
 		close(fd[1]);
 	}
 }
-
 static void	single_cmd(t_data *data, t_list *env_list, int status)
 {
 	pid_t	pid;
 	t_cmd	*cmd;
 
 	cmd = data->contents;
-	if (!check_bulit_in(cmd))
+	pid = fork();
+	if (pid == 0)
 	{
-		execve_cmd_bult_in(cmd->arg[0], cmd, env_list, 0);
+		if (!check_bulit_in(cmd))
+			execve_cmd_bult_in(cmd->arg[0], cmd, env_list, 1);
+		else
+			parse_cmd(cmd, env_list);
 	}
 	else
 	{
-		pid = fork();
-		if (pid == 0)
-			parse_cmd(cmd, env_list);
-		else
-		{
-			waitpid(pid, &status, 0);
-			g_sc = WEXITSTATUS(status);
-		}
+		waitpid(pid, &status, 0);
+		g_sc = WEXITSTATUS(status);
 	}
 }
 
