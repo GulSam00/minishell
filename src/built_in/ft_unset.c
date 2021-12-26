@@ -6,7 +6,7 @@
 /*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/28 17:29:56 by sham              #+#    #+#             */
-/*   Updated: 2021/12/26 18:10:18 by marvin           ###   ########.fr       */
+/*   Updated: 2021/12/26 19:48:35 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,10 +15,10 @@
 int	ft_unset(t_list *env_list, char *argv[])
 {
 	int	index;
-    int result;
+	int	result;
 
 	index = 1;
-    result = 0;
+	result = 0;
 	while (argv[index] != 0)
 	{
 		if (ft_isdigit(argv[index][0]) != 0 || argv[index][0] == '=')

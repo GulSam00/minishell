@@ -6,7 +6,7 @@
 /*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/25 14:17:39 by sham              #+#    #+#             */
-/*   Updated: 2021/12/26 18:09:10 by marvin           ###   ########.fr       */
+/*   Updated: 2021/12/26 19:45:52 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -151,8 +151,8 @@ int                     ft_isdigit(int c);
 void					fork_cmd(t_list *cmd_list, t_list *env_list);
 int						check_bulit_in(t_cmd *cmd);
 void					parse_cmd(t_cmd *cmd, t_list *env_list);
-void					execve_cmd_bult_in(char *cmd_name, t_cmd *cmd, \
-						t_list *env_list, int is_forked);
+void					execve_cmd_bult_in(char *cmd_name, \
+						t_cmd *cmd, t_list *env_list);
 void					execve_cmd_normal(char *cmd_name, t_cmd *cmd, \
 						t_list *env_list);
 

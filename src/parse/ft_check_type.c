@@ -6,15 +6,15 @@
 /*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/12 11:20:22 by nasong            #+#    #+#             */
-/*   Updated: 2021/12/26 15:48:20 by marvin           ###   ########.fr       */
+/*   Updated: 2021/12/26 19:47:42 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
-int is_discriptor(char *word)
+int	is_discriptor(char *word)
 {
-	int len;
+	int	len;
 
 	len = ft_strlen(word);
 	if (word[0] == '<')
@@ -34,9 +34,9 @@ int is_discriptor(char *word)
 	return (0);
 }
 
-enum e_cmd_type get_type(char *word)
+enum e_cmd_type	get_type(char *word)
 {
-	int len;
+	int	len;
 
 	len = ft_strlen(word);
 	if (len == 1 && word[0] == '|')

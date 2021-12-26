@@ -6,19 +6,17 @@
 /*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/12 15:47:44 by nasong            #+#    #+#             */
-/*   Updated: 2021/12/25 21:25:42 by marvin           ###   ########.fr       */
+/*   Updated: 2021/12/26 19:43:54 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
-// 수정 가능
-
-int ft_env_parser(t_list *env_list, char **envp)
+int	ft_env_parser(t_list *env_list, char **envp)
 {
-	char **split;
-	int index;
-	t_env *new_env;
+	char	**split;
+	int		index;
+	t_env	*new_env;
 
 	index = 0;
 	while (envp[index] != 0)

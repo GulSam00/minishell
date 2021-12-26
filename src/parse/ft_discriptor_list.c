@@ -3,47 +3,47 @@
 /*                                                        :::      ::::::::   */
 /*   ft_discriptor_list.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nasong <nasong@student.42seoul.kr>         +#+  +:+       +#+        */
+/*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/12 13:56:39 by nasong            #+#    #+#             */
-/*   Updated: 2021/12/12 14:24:34 by nasong           ###   ########.fr       */
+/*   Updated: 2021/12/26 19:47:27 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
-void	init_discriptor(t_discriptor *discriptor, char *file_name, enum e_discriptor_type type)
+void	init_discriptor(t_discriptor *discriptor, \
+char *file_name, enum e_discriptor_type type)
 {
 	discriptor->file_name = file_name;
 	discriptor->type = type;
 }
 
-enum e_discriptor_type get_discriptor_type(char *word)
+enum e_discriptor_type	get_discriptor_type(char *word)
 {
-    int len;
+	int	len;
 
-    len = ft_strlen(word);
-    if (word[0] == '<')
-    {
-        if (len == 1)
-            return (IN);
-        return (DOUBLE_IN);
-    }
-    else
-    {
-        if (len == 1)
-            return (OUT);
-        return (DOUBLE_OUT);
-    }
-
+	len = ft_strlen(word);
+	if (word[0] == '<')
+	{
+		if (len == 1)
+			return (IN);
+		return (DOUBLE_IN);
+	}
+	else
+	{
+		if (len == 1)
+			return (OUT);
+		return (DOUBLE_OUT);
+	}
 }
 
 int	free_discriptor_list(t_list *list)
 {
-	t_data *now;
-	t_data *next;
-	t_discriptor *target;
-	t_data *temp;
+	t_data			*now;
+	t_data			*next;
+	t_discriptor	*target;
+	t_data			*temp;
 
 	if (list == 0)
 		return (-1);
@@ -55,7 +55,6 @@ int	free_discriptor_list(t_list *list)
 		next = now->next;
 		target = now->contents;
 		free(target->file_name);
-		//free
 		temp = now;
 		now = next;
 		free(temp);
@@ -66,10 +65,10 @@ int	free_discriptor_list(t_list *list)
 	return (1);
 }
 
-void print_discriptor_list(t_list *list)
+void	print_discriptor_list(t_list *list)
 {
-	t_data *now;
-	t_discriptor *target;
+	t_data			*now;
+	t_discriptor	*target;
 
 	if (list == 0)
 	{

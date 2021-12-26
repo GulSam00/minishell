@@ -6,7 +6,7 @@
 /*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/12 17:56:29 by sham              #+#    #+#             */
-/*   Updated: 2021/12/25 20:36:32 by marvin           ###   ########.fr       */
+/*   Updated: 2021/12/26 19:49:35 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,6 +36,7 @@ static void	pid_child(int prev_input, int *fd, t_data *data)
 		close(fd[1]);
 	}
 }
+
 static void	single_cmd(t_data *data, t_list *env_list, int status)
 {
 	pid_t	pid;
@@ -46,7 +47,7 @@ static void	single_cmd(t_data *data, t_list *env_list, int status)
 	if (pid == 0)
 	{
 		if (!check_bulit_in(cmd))
-			execve_cmd_bult_in(cmd->arg[0], cmd, env_list, 1);
+			execve_cmd_bult_in(cmd->arg[0], cmd, env_list);
 		else
 			parse_cmd(cmd, env_list);
 	}

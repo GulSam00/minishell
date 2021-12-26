@@ -84,7 +84,7 @@ void	parse_cmd(t_cmd *cmd, t_list *env_list)
 
 	result = check_bulit_in(cmd);
 	if (!result)
-		execve_cmd_bult_in(cmd->arg[0], cmd, env_list, 1);
+		execve_cmd_bult_in(cmd->arg[0], cmd, env_list);
 	else
 		result = check_cmd(cmd, env_list);
 	if (result == -1)
