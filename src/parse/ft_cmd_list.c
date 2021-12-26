@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   ft_cmd_list.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sham <sham@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/05 21:57:01 by nasong            #+#    #+#             */
-/*   Updated: 2021/12/12 14:53:11 by sham             ###   ########.fr       */
+/*   Updated: 2021/12/26 15:49:15 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
-void init_cmd(t_cmd *cmd)
+void	init_cmd(t_cmd *cmd)
 {
 	cmd->cmd = 0;
 	cmd->arg = 0;
@@ -20,12 +20,12 @@ void init_cmd(t_cmd *cmd)
 	init_list(&cmd->discriptor);
 }
 
-int free_cmd_list(t_list *list)
+int	free_cmd_list(t_list *list)
 {
-	t_data *now;
-	t_data *next;
-	t_cmd *target;
-	t_data *temp;
+	t_data	*now;
+	t_data	*next;
+	t_cmd	*target;
+	t_data	*temp;
 
 	if (list == 0)
 		return (-1);
@@ -37,7 +37,6 @@ int free_cmd_list(t_list *list)
 		next = now->next;
 		target = now->contents;
 		free_str_list(&target->arg_list);
-		//free descriptor;
 		free(target->cmd);
 		free(target->arg);
 		free(target);
@@ -51,9 +50,9 @@ int free_cmd_list(t_list *list)
 	return (1);
 }
 
-void print_arg(char **arg)
+void	print_arg(char **arg)
 {
-	int index;
+	int	index;
 
 	index = 0;
 	while (arg[index] != 0)
@@ -63,16 +62,16 @@ void print_arg(char **arg)
 	}
 }
 
-void print_cmd_list(t_list *list)
+void	print_cmd_list(t_list *list)
 {
-	t_data *now;
-	t_cmd *target;
-	int index;
+	t_data	*now;
+	t_cmd	*target;
+	int		index;
 
 	if (list == 0)
 	{
 		printf("NULL LIST\n");
-		return;
+		return ;
 	}
 	now = list->front;
 	printf("\n=====PRINT CMD LIST / SIZE: %d===\n", list->size);
@@ -82,8 +81,7 @@ void print_cmd_list(t_list *list)
 		target = now->contents;
 		printf("cmd: %s\n", target->cmd);
 		print_str_list(&target->arg_list);
-		//print_arg(target->arg);
-        print_discriptor_list(&target->discriptor);
+		print_discriptor_list(&target->discriptor);
 		now = now->next;
 	}
 	printf("=====PRINT CMD LIST END===\n");
