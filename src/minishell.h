@@ -145,6 +145,7 @@ char					**ft_split(char const *s, char c);
 size_t					ft_strlcpy(char *destination, \
 						const char *source, size_t n);
 char					*ft_itoa(long n);
+int                     ft_isdigit(int c);
 
 /* install */
 void					fork_cmd(t_list *cmd_list, t_list *env_list);
@@ -164,7 +165,7 @@ int						ft_cd(char *path, t_list *env_list);
 int						ft_pwd(void);
 int						ft_echo(char *argv[]);
 int						ft_exit(char *argv[], int is_forked);
-int						ft_env(t_list *env_list);
+int						ft_env(char *argv[], t_list *env_list);
 int						ft_export(t_list *env_list, char *argv[]);
 int						ft_unset(t_list *env_list, char *argv[]);
 

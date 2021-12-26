@@ -73,8 +73,10 @@ int add_env(t_list *env_list, char *arg)
 int ft_export(t_list *env_list, char *argv[])
 {
     int index;
+    int result;
 
     index = 1;
+    result = 0;
     if (argv[1] == 0)
     {
         print_env(env_list);
@@ -82,9 +84,17 @@ int ft_export(t_list *env_list, char *argv[])
     }
     while (argv[index] != 0)
     {
-        if (add_env(env_list, argv[index]) == 1)
-            return (1);
+        if (ft_isdigit(argv[index][0]) != 0)
+        {
+            //bash: export: `1a': not a valid identifier
+            result = 1;
+        }
+        else
+        {
+            if (add_env(env_list, argv[index]) == 1)
+                return (1);
+        }
         index++;
     }
-    return (0);
+    return (result);
 }
