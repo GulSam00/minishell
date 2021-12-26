@@ -28,6 +28,13 @@ t_cmd *cmd, t_list *env_list, int is_forked)
 		state = ft_echo(cmd->arg);
 	else if (!ft_cmpstr(cmd_name, "exit"))
 		state = ft_exit(cmd->arg, is_forked);
+    else if (!ft_cmpstr(cmd_name, "env"))
+		state = ft_env(env_list);
+    else if (!ft_cmpstr(cmd_name, "export"))
+		state = ft_export(env_list, cmd->arg);
+     else if (!ft_cmpstr(cmd_name, "unset"))
+		state = ft_unset(env_list, cmd->arg);
+
 	if (is_forked)
 		exit(state);
 	else

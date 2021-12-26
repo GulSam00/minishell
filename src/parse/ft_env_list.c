@@ -84,7 +84,7 @@ void pop_env_with_key(t_list *list, char *key)
 	{
 		target = now->contents;
 		now_key_len = ft_strlen(target->key);
-		if ((key_len == now_key_len) && (ft_strncmp(key, target->key, key_len)))
+		if ((key_len == now_key_len) && (ft_strncmp(key, target->key, key_len + 1) == 0))
 		{
 			if (pre == 0)
 			{
@@ -98,6 +98,7 @@ void pop_env_with_key(t_list *list, char *key)
 				pre->next = now->next;
 				free(target->key);
 				free(target->value);
+                free(target);
 				free(now);
 			}
 			list->size--;
@@ -125,8 +126,9 @@ int free_env_list(t_list *list)
 		next = now->next;
 		target = now->contents;
 		free(target->key);
-		free(target->value);
-		//free
+		if (target->value != 0)
+            free(target->value);
+		free(target);
 		temp = now;
 		now = next;
 		free(temp);
