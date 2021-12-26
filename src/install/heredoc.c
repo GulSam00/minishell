@@ -12,6 +12,8 @@
 
 #include "../minishell.h"
 
+extern int g_sc;
+
 void	heredoc_child(int *fd, char *dst)
 {
 	char	*str;
