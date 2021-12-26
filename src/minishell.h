@@ -6,7 +6,7 @@
 /*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/25 14:17:39 by sham              #+#    #+#             */
-/*   Updated: 2021/12/26 15:52:47 by marvin           ###   ########.fr       */
+/*   Updated: 2021/12/26 18:09:10 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -171,6 +171,7 @@ int						ft_unset(t_list *env_list, char *argv[]);
 
 /* error */
 void					ft_error(char *cmd, char *arg, char *message);
+void					ft_error_sing_dot(char *cmd, char *arg, char *message);
 
 /* signal */
 void					main_sig_handler(int signal);

@@ -57,6 +57,8 @@ static int	check_cmd(t_cmd *cmd, t_list *env_list)
 	char			**path;
 
 	path = ft_split(get_value(env_list, "PATH"), ':');
+	if (path == NULL)
+		return (-1);
 	if (!stat(cmd->arg[0], &sb))
 	{
 		execve_cmd_normal(cmd->arg[0], cmd, env_list);

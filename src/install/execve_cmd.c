@@ -6,7 +6,7 @@
 /*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/01 12:04:51 by sham              #+#    #+#             */
-/*   Updated: 2021/12/25 18:18:52 by marvin           ###   ########.fr       */
+/*   Updated: 2021/12/26 17:52:29 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,13 +28,12 @@ t_cmd *cmd, t_list *env_list, int is_forked)
 		state = ft_echo(cmd->arg);
 	else if (!ft_cmpstr(cmd_name, "exit"))
 		state = ft_exit(cmd->arg, is_forked);
-    else if (!ft_cmpstr(cmd_name, "env"))
+	else if (!ft_cmpstr(cmd_name, "env"))
 		state = ft_env(cmd->arg, env_list);
-    else if (!ft_cmpstr(cmd_name, "export"))
+	else if (!ft_cmpstr(cmd_name, "export"))
 		state = ft_export(env_list, cmd->arg);
-     else if (!ft_cmpstr(cmd_name, "unset"))
+	else if (!ft_cmpstr(cmd_name, "unset"))
 		state = ft_unset(env_list, cmd->arg);
-
 	if (is_forked)
 		exit(state);
 	else
