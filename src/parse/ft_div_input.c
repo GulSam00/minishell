@@ -151,18 +151,37 @@ char	*check_quotes(char *str, t_list *env_list, int quotes, int rm_quotes)
 	return (result);
 }
 
+void    append_str(t_list *word_list, char *str)
+{
+    t_data *now;
+    char *target;
+    char *temp;
+
+    target = 0;
+    now = word_list->front;
+    while (now->next != 0)
+        now = now->next;
+    target = now->contents;
+    temp = ft_strjoin(target, str);
+    free(now->contents);
+    now->contents = temp;
+}
+
 int		ft_div_input(t_list *word_list, char *input, t_list *env_list)
 {
 	int		now;
 	char	*word;
 	char	*result;
+    int     add;
 
 	now = 0;
 	word = 0;
+    add = 0;
 	while (input[now] != '\0')
 	{
 		if (input[now] == ' ')
 		{
+            add = 0;
 			now++;
 			continue ;
 		}
@@ -174,7 +193,14 @@ int		ft_div_input(t_list *word_list, char *input, t_list *env_list)
 		free(word);
 		word = result;
 		result = 0;
-		add_data(word_list, word);
+        if (add == 0)
+		    add_data(word_list, word);
+        else
+        {
+            append_str(word_list, word);
+            free(word);
+        }
+        add = 1;
 	}
 	return (0);
 }
