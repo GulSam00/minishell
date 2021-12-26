@@ -21,7 +21,7 @@ int	ft_env(char *argv[], t_list *env_list)
 		return (0);
 	if (argv[1] != 0)
 	{
-		ft_error("env", argv[index], "No such file or directory");
+		ft_error("env", argv[1], "No such file or directory");
 		return (127);
 	}
 	now = env_list->front;

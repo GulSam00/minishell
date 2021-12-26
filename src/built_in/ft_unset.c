@@ -15,8 +15,10 @@
 int	ft_unset(t_list *env_list, char *argv[])
 {
 	int	index;
+    int result;
 
 	index = 1;
+    result = 0;
 	while (argv[index] != 0)
 	{
 		if (ft_isdigit(argv[index][0]) != 0 || argv[index][0] == '=')
@@ -28,5 +30,5 @@ int	ft_unset(t_list *env_list, char *argv[])
 			pop_env_with_key(env_list, argv[index]);
 		index++;
 	}
-	return (0);
+	return (result);
 }

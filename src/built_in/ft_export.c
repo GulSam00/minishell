@@ -57,8 +57,7 @@ int add_env(t_list *env_list, char *arg)
 		{
 			key = ft_strndup(arg, index);
 			value = ft_strdup(arg + index + 1);
-			if (get_value(env_list, key) != 0)
-				pop_env_with_key(env_list, key);
+		    pop_env_with_key(env_list, key);
 			init_env(new_env, key, value);
 			add_data(env_list, new_env);
 			return (0);
