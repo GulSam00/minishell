@@ -38,7 +38,6 @@ char **env_to_char(t_list *env_list)
 		index++;
 	}
 	result[index] = NULL;
-
 	return (result);
 }
 
