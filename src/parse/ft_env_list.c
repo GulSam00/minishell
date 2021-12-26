@@ -33,6 +33,11 @@ char **env_to_char(t_list *env_list)
 	while (now_env != 0)
 	{
 		target = now_env->contents;
+        if (target->value == 0)
+        {
+		    now_env = now_env->next;
+            continue;
+        }
 		result[index] = ft_strjoin_with_char(target->key, target->value, '=');
 		now_env = now_env->next;
 		index++;
