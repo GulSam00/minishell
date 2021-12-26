@@ -84,7 +84,7 @@ int ft_export(t_list *env_list, char *argv[])
     }
     while (argv[index] != 0)
     {
-        if (ft_isdigit(argv[index][0]) != 0)
+        if (ft_isdigit(argv[index][0]) != 0 || argv[index][0] == '=')
         {
             //bash: export: `1a': not a valid identifier
             result = 1;
