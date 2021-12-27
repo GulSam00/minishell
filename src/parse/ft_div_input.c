@@ -88,13 +88,22 @@ char	*change_to_env(char *str, t_list *env_list, int start)
 	index = start + 1;
 	while (str[index] != ' ' && str[index] != '\'' \
 	&& str[index] != '\"' && str[index] != '\0')
+	{
+		if (str[index - 1] =='$')
+		{
+			if (str[index] == '?' || str[index] == '$')
+				break;
+		}
 		index++;
+	}
 	target = ft_strndup(str + start + 1, index - start - 1);
 	env = ft_strdup(get_value(env_list, target));
 	if (env == 0)
 	{
 		if (ft_strlen(target) == 1 && target[0] == '?')
 			env = ft_itoa(g_sc);
+		if (ft_strlen(target) == 1 && target[0] == '$')
+			env = ft_itoa(getpid());
 		else
 			env = ft_strdup("");
 	}
