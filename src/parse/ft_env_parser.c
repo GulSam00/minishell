@@ -6,11 +6,17 @@
 /*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/12 15:47:44 by nasong            #+#    #+#             */
-/*   Updated: 2021/12/27 21:45:57 by nasong           ###   ########.fr       */
+/*   Updated: 2021/12/27 21:55:34 by nasong           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
+
+void	init_env(t_env *env, char *key, char *value)
+{
+	env->key = key;
+	env->value = value;
+}
 
 int	ft_env_parser(t_list *env_list, char **envp)
 {

@@ -6,17 +6,11 @@
 /*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/05 22:10:18 by nasong            #+#    #+#             */
-/*   Updated: 2021/12/26 19:43:34 by marvin           ###   ########.fr       */
+/*   Updated: 2021/12/27 22:09:24 by nasong           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
-
-void	init_env(t_env *env, char *key, char *value)
-{
-	env->key = key;
-	env->value = value;
-}
 
 char	**env_to_char(t_list *env_list)
 {
@@ -92,20 +86,13 @@ void	pop_env_with_key(t_list *list, char *key)
 		(ft_strncmp(key, target->key, key_len + 1) == 0))
 		{
 			if (pre == 0)
-			{
 				list->front = now->next;
-				free(target->key);
-				free(target->value);
-				free(now);
-			}
 			else
-			{
 				pre->next = now->next;
-				free(target->key);
-				free(target->value);
-				free(target);
-				free(now);
-			}
+			free(target->key);
+			free(target->value);
+			free(target);
+			free(now);
 			list->size--;
 			break ;
 		}
@@ -114,16 +101,14 @@ void	pop_env_with_key(t_list *list, char *key)
 	}
 }
 
-int		free_env_list(t_list *list)
+int	free_env_list(t_list *list)
 {
 	t_data	*now;
 	t_data	*next;
 	t_env	*target;
 	t_data	*temp;
 
-	if (list == 0)
-		return (-1);
-	if (list->size == 0 || list->front == 0)
+	if (list == 0 || list->size == 0 || list->front == 0)
 		return (0);
 	now = list->front;
 	while (now != 0)
