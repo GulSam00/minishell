@@ -6,7 +6,7 @@
 #    By: marvin <marvin@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/06/01 16:48:56 by sham              #+#    #+#              #
-#    Updated: 2021/12/26 18:07:27 by marvin           ###   ########.fr        #
+#    Updated: 2021/12/27 22:12:53 by sham             ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -37,10 +37,10 @@ all : $(NAME)
 
 
 $(NAME) : $(MAIN_OBJS) $(LIBFT_OBJS) $(PARSE_OBJS) $(INSTALL_OBJS) $(BUILT_IN_OBJS) $(ERROR_OBJS) $(SINGAL_OBJS)
-	$(CC) $(CFLAGS) $(LINKING_FLAGS) $(MAIN_OBJS) $(LIBFT_OBJS) $(PARSE_OBJS) $(INSTALL_OBJS) $(BUILT_IN_OBJS) $(ERROR_OBJS) $(SINGAL_OBJS) -o $(NAME) 
+	$(CC) $(CFLAGS) -lreadline $(LDFLAGS) $(MAIN_OBJS) $(LIBFT_OBJS) $(PARSE_OBJS) $(INSTALL_OBJS) $(BUILT_IN_OBJS) $(ERROR_OBJS) $(SINGAL_OBJS) -o $(NAME) 
 
 %.o: %.c
-	$(CC) $(CFLAGS) $(COMFILE_FLAGS) -c $< -o $@
+	$(CC) $(CFLAGS) $(CPPFLAGS) -c $< -o $@
 
 clean :
 	rm -rf $(MAIN_OBJS) $(LIBFT_OBJS) $(PARSE_OBJS) $(INSTALL_OBJS) $(BUILT_IN_OBJS) $(ERROR_OBJS) $(SINGAL_OBJS) 
