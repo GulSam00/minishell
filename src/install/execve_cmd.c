@@ -6,7 +6,7 @@
 /*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/01 12:04:51 by sham              #+#    #+#             */
-/*   Updated: 2021/12/27 21:32:26 by marvin           ###   ########.fr       */
+/*   Updated: 2021/12/27 21:41:16 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,7 @@ t_cmd *cmd, t_list *env_list)
 {
 	int	state;
 
+	state = 0;
 	if (!ft_cmpstr(cmd_name, "env"))
 		state = ft_env(cmd->arg, env_list);
 	else if (!ft_cmpstr(cmd_name, "export"))
@@ -29,7 +30,7 @@ t_cmd *cmd, t_list *env_list)
 }
 
 void	execve_cmd_bult_in(char *cmd_name, \
-t_cmd *cmd, t_list *env_list)
+t_cmd *cmd, t_list *env_list, int is_forked)
 {
 	int	state;
 

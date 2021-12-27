@@ -76,13 +76,13 @@ static int	check_cmd(t_cmd *cmd, t_list *env_list)
 	return (-1);
 }
 
-void	parse_cmd(t_cmd *cmd, t_list *env_list)
+void	parse_cmd(t_cmd *cmd, t_list *env_list, int is_forked)
 {
 	int	result;
 
 	result = check_bulit_in(cmd, 0);
 	if (!result)
-		execve_cmd_bult_in(cmd->arg[0], cmd, env_list);
+		execve_cmd_bult_in(cmd->arg[0], cmd, env_list, is_forked);
 	else
 		result = check_cmd(cmd, env_list);
 	if (result == -1)
