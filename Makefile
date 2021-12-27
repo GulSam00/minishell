@@ -6,7 +6,7 @@
 #    By: marvin <marvin@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/06/01 16:48:56 by sham              #+#    #+#              #
-#    Updated: 2021/12/27 22:12:53 by sham             ###   ########.fr        #
+#    Updated: 2021/12/27 22:37:27 by sham             ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -14,8 +14,8 @@
 NAME = nanoshell
 CC = gcc
 CFLAGS = -Werror -Wall -Wextra 
-LINKING_FLAGS = -lreadline -L/opt/homebrew/opt/readline/lib
-COMFILE_FLAGS = -I/opt/homebrew/opt/readline/include
+LINKING_FLAGS = -lreadline -L${HOME}/.brew/opt/readline/lib
+COMFILE_FLAGS = -I/${HOME}/.brew/opt/readline/include
 MAIN_SRCS =  $(addprefix src/, main.c)
 INSTALL_SRCS = $(addprefix src/install/, check_cmd.c execve_cmd.c fork_cmd.c handle_dis.c heredoc.c)
 PARSE_SRCS = $(addprefix src/parse/, ft_cmd_list.c ft_list.c ft_env_list.c ft_parser.c ft_string_list.c ft_check_type.c ft_env_parser.c ft_discriptor_list.c ft_div_input.c)
@@ -37,10 +37,10 @@ all : $(NAME)
 
 
 $(NAME) : $(MAIN_OBJS) $(LIBFT_OBJS) $(PARSE_OBJS) $(INSTALL_OBJS) $(BUILT_IN_OBJS) $(ERROR_OBJS) $(SINGAL_OBJS)
-	$(CC) $(CFLAGS) -lreadline $(LDFLAGS) $(MAIN_OBJS) $(LIBFT_OBJS) $(PARSE_OBJS) $(INSTALL_OBJS) $(BUILT_IN_OBJS) $(ERROR_OBJS) $(SINGAL_OBJS) -o $(NAME) 
+	$(CC) $(CFLAGS) -lreadline $(LINKING_FLAGS) $(MAIN_OBJS) $(LIBFT_OBJS) $(PARSE_OBJS) $(INSTALL_OBJS) $(BUILT_IN_OBJS) $(ERROR_OBJS) $(SINGAL_OBJS) -o $(NAME) 
 
 %.o: %.c
-	$(CC) $(CFLAGS) $(CPPFLAGS) -c $< -o $@
+	$(CC) $(CFLAGS) $(COMFILE_FLAGS) -c $< -o $@
 
 clean :
 	rm -rf $(MAIN_OBJS) $(LIBFT_OBJS) $(PARSE_OBJS) $(INSTALL_OBJS) $(BUILT_IN_OBJS) $(ERROR_OBJS) $(SINGAL_OBJS) 

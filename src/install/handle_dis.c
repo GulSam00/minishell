@@ -6,7 +6,7 @@
 /*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/03 13:26:04 by sham              #+#    #+#             */
-/*   Updated: 2021/12/25 20:39:59 by marvin           ###   ########.fr       */
+/*   Updated: 2021/12/27 22:38:23 by sham             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ extern int	g_sc;
 static int	ft_d_right_paste(char *dst)
 {
 	int	temp;
-
+	
 	temp = open(dst, O_WRONLY | O_CREAT | O_TRUNC, 0644);
 	if (temp == -1)
 		return (-1);
