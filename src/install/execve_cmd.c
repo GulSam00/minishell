@@ -6,13 +6,27 @@
 /*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/01 12:04:51 by sham              #+#    #+#             */
-/*   Updated: 2021/12/26 19:46:14 by marvin           ###   ########.fr       */
+/*   Updated: 2021/12/27 21:32:26 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
 extern int	g_sc;
+
+void	execve_cmd_sing_env(char *cmd_name, \
+t_cmd *cmd, t_list *env_list)
+{
+	int	state;
+
+	if (!ft_cmpstr(cmd_name, "env"))
+		state = ft_env(cmd->arg, env_list);
+	else if (!ft_cmpstr(cmd_name, "export"))
+		state = ft_export(env_list, cmd->arg);
+	else if (!ft_cmpstr(cmd_name, "unset"))
+		state = ft_unset(env_list, cmd->arg);
+	g_sc = state;
+}
 
 void	execve_cmd_bult_in(char *cmd_name, \
 t_cmd *cmd, t_list *env_list)

@@ -19,23 +19,21 @@ static char	**set_built_in_array(void)
 	array = malloc(sizeof(char *) * 7);
 	array[0] = "cd";
 	array[1] = "echo";
-	array[2] = "env";
+	array[2] = "pwd";
 	array[3] = "exit";
-	array[4] = "export";
-	array[5] = "pwd";
-	array[6] = "unset";
+	array[4] = "env";
+	array[5] = "unset";
+	array[6] = "export";
 	return (array);
 }
 
-int	check_bulit_in(t_cmd *cmd)
+int	check_bulit_in(t_cmd *cmd, int range)
 {
-	int		i;
 	int		result;
 	char	**built_in_list;
 
 	built_in_list = set_built_in_array();
-	i = 0;
-	while (i < 7)
+	while (range < 7)
 	{
 		result = ft_cmpstr(cmd->arg[0], built_in_list[i]);
 		if (!result)
@@ -43,7 +41,7 @@ int	check_bulit_in(t_cmd *cmd)
 			free(built_in_list);
 			return (0);
 		}
-		i++;
+		range++;
 	}
 	free(built_in_list);
 	return (-1);
@@ -82,7 +80,7 @@ void	parse_cmd(t_cmd *cmd, t_list *env_list)
 {
 	int	result;
 
-	result = check_bulit_in(cmd);
+	result = check_bulit_in(cmd, 0);
 	if (!result)
 		execve_cmd_bult_in(cmd->arg[0], cmd, env_list);
 	else

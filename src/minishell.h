@@ -6,7 +6,7 @@
 /*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/25 14:17:39 by sham              #+#    #+#             */
-/*   Updated: 2021/12/26 19:52:54 by marvin           ###   ########.fr       */
+/*   Updated: 2021/12/27 21:32:58 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -143,12 +143,14 @@ char					**ft_split(char const *s, char c);
 size_t					ft_strlcpy(char *destination, \
 						const char *source, size_t n);
 char					*ft_itoa(long n);
-int                     ft_isdigit(int c);
+int						ft_isdigit(int c);
 
 /* install */
 void					fork_cmd(t_list *cmd_list, t_list *env_list);
-int						check_bulit_in(t_cmd *cmd);
+int						check_bulit_in(t_cmd *cmd, int range);
 void					parse_cmd(t_cmd *cmd, t_list *env_list);
+void					execve_cmd_sing_env(char *cmd_name, \
+						t_cmd *cmd, t_list *env_list);
 void					execve_cmd_bult_in(char *cmd_name, \
 						t_cmd *cmd, t_list *env_list);
 void					execve_cmd_normal(char *cmd_name, t_cmd *cmd, \
