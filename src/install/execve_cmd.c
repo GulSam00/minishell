@@ -6,7 +6,7 @@
 /*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/01 12:04:51 by sham              #+#    #+#             */
-/*   Updated: 2021/12/27 21:48:13 by sham             ###   ########.fr       */
+/*   Updated: 2021/12/28 20:48:56 by sham             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,8 @@ t_cmd *cmd, t_list *env_list)
 		state = ft_export(env_list, cmd->arg);
 	else if (!ft_cmpstr(cmd_name, "unset"))
 		state = ft_unset(env_list, cmd->arg);
+	else
+		state = ft_exit(cmd->arg, 0);
 	g_sc = state;
 }
 
