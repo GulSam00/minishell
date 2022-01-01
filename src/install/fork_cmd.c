@@ -6,7 +6,7 @@
 /*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/12 17:56:29 by sham              #+#    #+#             */
-/*   Updated: 2022/01/01 12:53:58 by sham             ###   ########.fr       */
+/*   Updated: 2022/01/01 13:14:08 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,6 +60,14 @@ static void	single_cmd(t_data *data, t_list *env_list, int status)
 	}
 }
 
+static void	pid_child(int prev_input, pid_t pid, t_cmd *cmd, int status)
+{
+	close(prev_input);
+	close_main_fd(cmd);
+	waitpid(pid, &status, 0);
+	g_sc = WEXITSTATUS(status);
+}
+
 static void	multi_cmd(t_data *data, t_list *env_list, int status)
 {
 	pid_t	pid;
@@ -85,10 +93,7 @@ static void	multi_cmd(t_data *data, t_list *env_list, int status)
 			close(prev_input);
 		prev_input = fd[0];
 	}
-	close(prev_input);
-	close_main_fd(cmd);
-	waitpid(pid, &status, 0);
-	g_sc = WEXITSTATUS(status);
+	pid_child(prev_input, pid, cmd, status);
 }
 
 void	fork_cmd(t_list *cmd_list, t_list *env_list)
