@@ -6,7 +6,7 @@
 #    By: marvin <marvin@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/06/01 16:48:56 by sham              #+#    #+#              #
-#    Updated: 2021/12/27 22:37:27 by sham             ###   ########.fr        #
+#    Updated: 2022/01/01 12:51:31 by marvin           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -17,7 +17,7 @@ CFLAGS = -Werror -Wall -Wextra
 LINKING_FLAGS = -lreadline -L${HOME}/.brew/opt/readline/lib
 COMFILE_FLAGS = -I/${HOME}/.brew/opt/readline/include
 MAIN_SRCS =  $(addprefix src/, main.c)
-INSTALL_SRCS = $(addprefix src/install/, check_cmd.c execve_cmd.c fork_cmd.c handle_dis.c heredoc.c)
+INSTALL_SRCS = $(addprefix src/install/, check_cmd.c execve_cmd.c fork_cmd.c handle_dis.c heredoc.c set_dis.c)
 PARSE_SRCS = $(addprefix src/parse/, ft_cmd_list.c ft_list.c ft_env_list.c ft_parser.c ft_string_list.c ft_check_type.c ft_env_parser.c ft_discriptor_list.c ft_div_input.c)
 LIBFT_SRCS = $(addprefix src/libft/, ft_strdup.c ft_strjoin.c ft_strlen.c ft_strncmp.c ft_cmpstr.c ft_split.c ft_strlcpy.c ft_itoa.c ft_isdigit.c)
 BUILT_IN_SRCS = $(addprefix src/built_in/, ft_cd.c ft_pwd.c ft_echo.c ft_exit.c ft_env.c ft_export.c ft_unset.c)

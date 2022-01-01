@@ -6,7 +6,7 @@
 /*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/25 14:17:39 by sham              #+#    #+#             */
-/*   Updated: 2022/01/01 12:45:04 by marvin           ###   ########.fr       */
+/*   Updated: 2022/01/01 12:51:15 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -160,6 +160,8 @@ void					execve_cmd_normal(char *cmd_name, t_cmd *cmd, \
 /* dis */
 int						handle_dis(t_cmd *cmd);
 int						ft_d_left_heredoc(char *dst);
+void					close_main_fd(t_cmd *cmd);
+void					dup_cmd_dis(t_cmd *cmd);
 
 /* bulit_in */
 int						ft_cd(char *path, t_list *env_list);
