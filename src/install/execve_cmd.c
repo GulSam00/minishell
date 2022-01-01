@@ -6,7 +6,7 @@
 /*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/01 12:04:51 by sham              #+#    #+#             */
-/*   Updated: 2021/12/28 20:48:56 by sham             ###   ########.fr       */
+/*   Updated: 2022/01/01 12:44:59 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,6 +38,7 @@ t_cmd *cmd, t_list *env_list, int is_forked)
 
 	state = 0;
 	handle_dis(cmd);
+	dup_cmd_dis(cmd);
 	if (!ft_cmpstr(cmd_name, "cd"))
 		state = ft_cd(cmd->arg[1], env_list);
 	else if (!ft_cmpstr(cmd_name, "pwd"))
@@ -67,7 +68,10 @@ void	execve_cmd_normal(char *cmd_name, t_cmd *cmd, t_list *env_list)
 	signal(SIGQUIT, execve_sig_handler);
 	pid = fork();
 	if (pid == 0)
+	{
+		dup_cmd_dis(cmd);
 		execve(cmd_name, cmd->arg, argv_env);
+	}
 	else
 		waitpid(pid, &status, 0);
 	exit(WEXITSTATUS(status));

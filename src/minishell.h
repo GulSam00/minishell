@@ -6,7 +6,7 @@
 /*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/25 14:17:39 by sham              #+#    #+#             */
-/*   Updated: 2021/12/27 21:45:18 by marvin           ###   ########.fr       */
+/*   Updated: 2022/01/01 12:45:04 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,6 +91,7 @@ typedef struct s_env
 typedef struct s_discriptor
 {
 	char					*file_name;
+	int						value;
 	enum e_discriptor_type	type;
 }	t_discriptor;
 

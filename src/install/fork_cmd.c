@@ -6,7 +6,7 @@
 /*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/12 17:56:29 by sham              #+#    #+#             */
-/*   Updated: 2021/12/28 20:47:15 by sham             ###   ########.fr       */
+/*   Updated: 2022/01/01 12:40:42 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,15 +43,17 @@ static void	single_cmd(t_data *data, t_list *env_list, int status)
 	t_cmd	*cmd;
 
 	cmd = data->contents;
-	if (!check_bulit_in(cmd, 3 ))
+	if (!check_bulit_in(cmd, 3))
 		execve_cmd_sing_env(cmd->arg[0], cmd, env_list);
 	else
 	{	
+		handle_dis(cmd);
 		pid = fork();
 		if (pid == 0)
 			parse_cmd(cmd, env_list, 0);
 		else
 		{
+			close_main_fd(cmd->discriptor)
 			waitpid(pid, &status, 0);
 			g_sc = WEXITSTATUS(status);
 		}
@@ -70,6 +72,7 @@ static void	multi_cmd(t_data *data, t_list *env_list, int status)
 	{
 		cmd = data->contents;
 		pipe(fd);
+		handle_dis(cmd);
 		pid = fork();
 		if (pid == 0)
 		{
@@ -83,6 +86,7 @@ static void	multi_cmd(t_data *data, t_list *env_list, int status)
 		prev_input = fd[0];
 	}
 	close(prev_input);
+	close_main_fd(cmd->discriptor);
 	waitpid(pid, &status, 0);
 	g_sc = WEXITSTATUS(status);
 }

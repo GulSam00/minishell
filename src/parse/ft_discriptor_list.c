@@ -6,7 +6,7 @@
 /*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/12 13:56:39 by nasong            #+#    #+#             */
-/*   Updated: 2021/12/26 19:47:27 by marvin           ###   ########.fr       */
+/*   Updated: 2022/01/01 12:49:01 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,7 @@ char *file_name, enum e_discriptor_type type)
 {
 	discriptor->file_name = file_name;
 	discriptor->type = type;
+	discriptor->value = -1;
 }
 
 enum e_discriptor_type	get_discriptor_type(char *word)
