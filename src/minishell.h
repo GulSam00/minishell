@@ -127,6 +127,7 @@ enum e_cmd_type			get_type(char *word);
 char	*change_word(char *str, char *sub_str, int start, int end);
 char	*change_to_env(char *str, t_list *env_list, int start);
 char	*get_word(char *str);
+char	*check_quotes(char *str, t_list *env_list, int quotes, int rm_quotes);
 
 char					*ft_quotes(char *str, \
 						t_list *env_list, int first_quotes);
