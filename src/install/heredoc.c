@@ -6,7 +6,7 @@
 /*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/25 20:39:13 by marvin            #+#    #+#             */
-/*   Updated: 2021/12/25 20:39:13 by marvin           ###   ########.fr       */
+/*   Updated: 2022/01/02 17:49:38 by sham             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,13 +56,8 @@ int	ft_d_left_heredoc(char *dst)
 		close(fd[1]);
 		waitpid(pid, &status, 0);
 		g_sc = WEXITSTATUS(status);
-		if (g_sc == 1)
-			exit(1);
-		if (g_sc == 0)
-		{
-			dup2(fd[0], STDIN_FILENO);
-			close(fd[0]);
-		}
+		dup2(fd[0], STDIN_FILENO);
+		close(fd[0]);
 	}
 	return (0);
 }

@@ -6,7 +6,7 @@
 /*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/08 11:50:39 by sham              #+#    #+#             */
-/*   Updated: 2021/12/25 16:47:14 by marvin           ###   ########.fr       */
+/*   Updated: 2022/01/02 17:49:52 by sham             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,10 +33,12 @@ void	execve_sig_handler(int signal)
 	if (signal == SIGINT)
 	{
 		printf("\n");
+		exit(130);
 	}
 	if (signal == SIGQUIT)
 	{
 		printf("Quit: 3\n");
+		exit(131);
 	}
 }
 

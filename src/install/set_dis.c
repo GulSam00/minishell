@@ -6,7 +6,7 @@
 /*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/01 12:26:33 by marvin            #+#    #+#             */
-/*   Updated: 2022/01/01 12:26:33 by marvin           ###   ########.fr       */
+/*   Updated: 2022/01/02 17:56:00 by sham             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,8 @@ void	close_main_fd(t_cmd *cmd)
 	while (cur_dis)
 	{
 		dis = cur_dis->contents;
-		close(dis->value);
+		if (dis->type != DOUBLE_IN)
+			close(dis->value);
 		cur_dis = cur_dis->next;
 	}
 }
