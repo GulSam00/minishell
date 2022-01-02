@@ -34,13 +34,13 @@ void	check_quotes_sub(char *str, int index, int *quotes, int *rm_quotes)
 	}
 }
 
-void	check_env(char *result, t_list *env_list, int end)
+void    check_env(char **result, t_list *env_list, int end)
 {
 	char	*temp;
 
-	temp = change_to_env(result, env_list, end);
-	free(result);
-	result = temp;
+	temp = change_to_env(*result, env_list, end);
+	free(*result);
+	*result = temp;
 }
 
 char	*check_quotes(char *str, t_list *env_list, int quotes, int rm_quotes)
@@ -59,7 +59,7 @@ char	*check_quotes(char *str, t_list *env_list, int quotes, int rm_quotes)
 		if (result[end] == '$' && quotes != 1)
 		{
 			start = end;
-			check_env(result, env_list, end);
+			check_env(&result, env_list, end);
 		}
 		end++;
 	}
