@@ -6,7 +6,7 @@
 /*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/12 17:56:29 by sham              #+#    #+#             */
-/*   Updated: 2022/01/02 16:06:07 by sham             ###   ########.fr       */
+/*   Updated: 2022/01/02 17:23:25 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,7 @@ static void	single_cmd(t_data *data, t_list *env_list, int status)
 	t_cmd	*cmd;
 
 	cmd = data->contents;
-	if (!check_bulit_in(cmd, 3))
+	if (!check_bulit_in(cmd, 2))
 		execve_cmd_sing_env(cmd->arg[0], cmd, env_list);
 	else
 	{	

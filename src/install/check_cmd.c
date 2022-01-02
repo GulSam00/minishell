@@ -17,9 +17,9 @@ static char	**set_built_in_array(void)
 	char	**array;
 
 	array = malloc(sizeof(char *) * 7);
-	array[0] = "cd";
+	array[0] = "pwd";
 	array[1] = "echo";
-	array[2] = "pwd";
+	array[2] = "cd";
 	array[3] = "exit";
 	array[4] = "env";
 	array[5] = "unset";
