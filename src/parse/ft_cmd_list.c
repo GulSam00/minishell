@@ -6,7 +6,7 @@
 /*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/05 21:57:01 by nasong            #+#    #+#             */
-/*   Updated: 2022/01/02 13:03:44 by nasong           ###   ########.fr       */
+/*   Updated: 2022/01/02 13:10:48 by nasong           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,11 +20,11 @@ void	init_cmd(t_cmd *cmd)
 	init_list(&cmd->discriptor);
 }
 
-void    free_cmd(t_cmd *target)
+void	free_cmd(t_cmd *target)
 {
-    int index;
+	int	index;
 
-    index = 0;
+	index = 0;
 	free_str_list(&target->arg_list);
 	free_discriptor_list(&target->discriptor);
 	free(target->cmd);
@@ -49,7 +49,7 @@ int	free_cmd_list(t_list *list)
 	{
 		next = now->next;
 		target = now->contents;
-        free_cmd(target);
+		free_cmd(target);
 		free(target);
 		temp = now;
 		now = next;
