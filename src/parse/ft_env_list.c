@@ -98,7 +98,7 @@ int	free_env_list(t_list *list)
 	t_env	*target;
 	t_data	*temp;
 
-	if (liset == 0 || list->size == 0 || list->front == 0)
+	if (list == 0 || list->size == 0 || list->front == 0)
 		return (0);
 	now = list->front;
 	while (now != 0)

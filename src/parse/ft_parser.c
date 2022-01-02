@@ -34,6 +34,46 @@ int	quotes_check(char *str)
 	return (1);
 }
 
+void set_next_cmd(t_list *cmd_list, t_cmd **new_cmd)
+{
+    t_cmd *cmd;
+
+    cmd = *new_cmd;
+    cmd->arg = list_to_char(&(cmd->arg_list));
+	add_data(cmd_list, cmd);
+	*new_cmd = 0;
+}
+
+void    set_cmd(t_list *cmd_list, t_discriptor *new_discriptor, t_data *now_word, t_cmd **new_cmd)
+{
+	enum e_cmd_type	type;
+	char			*copy;
+    t_cmd   *cmd;
+
+    cmd = *new_cmd;
+    type = get_type(now_word->contents);
+    copy = ft_strndup(now_word->contents, ft_strlen(now_word->contents));
+    if (type == PIPE)
+        set_next_cmd(cmd_list, new_cmd);
+	else if (type == DISCRIPTOR)
+	{
+		new_discriptor = (t_discriptor *)malloc(sizeof(t_discriptor));
+		init_discriptor(new_discriptor, 0, get_discriptor_type(copy));
+		free(copy);
+	}
+	else
+    {
+        if (new_discriptor != 0)
+    	{
+	    	new_discriptor->file_name = copy;
+    		add_data(&(cmd->discriptor), new_discriptor);
+		    new_discriptor = 0;
+	    }
+    	else
+		    add_data(&(cmd->arg_list), copy);
+    }
+}
+
 int	add_cmd(t_list *cmd_list, t_list *word_list)
 {
 	char			*copy;
@@ -50,44 +90,13 @@ int	add_cmd(t_list *cmd_list, t_list *word_list)
 		if (new_cmd == 0)
 		{
 			new_cmd = (t_cmd *)malloc(sizeof(t_cmd));
-			if (new_cmd == 0)
-				return (-1);
 			init_cmd(new_cmd);
 		}
-		type = get_type(now_word->contents);
-		copy = ft_strndup(now_word->contents, ft_strlen(now_word->contents));
-		if (type == PIPE)
-		{
-			new_cmd->arg = list_to_char(&new_cmd->arg_list);
-			add_data(cmd_list, new_cmd);
-			new_cmd = 0;
-		}
-		else if (type == DISCRIPTOR)
-		{
-			new_discriptor = (t_discriptor *)malloc(sizeof(t_discriptor));
-			if (new_discriptor == 0)
-				return (-1);
-			init_discriptor(new_discriptor, 0, get_discriptor_type(copy));
-			free(copy);
-		}
-		else
-		{
-			if (new_discriptor != 0)
-			{
-				new_discriptor->file_name = copy;
-				add_data(&new_cmd->discriptor, new_discriptor);
-				new_discriptor = 0;
-			}
-			else
-				add_data(&new_cmd->arg_list, copy);
-		}
+        set_cmd(cmd_list, new_discriptor, now_word, &new_cmd);
 		now_word = now_word->next;
 	}
 	if (new_cmd != 0)
-	{
-		new_cmd->arg = list_to_char(&new_cmd->arg_list);
-		add_data(cmd_list, new_cmd);
-	}
+        set_next_cmd(cmd_list, &new_cmd);
 	return (0);
 }
 
