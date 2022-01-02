@@ -18,34 +18,6 @@ void	init_env(t_env *env, char *key, char *value)
 	env->value = value;
 }
 
-char	**env_to_char(t_list *env_list)
-{
-	char	**result;
-	int		index;
-	t_data	*now_env;
-	t_env	*target;
-
-	result = (char **)malloc(sizeof(char *) * (env_list->size + 1));
-	if (result == 0)
-		return (0);
-	index = 0;
-	now_env = env_list->front;
-	while (now_env != 0)
-	{
-		target = now_env->contents;
-		if (target->value == 0)
-		{
-			now_env = now_env->next;
-			continue ;
-		}
-		result[index] = ft_strjoin_with_char(target->key, target->value, '=');
-		now_env = now_env->next;
-		index++;
-	}
-	result[index] = NULL;
-	return (result);
-}
-
 char	*get_value(t_list *list, char *find_key)
 {
 	t_data	*now;
@@ -71,6 +43,26 @@ char	*get_value(t_list *list, char *find_key)
 	return (0);
 }
 
+void    free_env(t_list *list, t_env *target, t_data *now, t_data *pre)
+{
+    if (pre == 0)
+	{
+		list->front = now->next;
+		free(target->key);
+		free(target->value);
+		free(now);
+	}
+	else
+	{
+		pre->next = now->next;
+		free(target->key);
+		free(target->value);
+		free(target);
+		free(now);
+	}
+	list->size--;
+}
+
 void	pop_env_with_key(t_list *list, char *key)
 {
 	t_data	*now;
@@ -91,22 +83,7 @@ void	pop_env_with_key(t_list *list, char *key)
 		if ((key_len == now_key_len) && \
 		(ft_strncmp(key, target->key, key_len + 1) == 0))
 		{
-			if (pre == 0)
-			{
-				list->front = now->next;
-				free(target->key);
-				free(target->value);
-				free(now);
-			}
-			else
-			{
-				pre->next = now->next;
-				free(target->key);
-				free(target->value);
-				free(target);
-				free(now);
-			}
-			list->size--;
+            free_env(list, target, now, pre);
 			break ;
 		}
 		pre = now;
@@ -121,9 +98,7 @@ int		free_env_list(t_list *list)
 	t_env	*target;
 	t_data	*temp;
 
-	if (list == 0)
-		return (-1);
-	if (list->size == 0 || list->front == 0)
+	if (liset == 0 || list->size == 0 || list->front == 0)
 		return (0);
 	now = list->front;
 	while (now != 0)

@@ -128,6 +128,8 @@ char	*change_word(char *str, char *sub_str, int start, int end);
 char	*change_to_env(char *str, t_list *env_list, int start);
 char	*get_word(char *str);
 char	*check_quotes(char *str, t_list *env_list, int quotes, int rm_quotes);
+char	**env_to_char(t_list *env_list);
+char	**list_to_char(t_list *str_list);
 
 char					*ft_quotes(char *str, \
 						t_list *env_list, int first_quotes);

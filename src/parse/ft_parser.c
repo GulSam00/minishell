@@ -35,27 +35,6 @@ int	quotes_check(char *str)
 	return (1);
 }
 
-char	**list_to_char(t_list *str_list)
-{
-	char	**result;
-	t_data	*now_data;
-	int	index;
-
-	result = (char **)malloc(sizeof(char *) * (str_list->size + 1));
-	if (result == 0)
-		return (0);
-	now_data = str_list->front;
-	index = 0;
-	while (now_data != 0)
-	{
-		result[index] = ft_strdup(now_data->contents);
-		now_data = now_data->next;
-		index++;
-	}
-	result[index] = 0;
-	return (result);
-}
-
 int	add_cmd(t_list *cmd_list, t_list *word_list)
 {
 	char	*copy;
