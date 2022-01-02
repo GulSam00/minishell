@@ -6,7 +6,7 @@
 /*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/02 14:52:30 by nasong            #+#    #+#             */
-/*   Updated: 2022/01/02 16:44:51 by marvin           ###   ########.fr       */
+/*   Updated: 2022/01/02 17:02:15 by nasong           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,7 +89,7 @@ int	add_cmd(t_list *cmd_list, t_list *word_list)
 			new_cmd = (t_cmd *)malloc(sizeof(t_cmd));
 			init_cmd(new_cmd);
 		}
-        set_cmd(cmd_list, &new_discriptor, now_word, &new_cmd);
+		set_cmd(cmd_list, &new_discriptor, now_word, &new_cmd);
 		now_word = now_word->next;
 	}
 	if (new_cmd != 0)

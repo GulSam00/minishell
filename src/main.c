@@ -6,7 +6,7 @@
 /*   By: sham <sham@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/25 14:09:22 by sham              #+#    #+#             */
-/*   Updated: 2021/12/25 16:02:47 by sham             ###   ########.fr       */
+/*   Updated: 2022/01/02 17:01:48 by nasong           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,9 +52,7 @@ void	prompt_while(t_list cmd_list, t_list env_list)
 			exit(0);
 		}
 		else if (*str == '\0')
-		{
 			free(str);
-		}	
 		else
 		{
 			add_history(str);
@@ -62,7 +60,7 @@ void	prompt_while(t_list cmd_list, t_list env_list)
 			fork_cmd(&cmd_list, &env_list);
 			free(str);
 		}
-        free_cmd_list(&cmd_list);
+		free_cmd_list(&cmd_list);
 	}
 }
 
