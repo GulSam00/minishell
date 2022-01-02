@@ -6,7 +6,7 @@
 /*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/05 19:53:07 by nasong            #+#    #+#             */
-/*   Updated: 2022/01/02 12:39:57 by nasong           ###   ########.fr       */
+/*   Updated: 2022/01/02 13:36:13 by nasong           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,6 @@ int	quotes_check(char *str)
 			d_quotes++;
 		index++;
 	}
-
 	if (s_quotes % 2 != 0 || d_quotes % 2 != 0)
 		return (-1);
 	return (1);
@@ -37,10 +36,10 @@ int	quotes_check(char *str)
 
 int	add_cmd(t_list *cmd_list, t_list *word_list)
 {
-	char	*copy;
-	enum	e_cmd_type type;
-	t_cmd	*new_cmd;
-	t_data	*now_word;
+	char			*copy;
+	enum e_cmd_type	type;
+	t_cmd			*new_cmd;
+	t_data			*now_word;
 	t_discriptor	*new_discriptor;
 
 	new_cmd = 0;
@@ -71,7 +70,7 @@ int	add_cmd(t_list *cmd_list, t_list *word_list)
 			init_discriptor(new_discriptor, 0, get_discriptor_type(copy));
 			free(copy);
 		}
-		else //ARG
+		else
 		{
 			if (new_discriptor != 0)
 			{

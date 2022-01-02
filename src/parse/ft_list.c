@@ -6,7 +6,7 @@
 /*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/28 13:13:18 by nasong            #+#    #+#             */
-/*   Updated: 2021/12/26 19:44:34 by marvin           ###   ########.fr       */
+/*   Updated: 2022/01/02 13:32:47 by nasong           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ void	init_list(t_list *list)
 	list->size = 0;
 }
 
-int		add_list(t_list *list, t_data *new_data)
+int	add_list(t_list *list, t_data *new_data)
 {
 	t_data	*temp;
 
@@ -43,7 +43,7 @@ int		add_list(t_list *list, t_data *new_data)
 	return (1);
 }
 
-int add_data(t_list *list, void *new_contents)
+int	add_data(t_list *list, void *new_contents)
 {
 	t_data	*new_data;
 

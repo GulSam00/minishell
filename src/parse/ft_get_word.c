@@ -1,18 +1,30 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   ft_get_word.c                                      :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: nasong <nasong@student.42seoul.kr>         +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/01/02 13:31:06 by nasong            #+#    #+#             */
+/*   Updated: 2022/01/02 13:32:13 by nasong           ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../minishell.h"
 
-extern int g_sc;
+extern int	g_sc;
 
-void    first_quotes_check(char *str, int *index, int *first_quotes)
+void	first_quotes_check(char *str, int *index, int *first_quotes)
 {
-    *index = 0;
-    *first_quotes = 0;
-    if (str[*index] != '\'' && str[*index] != '\"')
-        return ;
-    if (str[*index] == '\'')
+	*index = 0;
+	*first_quotes = 0;
+	if (str[*index] != '\'' && str[*index] != '\"')
+		return ;
+	if (str[*index] == '\'')
 		*first_quotes = 1;
 	else if (str[*index] == '\"')
 		*first_quotes = 2;
-    *index += 1;
+	*index += 1;
 }
 
 char	*get_word(char *str)
@@ -20,7 +32,7 @@ char	*get_word(char *str)
 	int	idx;
 	int	first_quotes;
 
-    first_quotes_check(str, &idx, &first_quotes);
+	first_quotes_check(str, &idx, &first_quotes);
 	while (str[idx] != '\0')
 	{
 		if (str[idx] == '\'')
@@ -43,4 +55,3 @@ char	*get_word(char *str)
 	}
 	return (ft_strndup(str, idx));
 }
-

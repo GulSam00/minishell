@@ -1,12 +1,24 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   ft_to_char.c                                       :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: nasong <nasong@student.42seoul.kr>         +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/01/02 13:33:07 by nasong            #+#    #+#             */
+/*   Updated: 2022/01/02 13:33:38 by nasong           ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../minishell.h"
 
-extern int g_sc;
+extern int	g_sc;
 
 char	**list_to_char(t_list *str_list)
 {
 	char	**result;
 	t_data	*now_data;
-	int	index;
+	int		index;
 
 	result = (char **)malloc(sizeof(char *) * (str_list->size + 1));
 	if (result == 0)
@@ -50,4 +62,3 @@ char	**env_to_char(t_list *env_list)
 	result[index] = NULL;
 	return (result);
 }
-

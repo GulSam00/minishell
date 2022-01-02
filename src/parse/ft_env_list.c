@@ -6,7 +6,7 @@
 /*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/05 22:10:18 by nasong            #+#    #+#             */
-/*   Updated: 2021/12/26 19:43:34 by marvin           ###   ########.fr       */
+/*   Updated: 2022/01/02 13:30:10 by nasong           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,9 +43,9 @@ char	*get_value(t_list *list, char *find_key)
 	return (0);
 }
 
-void    free_env(t_list *list, t_env *target, t_data *now, t_data *pre)
+void	free_env(t_list *list, t_env *target, t_data *now, t_data *pre)
 {
-    if (pre == 0)
+	if (pre == 0)
 	{
 		list->front = now->next;
 		free(target->key);
@@ -83,7 +83,7 @@ void	pop_env_with_key(t_list *list, char *key)
 		if ((key_len == now_key_len) && \
 		(ft_strncmp(key, target->key, key_len + 1) == 0))
 		{
-            free_env(list, target, now, pre);
+			free_env(list, target, now, pre);
 			break ;
 		}
 		pre = now;
@@ -91,7 +91,7 @@ void	pop_env_with_key(t_list *list, char *key)
 	}
 }
 
-int		free_env_list(t_list *list)
+int	free_env_list(t_list *list)
 {
 	t_data	*now;
 	t_data	*next;

@@ -6,7 +6,7 @@
 /*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/12 15:47:44 by nasong            #+#    #+#             */
-/*   Updated: 2021/12/26 19:43:54 by marvin           ###   ########.fr       */
+/*   Updated: 2022/01/02 13:30:49 by nasong           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,9 +24,9 @@ int	ft_env_parser(t_list *env_list, char **envp)
 		new_env = malloc(sizeof(t_env));
 		split = ft_split(envp[index], '=');
 		init_env(new_env, ft_strdup(split[0]), ft_strdup(split[1]));
-        free(split[0]);
-        free(split[1]);
-        free(split);
+		free(split[0]);
+		free(split[1]);
+		free(split);
 		add_data(env_list, new_env);
 		index++;
 	}
