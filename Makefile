@@ -6,12 +6,12 @@
 #    By: marvin <marvin@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/06/01 16:48:56 by sham              #+#    #+#              #
-#    Updated: 2022/01/02 16:12:29 by sham             ###   ########.fr        #
+#    Updated: 2022/01/02 17:09:19 by sham             ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 
-NAME = nanoshell
+NAME = minishell
 CC = gcc
 CFLAGS = -Werror -Wall -Wextra 
 LINKING_FLAGS = -lreadline ${LDFLAGS}
@@ -37,7 +37,7 @@ all : $(NAME)
 
 
 $(NAME) : $(MAIN_OBJS) $(LIBFT_OBJS) $(PARSE_OBJS) $(INSTALL_OBJS) $(BUILT_IN_OBJS) $(ERROR_OBJS) $(SINGAL_OBJS)
-	$(CC) $(CFLAGS) -lreadline $(LINKING_FLAGS) $(MAIN_OBJS) $(LIBFT_OBJS) $(PARSE_OBJS) $(INSTALL_OBJS) $(BUILT_IN_OBJS) $(ERROR_OBJS) $(SINGAL_OBJS) -o $(NAME) 
+	$(CC) $(CFLAGS) $(LINKING_FLAGS) $(MAIN_OBJS) $(LIBFT_OBJS) $(PARSE_OBJS) $(INSTALL_OBJS) $(BUILT_IN_OBJS) $(ERROR_OBJS) $(SINGAL_OBJS) -o $(NAME) 
 
 %.o: %.c
 	$(CC) $(CFLAGS) $(COMFILE_FLAGS) -c $< -o $@
