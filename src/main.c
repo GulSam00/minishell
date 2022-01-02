@@ -62,6 +62,7 @@ void	prompt_while(t_list cmd_list, t_list env_list)
 			fork_cmd(&cmd_list, &env_list);
 			free(str);
 		}
+        free_cmd_list(&cmd_list);
 	}
 }
 
