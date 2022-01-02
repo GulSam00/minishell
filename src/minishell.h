@@ -6,7 +6,7 @@
 /*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/25 14:17:39 by sham              #+#    #+#             */
-/*   Updated: 2022/01/01 12:51:15 by marvin           ###   ########.fr       */
+/*   Updated: 2022/01/02 14:53:36 by nasong           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -109,7 +109,6 @@ int						free_cmd_list(t_list *list);
 int						free_str_list(t_list *list);
 void					print_cmd_list(t_list *list);
 void					print_str_list(t_list *list);
-void					print_env_list(t_list *list);
 void					pop_env_with_key(t_list *list, char *key);
 void					init_env(t_env *env, char *key, char *value);
 char					*get_value(t_list *list, char *find_key);
@@ -124,12 +123,12 @@ int						ft_parser(t_list *cmd_list, \
 						char *input, t_list *env_list);
 int						ft_env_parser(t_list *env_list, char **envp);
 enum e_cmd_type			get_type(char *word);
-char	*change_word(char *str, char *sub_str, int start, int end);
-char	*change_to_env(char *str, t_list *env_list, int start);
-char	*get_word(char *str);
-char	*check_quotes(char *str, t_list *env_list, int quotes, int rm_quotes);
-char	**env_to_char(t_list *env_list);
-char	**list_to_char(t_list *str_list);
+char					*change_word(char *str, char *sub_str, int start, int end);
+char					*change_to_env(char *str, t_list *env_list, int start);
+char					*get_word(char *str);
+char					*check_quotes(char *str, t_list *env_list, int quotes, int rm_quotes);
+char					**env_to_char(t_list *env_list);
+char					**list_to_char(t_list *str_list);
 
 char					*ft_quotes(char *str, \
 						t_list *env_list, int first_quotes);

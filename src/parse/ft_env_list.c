@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_env_list.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
+/*   By: nasong <nasong@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/12/05 22:10:18 by nasong            #+#    #+#             */
-/*   Updated: 2022/01/02 13:30:10 by nasong           ###   ########.fr       */
+/*   Created: 2022/01/02 14:51:56 by nasong            #+#    #+#             */
+/*   Updated: 2022/01/02 14:51:58 by nasong           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -117,25 +117,4 @@ int	free_env_list(t_list *list)
 	list->front = 0;
 	list->size = 0;
 	return (1);
-}
-
-void	print_env_list(t_list *list)
-{
-	t_data	*now;
-	t_env	*target;
-
-	if (list == 0)
-	{
-		printf("NULL LIST\n");
-		return ;
-	}
-	now = list->front;
-	printf("\n=====PRINT ENV LIST / SIZE: %d===\n", list->size);
-	while (now != 0)
-	{
-		target = now->contents;
-		printf("key: %s | value: %s\n", target->key, target->value);
-		now = now->next;
-	}
-	printf("=====PRINT ENV LIST END===\n");
 }
