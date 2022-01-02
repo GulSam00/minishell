@@ -6,7 +6,7 @@
 /*   By: sham <sham@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/25 14:09:22 by sham              #+#    #+#             */
-/*   Updated: 2022/01/02 17:01:48 by nasong           ###   ########.fr       */
+/*   Updated: 2022/01/02 17:29:58 by nasong           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,6 +36,13 @@ int	init_main(t_list *cmd_list, t_list *env_list, char **envp)
 	return (result);
 }
 
+void	print_prompt(void)
+{
+	printf("\033[1A");
+	printf("\033[6C");
+	printf(" exit\n");
+}
+
 void	prompt_while(t_list cmd_list, t_list env_list)
 {
 	char	*str;
@@ -46,9 +53,7 @@ void	prompt_while(t_list cmd_list, t_list env_list)
 		if (!str)
 		{
 			free(str);
-			printf("\033[1A");
-			printf("\033[6C");
-			printf(" exit\n");
+			print_prompt();
 			exit(0);
 		}
 		else if (*str == '\0')
@@ -56,9 +61,11 @@ void	prompt_while(t_list cmd_list, t_list env_list)
 		else
 		{
 			add_history(str);
-			ft_parser(&cmd_list, str, &env_list);
-			fork_cmd(&cmd_list, &env_list);
-			free(str);
+			if (ft_parser(&cmd_list, str, &env_list) == 0)
+			{
+				fork_cmd(&cmd_list, &env_list);
+				free(str);
+			}
 		}
 		free_cmd_list(&cmd_list);
 	}

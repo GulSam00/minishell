@@ -6,7 +6,7 @@
 /*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/02 14:52:30 by nasong            #+#    #+#             */
-/*   Updated: 2022/01/02 17:02:15 by nasong           ###   ########.fr       */
+/*   Updated: 2022/01/02 17:27:56 by nasong           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -110,6 +110,8 @@ int	ft_parser(t_list *cmd_list, char *input, t_list *env_list)
 		free_str_list(&word_list);
 		return (-1);
 	}
+	if (word_list.size == 0)
+		return (-1);
 	add_cmd(cmd_list, &word_list);
 	free_str_list(&word_list);
 	return (0);
