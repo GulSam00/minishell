@@ -14,7 +14,7 @@
 
 extern int	g_sc;
 
-void	heredoc_child(int *fd, char *dst)
+static void	heredoc_child(int *fd, char *dst)
 {
 	char	*str;
 
@@ -41,7 +41,7 @@ void	heredoc_child(int *fd, char *dst)
 	exit(0);
 }
 
-int	ft_d_left_heredoc(char *dst)
+static int	ft_d_left_heredoc(char *dst)
 {
 	int		fd[2];
 	int		status;
@@ -58,6 +58,24 @@ int	ft_d_left_heredoc(char *dst)
 		g_sc = WEXITSTATUS(status);
 		dup2(fd[0], STDIN_FILENO);
 		close(fd[0]);
+	}
+	return (0);
+}
+
+int	handle_heredoc(t_cmd *cmd)
+{
+	t_list			*dis_list;
+	t_data			*cur_dis;
+	t_discriptor	*dis;
+
+	dis_list = &cmd->discriptor;
+	cur_dis = dis_list->front;
+	while (cur_dis)
+	{
+		dis = cur_dis->contents;
+		if (dis->type == DOUBLE_IN)
+			ft_d_left_heredoc(dis->file_name);
+		cur_dis = cur_dis->next;
 	}
 	return (0);
 }

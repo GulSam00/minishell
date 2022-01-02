@@ -6,7 +6,7 @@
 /*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/01 12:04:51 by sham              #+#    #+#             */
-/*   Updated: 2022/01/02 17:23:13 by marvin           ###   ########.fr       */
+/*   Updated: 2022/01/02 18:12:36 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,9 @@ t_cmd *cmd, t_list *env_list)
 	int	state;
 
 	state = 0;
+	handle_dis(cmd);
+	handle_heredoc(cmd);
+	dup_cmd_dis(cmd);
 	if (!ft_cmpstr(cmd_name, "env"))
 		state = ft_env(cmd->arg, env_list);
 	else if (!ft_cmpstr(cmd_name, "export"))
@@ -39,7 +42,7 @@ t_cmd *cmd, t_list *env_list, int is_forked)
 	int	state;
 
 	state = 0;
-	handle_dis(cmd);
+	handle_heredoc(cmd);
 	dup_cmd_dis(cmd);
 	if (!ft_cmpstr(cmd_name, "cd"))
 		state = ft_cd(cmd->arg[1], env_list);
@@ -64,13 +67,13 @@ void	execve_cmd_normal(char *cmd_name, t_cmd *cmd, t_list *env_list)
 	char	**argv_env;
 	int		status;
 
-	handle_dis(cmd);
 	argv_env = env_to_char(env_list);
 	signal(SIGINT, execve_sig_handler);
 	signal(SIGQUIT, execve_sig_handler);
 	pid = fork();
 	if (pid == 0)
 	{
+		handle_heredoc(cmd);
 		dup_cmd_dis(cmd);
 		execve(cmd_name, cmd->arg, argv_env);
 	}
