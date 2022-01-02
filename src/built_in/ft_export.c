@@ -3,21 +3,19 @@
 /*                                                        :::      ::::::::   */
 /*   ft_export.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
+/*   By: nasong <nasong@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/11/28 17:30:15 by sham              #+#    #+#             */
-/*   Updated: 2021/12/26 19:06:12 by marvin           ###   ########.fr       */
+/*   Created: 2022/01/02 14:55:13 by nasong            #+#    #+#             */
+/*   Updated: 2022/01/02 14:57:28 by nasong           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
-// 수정중
-
-int print_env(t_list *env_list)
+int	print_env(t_list *env_list)
 {
-	t_data *now;
-	t_env *target;
+	t_data	*now;
+	t_env	*target;
 
 	if (env_list == 0)
 		return (0);
@@ -36,30 +34,27 @@ int print_env(t_list *env_list)
 		write(STDOUT_FILENO, "\n", 1);
 		now = now->next;
 	}
-
 	return (0);
 }
 
-int add_env(t_list *env_list, char *arg)
+int	add_env(t_list *env_list, char *arg)
 {
-	t_env *new_env;
-	char *key;
-	char *value;
-	int index;
+	t_env	*new_env;
+	char	*key;
+	char	*value;
+	int		index;
 
 	key = 0;
 	value = 0;
 	index = 0;
 	new_env = malloc(sizeof(t_env));
-	if (new_env == 0)
-		return (1);
-	while (arg[index] !='\0')
+	while (arg[index] != '\0')
 	{
 		if (arg[index] == '=')
 		{
 			key = ft_strndup(arg, index);
 			value = ft_strdup(arg + index + 1);
-		    pop_env_with_key(env_list, key);
+			pop_env_with_key(env_list, key);
 			init_env(new_env, key, value);
 			add_data(env_list, new_env);
 			return (0);
@@ -71,10 +66,10 @@ int add_env(t_list *env_list, char *arg)
 	return (0);
 }
 
-int ft_export(t_list *env_list, char *argv[])
+int	ft_export(t_list *env_list, char *argv[])
 {
-	int index;
-	int result;
+	int	index;
+	int	result;
 
 	index = 1;
 	result = 0;

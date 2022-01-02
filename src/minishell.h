@@ -6,7 +6,7 @@
 /*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/25 14:17:39 by sham              #+#    #+#             */
-/*   Updated: 2022/01/02 14:53:36 by nasong           ###   ########.fr       */
+/*   Updated: 2022/01/02 14:58:34 by nasong           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -123,10 +123,13 @@ int						ft_parser(t_list *cmd_list, \
 						char *input, t_list *env_list);
 int						ft_env_parser(t_list *env_list, char **envp);
 enum e_cmd_type			get_type(char *word);
-char					*change_word(char *str, char *sub_str, int start, int end);
-char					*change_to_env(char *str, t_list *env_list, int start);
+char					*change_word(char *str, char *sub_str, \
+						int start, int end);
+char					*change_to_env(char *str, \
+						t_list *env_list, int start);
 char					*get_word(char *str);
-char					*check_quotes(char *str, t_list *env_list, int quotes, int rm_quotes);
+char					*check_quotes(char *str, t_list *env_list, \
+						int quotes, int rm_quotes);
 char					**env_to_char(t_list *env_list);
 char					**list_to_char(t_list *str_list);
 
