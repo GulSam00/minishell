@@ -14,103 +14,24 @@
 
 extern int	g_sc;
 
-char	*get_word(char *str)
+void    check_quotes_sub(char *str, int index, int *quotes, int *rm_quotes)
 {
-	int	idx;
-	int	first_quotes;
-
-	idx = 0;
-	first_quotes = 0;
-	if (str[idx] == '\'')
-	{
-		first_quotes = 1;
-		idx++;
+    if (str[index] == '\'')
+    {
+    	if (*quotes == 0)
+	    	*quotes = 1;
+	    else if (*quotes == 1)
+			*quotes = 0;
+		*rm_quotes = 1;
 	}
-	else if (str[idx] == '\"')
+	else if (str[index] == '\"')
 	{
-		first_quotes = 2;
-		idx++;
+		if (*quotes == 0)
+			*quotes = 2;
+		else if (*quotes == 2)
+			*quotes = 0;
+		*rm_quotes = 1;
 	}
-	while (str[idx] != '\0')
-	{
-		if (str[idx] == '\'')
-		{
-			if (first_quotes == 0)
-				break ;
-			else if (first_quotes == 1)
-			{
-				idx++;
-				break ;
-			}
-		}
-		else if (str[idx] == '\"')
-		{
-			if (first_quotes == 0)
-				break ;
-			else if (first_quotes == 2)
-			{
-				idx++;
-				break ;
-			}
-		}
-		if (str[idx] == ' ' && first_quotes == 0)
-			break ;
-		idx++;
-	}
-	return (ft_strndup(str, idx));
-}
-
-char	*change_word(char *str, char *sub_str, int start, int end)
-{
-	char	*front;
-	char	*temp;
-	char	*back;
-
-	front = ft_strndup(str, start);
-	back = ft_strdup(str + end);
-	temp = ft_strjoin(front, sub_str);
-	free(front);
-	front = temp;
-	temp = ft_strjoin(front, back);
-	free(front);
-	free(back);
-	front = temp;
-	return (front);
-}
-
-char	*change_to_env(char *str, t_list *env_list, int start)
-{
-	int		index;
-	char	*target;
-	char	*env;
-	char	*temp;
-
-	index = start + 1;
-	while (str[index] != ' ' && str[index] != '\'' \
-	&& str[index] != '\"' && str[index] != '\0')
-	{
-		if (str[index - 1] =='$')
-		{
-			if (str[index] == '?' || str[index] == '$')
-				break;
-		}
-		index++;
-	}
-	target = ft_strndup(str + start + 1, index - start - 1);
-	env = ft_strdup(get_value(env_list, target));
-	if (env == 0)
-	{
-		if (ft_strlen(target) == 1 && target[0] == '?')
-			env = ft_itoa(g_sc);
-		if (ft_strlen(target) == 1 && target[0] == '$')
-			env = ft_itoa(getpid());
-		else
-			env = ft_strdup("");
-	}
-	temp = change_word(str, env, start, index);
-	free(target);
-	free(env);
-	return (temp);
 }
 
 char	*check_quotes(char *str, t_list *env_list, int quotes, int rm_quotes)
@@ -125,22 +46,7 @@ char	*check_quotes(char *str, t_list *env_list, int quotes, int rm_quotes)
 	end = 0;
 	while (result[end] != '\0')
 	{
-		if (result[end] == '\'')
-		{
-			if (quotes == 0)
-				quotes = 1;
-			else if (quotes == 1)
-				quotes = 0;
-			rm_quotes = 1;
-		}
-		else if (result[end] == '\"')
-		{
-			if (quotes == 0)
-				quotes = 2;
-			else if (quotes == 2)
-				quotes = 0;
-			rm_quotes = 1;
-		}
+        check_quotes_sub(result, end, &quotes, &rm_quotes);
 		if (result[end] == '$' && quotes != 1)
 		{
 			start = end;
@@ -155,7 +61,6 @@ char	*check_quotes(char *str, t_list *env_list, int quotes, int rm_quotes)
 		temp = ft_strndup(result + 1, ft_strlen(result) - 2);
 		free(result);
 		result = temp;
-		rm_quotes = 0;
 	}
 	return (result);
 }
@@ -174,6 +79,17 @@ void    append_str(t_list *word_list, char *str)
     temp = ft_strjoin(target, str);
     free(now->contents);
     now->contents = temp;
+}
+
+void    append_cmd(t_list *word_list, char *word, int add)
+{
+    if (add == 0)
+        add_data(word_list, word);
+    else
+    {
+        append_str(word_list, word);
+        free(word);
+    }
 }
 
 int		ft_div_input(t_list *word_list, char *input, t_list *env_list)
@@ -195,20 +111,12 @@ int		ft_div_input(t_list *word_list, char *input, t_list *env_list)
 			continue ;
 		}
 		word = get_word(input + now);
-		if (word == 0)
-			return (-1);
 		now += ft_strlen(word);
 		result = check_quotes(word, env_list, 0, 0);
 		free(word);
 		word = result;
 		result = 0;
-        if (add == 0)
-		    add_data(word_list, word);
-        else
-        {
-            append_str(word_list, word);
-            free(word);
-        }
+        append_cmd(word_list, word, add);
         add = 1;
 	}
 	return (0);

@@ -124,6 +124,9 @@ int						ft_parser(t_list *cmd_list, \
 						char *input, t_list *env_list);
 int						ft_env_parser(t_list *env_list, char **envp);
 enum e_cmd_type			get_type(char *word);
+char	*change_word(char *str, char *sub_str, int start, int end);
+char	*change_to_env(char *str, t_list *env_list, int start);
+char	*get_word(char *str);
 
 char					*ft_quotes(char *str, \
 						t_list *env_list, int first_quotes);
