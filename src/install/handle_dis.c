@@ -6,7 +6,7 @@
 /*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/03 13:26:04 by sham              #+#    #+#             */
-/*   Updated: 2022/01/02 18:02:20 by marvin           ###   ########.fr       */
+/*   Updated: 2022/01/02 18:21:53 by sham             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,7 @@ int	handle_dis(t_cmd *cmd)
 			ft_d_left_normal(dis->file_name, dis);
 		else if (dis->type == OUT)
 			ft_d_right_paste(dis->file_name, dis);
-		else
+		else if (dis->type == DOUBLE_OUT)
 			ft_d_right_append(dis->file_name, dis);
 		cur_dis = cur_dis->next;
 	}
