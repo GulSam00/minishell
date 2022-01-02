@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_parser.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nasong <nasong@student.42seoul.kr>         +#+  +:+       +#+        */
+/*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/02 14:52:30 by nasong            #+#    #+#             */
-/*   Updated: 2022/01/02 14:52:32 by nasong           ###   ########.fr       */
+/*   Updated: 2022/01/02 16:44:51 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,7 +78,7 @@ int	add_cmd(t_list *cmd_list, t_list *word_list)
 	t_cmd			*new_cmd;
 	t_data			*now_word;
 	t_discriptor	*new_discriptor;
-    char			*copy;
+	char			*copy;
 
 	new_cmd = 0;
 	now_word = word_list->front;
@@ -90,27 +90,27 @@ int	add_cmd(t_list *cmd_list, t_list *word_list)
 			new_cmd = (t_cmd *)malloc(sizeof(t_cmd));
 			init_cmd(new_cmd);
 		}
-    	copy = ft_strndup(now_word->contents, ft_strlen(now_word->contents));
-    	if (get_type(now_word->contents) == PIPE)
-	    	set_next_cmd(cmd_list, &new_cmd);
-    	else if (get_type(now_word->contents) == DISCRIPTOR)
-	    {
-		    new_discriptor = (t_discriptor *)malloc(sizeof(t_discriptor));
-    		init_discriptor(new_discriptor, 0, get_discriptor_type(copy));
-	    	free(copy);
-    	}
-	    else
-    	{
-	    	if (new_discriptor != 0)
-		    {
-			    new_discriptor->file_name = copy;
-			    add_data(&new_cmd->discriptor, new_discriptor);
-			    new_discriptor = 0;
-    		}
-		    else
-	    		add_data(&new_cmd->arg_list, copy);
-	    }
-        now_word = now_word->next;
+		copy = ft_strndup(now_word->contents, ft_strlen(now_word->contents));
+		if (get_type(now_word->contents) == PIPE)
+			set_next_cmd(cmd_list, &new_cmd);
+		else if (get_type(now_word->contents) == DISCRIPTOR)
+		{
+			new_discriptor = (t_discriptor *)malloc(sizeof(t_discriptor));
+			init_discriptor(new_discriptor, 0, get_discriptor_type(copy));
+			free(copy);
+		}
+		else
+		{
+			if (new_discriptor != 0)
+			{
+				new_discriptor->file_name = copy;
+				add_data(&new_cmd->discriptor, new_discriptor);
+				new_discriptor = 0;
+			}
+			else
+				add_data(&new_cmd->arg_list, copy);
+		}
+		now_word = now_word->next;
 	}
 	if (new_cmd != 0)
 		set_next_cmd(cmd_list, &new_cmd);
@@ -132,5 +132,5 @@ int	ft_parser(t_list *cmd_list, char *input, t_list *env_list)
 	}
 	add_cmd(cmd_list, &word_list);
 	free_str_list(&word_list);
-    return (0);
+	return (0);
 }

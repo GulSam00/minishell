@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_check_quotes.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nasong <nasong@student.42seoul.kr>         +#+  +:+       +#+        */
+/*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/02 12:59:09 by nasong            #+#    #+#             */
-/*   Updated: 2022/01/02 14:51:05 by nasong           ###   ########.fr       */
+/*   Updated: 2022/01/02 16:44:25 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ void	check_quotes_sub(char *str, int index, int *quotes, int *rm_quotes)
 	}
 }
 
-void    check_env(char **result, t_list *env_list, int end)
+void	check_env(char **result, t_list *env_list, int end)
 {
 	char	*temp;
 
