@@ -6,19 +6,17 @@
 /*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/05 19:53:07 by nasong            #+#    #+#             */
-/*   Updated: 2021/12/26 19:47:09 by marvin           ###   ########.fr       */
+/*   Updated: 2022/01/02 12:39:57 by nasong           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
-// 수정중
-
-int quotes_check(char *str)
+int	quotes_check(char *str)
 {
-	int s_quotes;
-	int d_quotes;
-	int index;
+	int	s_quotes;
+	int	d_quotes;
+	int	index;
 
 	s_quotes = 0;
 	d_quotes = 0;
@@ -37,11 +35,11 @@ int quotes_check(char *str)
 	return (1);
 }
 
-char **list_to_char(t_list *str_list)
+char	**list_to_char(t_list *str_list)
 {
-	char **result;
-	t_data *now_data;
-	int index;
+	char	**result;
+	t_data	*now_data;
+	int	index;
 
 	result = (char **)malloc(sizeof(char *) * (str_list->size + 1));
 	if (result == 0)
@@ -58,13 +56,13 @@ char **list_to_char(t_list *str_list)
 	return (result);
 }
 
-int add_cmd(t_list *cmd_list, t_list *word_list)
+int	add_cmd(t_list *cmd_list, t_list *word_list)
 {
-	char *copy;
-	enum e_cmd_type type;
-	t_cmd *new_cmd;
-	t_data *now_word;
-	t_discriptor *new_discriptor;
+	char	*copy;
+	enum	e_cmd_type type;
+	t_cmd	*new_cmd;
+	t_data	*now_word;
+	t_discriptor	*new_discriptor;
 
 	new_cmd = 0;
 	now_word = word_list->front;
@@ -115,7 +113,7 @@ int add_cmd(t_list *cmd_list, t_list *word_list)
 	return (0);
 }
 
-int ft_parser(t_list *cmd_list, char *input, t_list *env_list)
+int	ft_parser(t_list *cmd_list, char *input, t_list *env_list)
 {
 	t_list	word_list;
 
