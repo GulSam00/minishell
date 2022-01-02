@@ -6,7 +6,7 @@
 /*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/05 21:57:01 by nasong            #+#    #+#             */
-/*   Updated: 2021/12/26 19:39:38 by marvin           ###   ########.fr       */
+/*   Updated: 2022/01/02 13:03:44 by nasong           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ int	free_cmd_list(t_list *list)
 	t_data	*next;
 	t_cmd	*target;
 	t_data	*temp;
-    int index = 0;
+	int		index;
 
 	if (list == 0)
 		return (-1);
@@ -35,14 +35,14 @@ int	free_cmd_list(t_list *list)
 	now = list->front;
 	while (now != 0)
 	{
-        index = 0;
+		index = 0;
 		next = now->next;
 		target = now->contents;
 		free_str_list(&target->arg_list);
 		free_discriptor_list(&target->discriptor);
 		free(target->cmd);
-        while (target->arg[index] != 0)
-            free(target->arg[index++]);
+		while (target->arg[index] != 0)
+			free(target->arg[index++]);
 		free(target->arg);
 		free(target);
 		temp = now;
