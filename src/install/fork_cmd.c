@@ -6,7 +6,7 @@
 /*   By: sham <sham@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/12 17:56:29 by sham              #+#    #+#             */
-/*   Updated: 2022/01/03 14:13:31 by sham             ###   ########.fr       */
+/*   Updated: 2022/01/03 14:35:22 by sham             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,14 +65,6 @@ static void	single_cmd(t_data *data, t_list *env_list, int status)
 	}
 }
 
-// static void	pid_child_wait(int prev_input, pid_t pid, t_cmd *cmd, int status)
-// {
-// 	close(prev_input);
-// 	close_main_fd(cmd);
-// 	waitpid(pid, &status, 0);
-// 	g_sc = WEXITSTATUS(status);
-// }
-
 static void	multi_cmd(t_data *data, t_list *env_list, int status)
 {
 	pid_t	pid;
@@ -85,13 +77,7 @@ static void	multi_cmd(t_data *data, t_list *env_list, int status)
 	{
 		cmd = data->contents;
 		pipe(fd);
-		printf ("fd : %d %d\n", fd[0], fd[1]);
-		if (handle_dis(cmd) == -1)
-		{
-			g_sc = 1;
-			close_main_fd(cmd);
-			return ;
-		}		
+		multi_cmd_while(cmd);
 		pid = fork();
 		if (pid == 0)
 		{
@@ -104,11 +90,7 @@ static void	multi_cmd(t_data *data, t_list *env_list, int status)
 			close(prev_input);
 		prev_input = fd[0];
 	}
-	// pid_child_wait(prev_input, pid, cmd, status);
-	close(prev_input);
-	close_main_fd(cmd);
-	waitpid(pid, &status, 0);
-	g_sc = WEXITSTATUS(status);
+	multi_cmd_wait_child(prev_input, pid, cmd, status);
 }
 
 void	fork_cmd(t_list *cmd_list, t_list *env_list)

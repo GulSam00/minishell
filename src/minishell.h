@@ -6,7 +6,7 @@
 /*   By: sham <sham@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/25 14:17:39 by sham              #+#    #+#             */
-/*   Updated: 2022/01/03 13:44:05 by sham             ###   ########.fr       */
+/*   Updated: 2022/01/03 14:34:18 by sham             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -156,6 +156,9 @@ int						ft_isdigit(int c);
 
 /* install */
 void					fork_cmd(t_list *cmd_list, t_list *env_list);
+void					multi_cmd_wait_child(int prev_input, \
+						pid_t pid, t_cmd *cmd, int status);
+void					multi_cmd_while(t_cmd *cmd);
 int						check_bulit_in(t_cmd *cmd, int range);
 void					parse_cmd(t_cmd *cmd, t_list *env_list, int is_forked);
 void					execve_cmd_sing_env(char *cmd_name, \

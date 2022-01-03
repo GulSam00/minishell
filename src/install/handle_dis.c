@@ -6,7 +6,7 @@
 /*   By: sham <sham@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/03 13:26:04 by sham              #+#    #+#             */
-/*   Updated: 2022/01/03 13:43:25 by sham             ###   ########.fr       */
+/*   Updated: 2022/01/03 14:38:59 by sham             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,6 +47,18 @@ static int	ft_d_left_normal(char *dst, t_discriptor *dis)
 	return (0);
 }
 
+static int	route_dis(t_discriptor *dis)
+{
+	if (dis->type == IN)
+		return (ft_d_left_normal(dis->file_name, dis));
+	else if (dis->type == OUT)
+		return (ft_d_right_paste(dis->file_name, dis));
+	else if (dis->type == DOUBLE_IN)
+		return (ft_d_left_heredoc(dis->file_name, dis));
+	else
+		return (ft_d_right_append(dis->file_name, dis));
+}
+
 int	handle_dis(t_cmd *cmd)
 {
 	t_list			*dis_list;
@@ -59,18 +71,12 @@ int	handle_dis(t_cmd *cmd)
 	while (cur_dis)
 	{
 		dis = cur_dis->contents;
-		if (dis->type == IN)
-			result = ft_d_left_normal(dis->file_name, dis);
-		else if (dis->type == OUT)
-			result = ft_d_right_paste(dis->file_name, dis);
-		else if (dis->type == DOUBLE_IN)
-			result = ft_d_left_heredoc(dis->file_name, dis);
-		else if (dis->type == DOUBLE_OUT)
-			result = ft_d_right_append(dis->file_name, dis);
+		result = route_dis(dis);
 		if (result < 0)
 		{
 			if (result == -1)
-				ft_error_sing_dot(dis->file_name, NULL, "No such file or directory");
+				ft_error_sing_dot(dis->file_name, \
+				NULL, "No such file or directory");
 			return (-1);
 		}
 		cur_dis = cur_dis->next;

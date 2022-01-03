@@ -62,4 +62,3 @@ int	ft_d_left_heredoc(char *dst, t_discriptor *dis)
 	}
 	return (0);
 }
-
