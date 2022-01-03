@@ -6,7 +6,7 @@
 /*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/05 21:49:08 by nasong            #+#    #+#             */
-/*   Updated: 2021/12/25 16:57:10 by marvin           ###   ########.fr       */
+/*   Updated: 2022/01/02 14:58:52 by nasong           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,6 @@ int	ft_strlen(const char *str)
 
 	len = 0;
 	while (str[len] != '\0')
-	len++;
+		len++;
 	return (len);
 }

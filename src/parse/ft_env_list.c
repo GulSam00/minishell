@@ -3,51 +3,27 @@
 /*                                                        :::      ::::::::   */
 /*   ft_env_list.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sham <sham@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: nasong <nasong@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/12/05 22:10:18 by nasong            #+#    #+#             */
-/*   Updated: 2021/12/12 17:46:06 by sham             ###   ########.fr       */
+/*   Created: 2022/01/02 14:51:56 by nasong            #+#    #+#             */
+/*   Updated: 2022/01/02 14:51:58 by nasong           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
-void init_env(t_env *env, char *key, char *value)
+void	init_env(t_env *env, char *key, char *value)
 {
 	env->key = key;
 	env->value = value;
 }
 
-char **env_to_char(t_list *env_list)
+char	*get_value(t_list *list, char *find_key)
 {
-	char **result;
-	int index;
-	t_data *now_env;
-	t_env *target;
-
-	result = (char **)malloc(sizeof(char *) * (env_list->size + 1));
-	if (result == 0)
-		return (0);
-	index = 0;
-	now_env = env_list->front;
-	while (now_env != 0)
-	{
-		target = now_env->contents;
-		result[index] = ft_strjoin_with_char(target->key, target->value, '=');
-		now_env = now_env->next;
-		index++;
-	}
-	result[index] = NULL;
-
-	return (result);
-}
-
-char *get_value(t_list *list, char *find_key)
-{
-	t_data *now;
-	t_env *target;
-	int key_len;
-	int now_key_len;
+	t_data	*now;
+	t_env	*target;
+	int		key_len;
+	int		now_key_len;
 
 	if (list == 0)
 		return (0);
@@ -67,16 +43,36 @@ char *get_value(t_list *list, char *find_key)
 	return (0);
 }
 
-void pop_env_with_key(t_list *list, char *key)
+void	free_env(t_list *list, t_env *target, t_data *now, t_data *pre)
 {
-	t_data *now;
-	t_data *pre;
-	t_env *target;
-	int key_len;
-	int now_key_len;
+	if (pre == 0)
+	{
+		list->front = now->next;
+		free(target->key);
+		free(target->value);
+		free(now);
+	}
+	else
+	{
+		pre->next = now->next;
+		free(target->key);
+		free(target->value);
+		free(target);
+		free(now);
+	}
+	list->size--;
+}
+
+void	pop_env_with_key(t_list *list, char *key)
+{
+	t_data	*now;
+	t_data	*pre;
+	t_env	*target;
+	int		key_len;
+	int		now_key_len;
 
 	if (list == 0)
-		return;
+		return ;
 	now = list->front;
 	pre = 0;
 	key_len = ft_strlen(key);
@@ -84,40 +80,25 @@ void pop_env_with_key(t_list *list, char *key)
 	{
 		target = now->contents;
 		now_key_len = ft_strlen(target->key);
-		if ((key_len == now_key_len) && (ft_strncmp(key, target->key, key_len)))
+		if ((key_len == now_key_len) && \
+		(ft_strncmp(key, target->key, key_len + 1) == 0))
 		{
-			if (pre == 0)
-			{
-				list->front = now->next;
-				free(target->key);
-				free(target->value);
-				free(now);
-			}
-			else
-			{
-				pre->next = now->next;
-				free(target->key);
-				free(target->value);
-				free(now);
-			}
-			list->size--;
-			break;
+			free_env(list, target, now, pre);
+			break ;
 		}
 		pre = now;
 		now = now->next;
 	}
 }
 
-int free_env_list(t_list *list)
+int	free_env_list(t_list *list)
 {
-	t_data *now;
-	t_data *next;
-	t_env *target;
-	t_data *temp;
+	t_data	*now;
+	t_data	*next;
+	t_env	*target;
+	t_data	*temp;
 
-	if (list == 0)
-		return (-1);
-	if (list->size == 0 || list->front == 0)
+	if (list == 0 || list->size == 0 || list->front == 0)
 		return (0);
 	now = list->front;
 	while (now != 0)
@@ -125,8 +106,9 @@ int free_env_list(t_list *list)
 		next = now->next;
 		target = now->contents;
 		free(target->key);
-		free(target->value);
-		//free
+		if (target->value != 0)
+			free(target->value);
+		free(target);
 		temp = now;
 		now = next;
 		free(temp);
@@ -135,25 +117,4 @@ int free_env_list(t_list *list)
 	list->front = 0;
 	list->size = 0;
 	return (1);
-}
-
-void print_env_list(t_list *list)
-{
-	t_data *now;
-	t_env *target;
-
-	if (list == 0)
-	{
-		printf("NULL LIST\n");
-		return;
-	}
-	now = list->front;
-	printf("\n=====PRINT ENV LIST / SIZE: %d===\n", list->size);
-	while (now != 0)
-	{
-		target = now->contents;
-		printf("key: %s | value: %s\n", target->key, target->value);
-		now = now->next;
-	}
-	printf("=====PRINT ENV LIST END===\n");
 }

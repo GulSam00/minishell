@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   fork_cmd.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
+/*   By: sham <sham@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/12 17:56:29 by sham              #+#    #+#             */
-/*   Updated: 2021/12/25 18:32:52 by sham             ###   ########.fr       */
+/*   Updated: 2022/01/03 14:35:22 by sham             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
-extern int g_sc;
+extern int	g_sc;
 
 static void	pid_child(int prev_input, int *fd, t_data *data)
 {
@@ -43,17 +43,22 @@ static void	single_cmd(t_data *data, t_list *env_list, int status)
 	t_cmd	*cmd;
 
 	cmd = data->contents;
-	if (!check_bulit_in(cmd))
-	{
-		execve_cmd_bult_in(cmd->arg[0], cmd, env_list, 0);
-	}
+	if (!check_bulit_in(cmd, 2))
+		execve_cmd_sing_env(cmd->arg[0], cmd, env_list);
 	else
-	{
+	{	
+		if (handle_dis(cmd) == -1)
+		{
+			g_sc = 1;
+			close_main_fd(cmd);
+			return ;
+		}
 		pid = fork();
 		if (pid == 0)
-			parse_cmd(cmd, env_list);
+			parse_cmd(cmd, env_list, 0);
 		else
 		{
+			close_main_fd(cmd);
 			waitpid(pid, &status, 0);
 			g_sc = WEXITSTATUS(status);
 		}
@@ -72,11 +77,12 @@ static void	multi_cmd(t_data *data, t_list *env_list, int status)
 	{
 		cmd = data->contents;
 		pipe(fd);
+		multi_cmd_while(cmd);
 		pid = fork();
 		if (pid == 0)
 		{
 			pid_child(prev_input, fd, data);
-			parse_cmd(cmd, env_list);
+			parse_cmd(cmd, env_list, 1);
 		}
 		data = data->next;
 		close(fd[1]);
@@ -84,9 +90,7 @@ static void	multi_cmd(t_data *data, t_list *env_list, int status)
 			close(prev_input);
 		prev_input = fd[0];
 	}
-	close(prev_input);
-	waitpid(pid, &status, 0);
-	g_sc = WEXITSTATUS(status);
+	multi_cmd_wait_child(prev_input, pid, cmd, status);
 }
 
 void	fork_cmd(t_list *cmd_list, t_list *env_list)

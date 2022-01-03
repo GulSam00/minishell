@@ -6,7 +6,7 @@
 /*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/05 21:40:42 by nasong            #+#    #+#             */
-/*   Updated: 2021/12/25 16:52:00 by marvin           ###   ########.fr       */
+/*   Updated: 2021/12/25 20:34:59 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,8 +18,8 @@ char	*ft_strdup(const char *str)
 	int		index;
 	char	*result;
 
-    if (str == 0)
-        return (0);
+	if (str == 0)
+		return (0);
 	index = 0;
 	len = ft_strlen(str) + 1;
 	result = (char *)malloc(sizeof(char) * len);

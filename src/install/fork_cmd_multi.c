@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_pwd.c                                           :+:      :+:    :+:   */
+/*   fork_cmd_multi.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
+/*   By: sham <sham@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/11/28 17:22:08 by sham              #+#    #+#             */
-/*   Updated: 2021/12/25 20:55:33 by marvin           ###   ########.fr       */
+/*   Created: 2022/01/03 14:32:06 by sham              #+#    #+#             */
+/*   Updated: 2022/01/03 14:33:56 by sham             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,13 +14,20 @@
 
 extern int	g_sc;
 
-int	ft_pwd(void)
+void	multi_cmd_wait_child(int prev_input, pid_t pid, t_cmd *cmd, int status)
 {
-	char	*path;
+	close(prev_input);
+	close_main_fd(cmd);
+	waitpid(pid, &status, 0);
+	g_sc = WEXITSTATUS(status);
+}
 
-	path = getcwd(NULL, STDOUT_FILENO);
-	write(STDOUT_FILENO, path, ft_strlen(path));
-	write(STDOUT_FILENO, "\n", 1);
-	g_sc = 0;
-	return (0);
+void	multi_cmd_while(t_cmd *cmd)
+{
+	if (handle_dis(cmd) == -1)
+	{
+		g_sc = 1;
+		close_main_fd(cmd);
+		return ;
+	}
 }

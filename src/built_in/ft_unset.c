@@ -3,52 +3,32 @@
 /*                                                        :::      ::::::::   */
 /*   ft_unset.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sham <sham@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/28 17:29:56 by sham              #+#    #+#             */
-/*   Updated: 2021/11/28 17:31:16 by sham             ###   ########.fr       */
+/*   Updated: 2021/12/26 19:48:35 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#include "../minishell.h"
 
-void ft_unset(t_env_list *env_list, char *key)
+int	ft_unset(t_list *env_list, char *argv[])
 {
-    t_env *now;
-    t_env *pre;
-    int key_len;
-    int env_key_len;
+	int	index;
+	int	result;
 
-    if (env_list == 0)
-        return;
-    now = env_list->front;
-    pre = 0;
-    key_len = ft_strlen(key);
-    while (now != 0)
-    {
-        env_key_len = ft_strlen(now->key);
-        if ((env_key_len == key_len) && ft_strncmp(now->key, key, key_len))
-        {
-            if (pre == 0)
-            {
-                env_list->front = now->next;
-                free(now->key);
-                free(now->value);
-            }
-            else
-            {
-                pre->next = now->next;
-                free(now->key);
-                free(now->value);
-                now = pre->next;
-            }
-            env_list->size--;
-            return;
-        }
-        else
-        {
-            pre = now;
-            now = now->next;
-        }
-    }
+	index = 1;
+	result = 0;
+	while (argv[index] != 0)
+	{
+		if (ft_isdigit(argv[index][0]) != 0 || argv[index][0] == '=')
+		{
+			ft_error_sing_dot("unset", argv[index], "not a valid identifier");
+			result = 1;
+		}
+		else
+			pop_env_with_key(env_list, argv[index]);
+		index++;
+	}
+	return (result);
 }

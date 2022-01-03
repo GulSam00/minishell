@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   execve_cmd.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
+/*   By: sham <sham@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/01 12:04:51 by sham              #+#    #+#             */
-/*   Updated: 2021/12/25 18:18:52 by marvin           ###   ########.fr       */
+/*   Updated: 2022/01/03 19:35:59 by sham             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,12 +14,43 @@
 
 extern int	g_sc;
 
+void	execve_cmd_sing_env(char *cmd_name, \
+t_cmd *cmd, t_list *env_list)
+{
+	int	state;
+	int out_dis;
+
+	state = 0;
+	if (handle_dis(cmd) == -1)
+	{
+		g_sc = 1;
+		return ;
+	}
+	out_dis = return_out_dis(cmd);
+	// 입력으로 들어오는 값들은 사실상 의미가 없다.
+	// 출력으로 들어오는 값들에 한해서만 write를 해줄 때 해당 디스크립터에서 write하게 해주면 되지 않을까?
+	// 파이프를 만들어서 출력 리다이렉트와 입력 리다이렉트가 읽고 쓰게 한다면?
+	if (!ft_cmpstr(cmd_name, "env"))
+		state = ft_env(cmd->arg, env_list, out_dis);
+	else if (!ft_cmpstr(cmd_name, "export"))
+		state = ft_export(env_list, cmd->arg, out_dis);
+	else if (!ft_cmpstr(cmd_name, "unset"))
+		state = ft_unset(env_list, cmd->arg);
+	else if (!ft_cmpstr(cmd_name, "exit"))
+		state = ft_exit(cmd->arg, 0);
+	else
+		state = ft_cd(cmd->arg[1], env_list);
+	close_main_fd(cmd);
+	g_sc = state;
+}
+
 void	execve_cmd_bult_in(char *cmd_name, \
 t_cmd *cmd, t_list *env_list, int is_forked)
 {
 	int	state;
 
-	handle_dis(cmd);
+	state = 0;
+	dup_cmd_dis(cmd);
 	if (!ft_cmpstr(cmd_name, "cd"))
 		state = ft_cd(cmd->arg[1], env_list);
 	else if (!ft_cmpstr(cmd_name, "pwd"))
@@ -28,10 +59,13 @@ t_cmd *cmd, t_list *env_list, int is_forked)
 		state = ft_echo(cmd->arg);
 	else if (!ft_cmpstr(cmd_name, "exit"))
 		state = ft_exit(cmd->arg, is_forked);
-	if (is_forked)
-		exit(state);
+	else if (!ft_cmpstr(cmd_name, "env"))
+		state = ft_env(cmd->arg, env_list, STDOUT_FILENO);
+	else if (!ft_cmpstr(cmd_name, "export"))
+		state = ft_export(env_list, cmd->arg, STDOUT_FILENO);
 	else
-		g_sc = state;
+		state = ft_unset(env_list, cmd->arg);
+	exit(state);
 }
 
 void	execve_cmd_normal(char *cmd_name, t_cmd *cmd, t_list *env_list)
@@ -40,13 +74,15 @@ void	execve_cmd_normal(char *cmd_name, t_cmd *cmd, t_list *env_list)
 	char	**argv_env;
 	int		status;
 
-	handle_dis(cmd);
 	argv_env = env_to_char(env_list);
 	signal(SIGINT, execve_sig_handler);
 	signal(SIGQUIT, execve_sig_handler);
 	pid = fork();
 	if (pid == 0)
+	{
+		dup_cmd_dis(cmd);
 		execve(cmd_name, cmd->arg, argv_env);
+	}
 	else
 		waitpid(pid, &status, 0);
 	exit(WEXITSTATUS(status));

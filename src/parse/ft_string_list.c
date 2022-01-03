@@ -3,19 +3,19 @@
 /*                                                        :::      ::::::::   */
 /*   ft_string_list.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sham <sham@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: nasong <nasong@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/12/05 21:56:01 by nasong            #+#    #+#             */
-/*   Updated: 2021/12/12 14:46:43 by sham             ###   ########.fr       */
+/*   Created: 2022/01/02 14:52:39 by nasong            #+#    #+#             */
+/*   Updated: 2022/01/02 14:52:41 by nasong           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
-int free_str_list(t_list *list)
+int	free_str_list(t_list *list)
 {
-	t_data *now;
-	t_data *next;
+	t_data	*now;
+	t_data	*next;
 
 	if (list == 0)
 		return (-1);
@@ -35,16 +35,16 @@ int free_str_list(t_list *list)
 	return (1);
 }
 
-void print_str_list(t_list *list)
+void	print_str_list(t_list *list)
 {
-	t_data *now;
-	char *target;
-	int index;
+	t_data	*now;
+	char	*target;
+	int		index;
 
 	if (list == 0)
 	{
 		printf("NULL LIST\n");
-		return;
+		return ;
 	}
 	index = 0;
 	now = list->front;

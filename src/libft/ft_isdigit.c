@@ -1,26 +1,20 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_pwd.c                                           :+:      :+:    :+:   */
+/*   ft_isdigit.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/11/28 17:22:08 by sham              #+#    #+#             */
-/*   Updated: 2021/12/25 20:55:33 by marvin           ###   ########.fr       */
+/*   Created: 2021/12/26 19:39:12 by marvin            #+#    #+#             */
+/*   Updated: 2021/12/26 19:39:13 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
-extern int	g_sc;
-
-int	ft_pwd(void)
+int	ft_isdigit(int c)
 {
-	char	*path;
-
-	path = getcwd(NULL, STDOUT_FILENO);
-	write(STDOUT_FILENO, path, ft_strlen(path));
-	write(STDOUT_FILENO, "\n", 1);
-	g_sc = 0;
+	if (c >= (int) '0' && c <= (int) '9')
+		return (1);
 	return (0);
 }

@@ -3,27 +3,30 @@
 /*                                                        :::      ::::::::   */
 /*   ft_env_parser.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sham <sham@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: nasong <nasong@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/12/12 15:47:44 by nasong            #+#    #+#             */
-/*   Updated: 2021/12/12 17:31:10 by nasong           ###   ########.fr       */
+/*   Created: 2022/01/02 14:52:10 by nasong            #+#    #+#             */
+/*   Updated: 2022/01/02 14:52:11 by nasong           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
-int ft_env_parser(t_list *env_list, char **envp)
+int	ft_env_parser(t_list *env_list, char **envp)
 {
-	char **split;
-	int index;
-	t_env *new_env;
+	char	**split;
+	int		index;
+	t_env	*new_env;
 
 	index = 0;
 	while (envp[index] != 0)
 	{
 		new_env = malloc(sizeof(t_env));
 		split = ft_split(envp[index], '=');
-		init_env(new_env, split[0], split[1]);
+		init_env(new_env, ft_strdup(split[0]), ft_strdup(split[1]));
+		free(split[0]);
+		free(split[1]);
+		free(split);
 		add_data(env_list, new_env);
 		index++;
 	}
