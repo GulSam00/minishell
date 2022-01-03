@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   execve_cmd.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
+/*   By: sham <sham@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/01 12:04:51 by sham              #+#    #+#             */
-/*   Updated: 2022/01/02 18:12:36 by marvin           ###   ########.fr       */
+/*   Updated: 2022/01/03 13:33:09 by sham             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,8 +20,11 @@ t_cmd *cmd, t_list *env_list)
 	int	state;
 
 	state = 0;
-	handle_dis(cmd);
-	handle_heredoc(cmd);
+	if (handle_dis(cmd) == -1)
+	{
+		g_sc = 1;
+		return ;
+	}
 	dup_cmd_dis(cmd);
 	if (!ft_cmpstr(cmd_name, "env"))
 		state = ft_env(cmd->arg, env_list);
@@ -33,6 +36,9 @@ t_cmd *cmd, t_list *env_list)
 		state = ft_exit(cmd->arg, 0);
 	else
 		state = ft_cd(cmd->arg[1], env_list);
+	close_main_fd(cmd);
+	dup2(0, STDIN_FILENO);
+	dup2(1, STDOUT_FILENO);
 	g_sc = state;
 }
 
@@ -42,7 +48,6 @@ t_cmd *cmd, t_list *env_list, int is_forked)
 	int	state;
 
 	state = 0;
-	handle_heredoc(cmd);
 	dup_cmd_dis(cmd);
 	if (!ft_cmpstr(cmd_name, "cd"))
 		state = ft_cd(cmd->arg[1], env_list);
@@ -73,7 +78,6 @@ void	execve_cmd_normal(char *cmd_name, t_cmd *cmd, t_list *env_list)
 	pid = fork();
 	if (pid == 0)
 	{
-		handle_heredoc(cmd);
 		dup_cmd_dis(cmd);
 		execve(cmd_name, cmd->arg, argv_env);
 	}

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
+/*   By: sham <sham@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/25 14:17:39 by sham              #+#    #+#             */
-/*   Updated: 2022/01/02 18:03:49 by marvin           ###   ########.fr       */
+/*   Updated: 2022/01/03 13:44:05 by sham             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -167,7 +167,7 @@ void					execve_cmd_normal(char *cmd_name, t_cmd *cmd, \
 
 /* dis */
 int						handle_dis(t_cmd *cmd);
-int						handle_heredoc(t_cmd *cmd);
+int						ft_d_left_heredoc(char *dst, t_discriptor *dis);
 void					close_main_fd(t_cmd *cmd);
 void					dup_cmd_dis(t_cmd *cmd);
 

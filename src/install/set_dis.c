@@ -24,8 +24,7 @@ void	close_main_fd(t_cmd *cmd)
 	while (cur_dis)
 	{
 		dis = cur_dis->contents;
-		if (dis->type != DOUBLE_IN)
-			close(dis->value);
+		close(dis->value);
 		cur_dis = cur_dis->next;
 	}
 }
@@ -41,7 +40,7 @@ void	dup_cmd_dis(t_cmd *cmd)
 	while (cur_dis)
 	{
 		dis = cur_dis->contents;
-		if (dis->type == IN)
+		if (dis->type == IN || dis -> type == DOUBLE_IN)
 		{
 			dup2(dis->value, STDIN_FILENO);
 			close(dis->value);
