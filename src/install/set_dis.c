@@ -53,4 +53,26 @@ void	dup_cmd_dis(t_cmd *cmd)
 		cur_dis = cur_dis->next;
 	}
 }
-// 자식 프로세스에서 실행 전 입력 출력 디스크립터 세팅
+
+int	return_out_dis(t_cmd *cmd)
+{
+	t_list			*dis_list;
+	t_data			*cur_dis;
+	t_discriptor	*dis;
+	int				dis_value;
+
+	dis_list = &cmd->discriptor;
+	cur_dis = dis_list->front;
+	while (cur_dis)
+	{
+		dis = cur_dis->contents;
+		if (dis->type == OUT || dis->type == DOUBLE_OUT)
+		{
+			dis_value = dis->value;
+		}
+		cur_dis = cur_dis->next;
+	}
+	if (dis_value == -1)
+		return (1);
+	return (dis_value);
+}

@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   ft_export.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nasong <nasong@student.42seoul.kr>         +#+  +:+       +#+        */
+/*   By: sham <sham@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/02 14:55:13 by nasong            #+#    #+#             */
-/*   Updated: 2022/01/02 14:57:28 by nasong           ###   ########.fr       */
+/*   Updated: 2022/01/03 19:35:15 by sham             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
-int	print_env(t_list *env_list)
+int	print_env(t_list *env_list, int out_dis)
 {
 	t_data	*now;
 	t_env	*target;
@@ -23,15 +23,15 @@ int	print_env(t_list *env_list)
 	while (now != 0)
 	{
 		target = now->contents;
-		write(STDOUT_FILENO, "declare -x ", ft_strlen("declare -x "));
-		write(STDOUT_FILENO, target->key, ft_strlen(target->key));
+		write(out_dis, "declare -x ", ft_strlen("declare -x "));
+		write(out_dis, target->key, ft_strlen(target->key));
 		if (target->value != 0)
 		{
-			write(STDOUT_FILENO, "=\"", 2);
-			write(STDOUT_FILENO, target->value, ft_strlen(target->value));
-			write(STDOUT_FILENO, "\"", 1);
+			write(out_dis, "=\"", 2);
+			write(out_dis, target->value, ft_strlen(target->value));
+			write(out_dis, "\"", 1);
 		}
-		write(STDOUT_FILENO, "\n", 1);
+		write(out_dis, "\n", 1);
 		now = now->next;
 	}
 	return (0);
@@ -66,7 +66,7 @@ int	add_env(t_list *env_list, char *arg)
 	return (0);
 }
 
-int	ft_export(t_list *env_list, char *argv[])
+int	ft_export(t_list *env_list, char *argv[], int out_dis)
 {
 	int	index;
 	int	result;
@@ -75,7 +75,7 @@ int	ft_export(t_list *env_list, char *argv[])
 	result = 0;
 	if (argv[1] == 0)
 	{
-		print_env(env_list);
+		print_env(env_list, out_dis);
 		return (0);
 	}
 	while (argv[index] != 0)

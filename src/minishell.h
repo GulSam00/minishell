@@ -6,7 +6,7 @@
 /*   By: sham <sham@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/25 14:17:39 by sham              #+#    #+#             */
-/*   Updated: 2022/01/03 14:45:38 by sham             ###   ########.fr       */
+/*   Updated: 2022/01/03 19:35:15 by sham             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -157,14 +157,15 @@ int						handle_dis(t_cmd *cmd);
 int						ft_d_left_heredoc(char *dst, t_discriptor *dis);
 void					close_main_fd(t_cmd *cmd);
 void					dup_cmd_dis(t_cmd *cmd);
+int						return_out_dis(t_cmd *cmd);
 
 /* bulit_in */
 int						ft_cd(char *path, t_list *env_list);
 int						ft_pwd(void);
 int						ft_echo(char *argv[]);
 int						ft_exit(char *argv[], int is_forked);
-int						ft_env(char *argv[], t_list *env_list);
-int						ft_export(t_list *env_list, char *argv[]);
+int						ft_env(char *argv[], t_list *env_list, int out_dis);
+int						ft_export(t_list *env_list, char *argv[], int out_dis);
 int						ft_unset(t_list *env_list, char *argv[]);
 
 /* error */

@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   ft_env.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
+/*   By: sham <sham@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/06 10:41:40 by sham              #+#    #+#             */
-/*   Updated: 2021/12/26 18:11:01 by marvin           ###   ########.fr       */
+/*   Updated: 2022/01/03 19:37:10 by sham             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
-int	ft_env(char *argv[], t_list *env_list)
+int	ft_env(char *argv[], t_list *env_list, int out_dis)
 {
 	t_data	*now;
 	t_env	*target;
@@ -30,10 +30,10 @@ int	ft_env(char *argv[], t_list *env_list)
 		target = now->contents;
 		if (target->value != 0)
 		{
-			write(STDOUT_FILENO, target->key, ft_strlen(target->key));
-			write(STDOUT_FILENO, "=", 1);
-			write(STDOUT_FILENO, target->value, ft_strlen(target->value));
-			write(STDOUT_FILENO, "\n", 1);
+			write(out_dis, target->key, ft_strlen(target->key));
+			write(out_dis, "=", 1);
+			write(out_dis, target->value, ft_strlen(target->value));
+			write(out_dis, "\n", 1);
 		}
 		now = now->next;
 	}
