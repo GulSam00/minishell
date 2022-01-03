@@ -3,24 +3,23 @@
 /*                                                        :::      ::::::::   */
 /*   signal_handler.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
+/*   By: sham <sham@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/08 11:50:39 by sham              #+#    #+#             */
-/*   Updated: 2022/01/02 17:49:52 by sham             ###   ########.fr       */
+/*   Updated: 2022/01/03 16:16:48 by sham             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
+
+extern int g_sc;
 
 void	main_sig_handler(int signal)
 {
 	if (signal == SIGINT)
 	{
 		printf("bash$ \n");
-	}
-	if (signal == SIGQUIT)
-	{
-		printf("Quit: 3\n");
+		g_sc = 1;
 	}
 	rl_replace_line("", 1);
 	if (rl_on_new_line() == -1)

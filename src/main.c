@@ -57,7 +57,10 @@ void	prompt_while(t_list cmd_list, t_list env_list)
 			exit(0);
 		}
 		else if (*str == '\0')
+		{
+			g_sc = 0;
 			free(str);
+		}
 		else
 		{
 			add_history(str);
