@@ -6,17 +6,12 @@
 /*   By: sham <sham@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/25 14:17:39 by sham              #+#    #+#             */
-/*   Updated: 2022/01/03 14:34:18 by sham             ###   ########.fr       */
+/*   Updated: 2022/01/03 14:45:38 by sham             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef MINISHELL_H
 # define MINISHELL_H
-
-// # define MAX_PATH 4096
-// # define OPEN_MAX 10240
-// # define PIPE_READ 0
-// # define PIPE_WRITE 1
 
 # include <stdio.h>			   // <readline/readline.h>보다 먼저 선언되야 함.
 # include <readline/readline.h> // 프롬프트 헤더
@@ -32,17 +27,6 @@
 # include <errno.h>	   // errno 에러 전역 변수
 # include <signal.h>
 # include <limits.h> // exit 최소값 처리
-
-// enum e_bulit_in_code
-// {
-// 	CD = 1,
-// 	ECHO,
-// 	ENV,
-// 	EXIT,
-// 	EXPORT,
-// 	PWD,
-// 	UNSET
-// };
 
 enum e_cmd_type
 {
