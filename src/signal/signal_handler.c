@@ -6,13 +6,13 @@
 /*   By: sham <sham@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/08 11:50:39 by sham              #+#    #+#             */
-/*   Updated: 2022/01/03 16:16:48 by sham             ###   ########.fr       */
+/*   Updated: 2022/01/08 16:44:08 by nasong           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
-extern int g_sc;
+extern int	g_sc;
 
 void	main_sig_handler(int signal)
 {

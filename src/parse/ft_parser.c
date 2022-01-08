@@ -6,7 +6,7 @@
 /*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/02 14:52:30 by nasong            #+#    #+#             */
-/*   Updated: 2022/01/02 17:27:56 by nasong           ###   ########.fr       */
+/*   Updated: 2022/01/08 16:39:48 by nasong           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,24 +18,23 @@ int	quotes_check(char *str)
 	int	index;
 
 	first_quotes = 0;
-	index = 0;
-	while (str[index] != '\0')
+	index = -1;
+	while (str[++index] != '\0')
 	{
 		if (str[index] == '\'')
-        {
-            if (first_quotes == 0)
-                first_quotes = 1;
-            else if (first_quotes == 1)
-                first_quotes = 0;
-        }
+		{
+			if (first_quotes == 0)
+				first_quotes = 1;
+			else if (first_quotes == 1)
+				first_quotes = 0;
+		}
 		else if (str[index] == '\"')
-        {
-            if (first_quotes == 0)
-                first_quotes = 2;
-            else if (first_quotes == 2)
-                first_quotes = 0;
-        }
-		index++;
+		{
+			if (first_quotes == 0)
+				first_quotes = 2;
+			else if (first_quotes == 2)
+				first_quotes = 0;
+		}
 	}
 	if (first_quotes > 0)
 		return (-1);

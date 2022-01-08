@@ -6,7 +6,7 @@
 /*   By: nasong <nasong@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/02 13:11:41 by nasong            #+#    #+#             */
-/*   Updated: 2022/01/02 14:50:58 by nasong           ###   ########.fr       */
+/*   Updated: 2022/01/08 16:42:45 by nasong           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,9 +42,9 @@ char	*change_str_with_env(char *str, int start, int end, t_list *env_list)
 	env = ft_strdup(get_value(env_list, target));
 	if (env == 0)
 	{
-        if (ft_strlen(target) == 0)
-            env = ft_strdup("$");    
-        else if (ft_strlen(target) == 1 && target[0] == '?')
+		if (ft_strlen(target) == 0)
+			env = ft_strdup("$");
+		else if (ft_strlen(target) == 1 && target[0] == '?')
 			env = ft_itoa(g_sc);
 		else if (ft_strlen(target) == 1 && target[0] == '$')
 			env = ft_itoa(getpid());

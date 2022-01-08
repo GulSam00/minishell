@@ -6,7 +6,7 @@
 /*   By: sham <sham@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/25 14:09:22 by sham              #+#    #+#             */
-/*   Updated: 2022/01/02 17:29:58 by nasong           ###   ########.fr       */
+/*   Updated: 2022/01/08 16:35:44 by nasong           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,11 +36,13 @@ int	init_main(t_list *cmd_list, t_list *env_list, char **envp)
 	return (result);
 }
 
-void	print_prompt(void)
+void	print_prompt(char **str)
 {
+	free(*str);
 	printf("\033[1A");
 	printf("\033[6C");
 	printf(" exit\n");
+	exit(0);
 }
 
 void	prompt_while(t_list cmd_list, t_list env_list)
@@ -51,11 +53,7 @@ void	prompt_while(t_list cmd_list, t_list env_list)
 	{
 		str = readline("bash$ ");
 		if (!str)
-		{
-			free(str);
-			print_prompt();
-			exit(0);
-		}
+			print_prompt(&str);
 		else if (*str == '\0')
 		{
 			g_sc = 0;
