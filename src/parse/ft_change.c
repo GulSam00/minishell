@@ -42,7 +42,9 @@ char	*change_str_with_env(char *str, int start, int end, t_list *env_list)
 	env = ft_strdup(get_value(env_list, target));
 	if (env == 0)
 	{
-		if (ft_strlen(target) == 1 && target[0] == '?')
+        if (ft_strlen(target) == 0)
+            env = ft_strdup("$");    
+        else if (ft_strlen(target) == 1 && target[0] == '?')
 			env = ft_itoa(g_sc);
 		else if (ft_strlen(target) == 1 && target[0] == '$')
 			env = ft_itoa(getpid());

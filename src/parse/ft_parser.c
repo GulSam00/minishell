@@ -14,22 +14,41 @@
 
 int	quotes_check(char *str)
 {
-	int	s_quotes;
-	int	d_quotes;
+	int	quotes[2];
 	int	index;
+    int q_index;
 
-	s_quotes = 0;
-	d_quotes = 0;
+	quotes[0] = 0;
+	quotes[1] = 0;
 	index = 0;
+    q_index = 0;
 	while (str[index] != '\0')
 	{
 		if (str[index] == '\'')
-			s_quotes++;
+        {
+            if (q_index > 0 &&quotes[q_index - 1] == 1)
+                quotes[--q_index] = 0;
+            else
+            {
+                if (q_index >= 2)
+                    return (-1);
+                quotes[q_index++] = 1;
+            }
+        }
 		else if (str[index] == '\"')
-			d_quotes++;
+        {
+            if (q_index > 0 &&quotes[q_index - 1] == 2)
+                quotes[--q_index] = 0;
+            else
+            {
+                if (q_index >= 2)
+                    return (-1);
+                quotes[q_index++] = 2;
+            }
+        }
 		index++;
 	}
-	if (s_quotes % 2 != 0 || d_quotes % 2 != 0)
+	if (q_index != 0)
 		return (-1);
 	return (1);
 }
@@ -51,7 +70,7 @@ void	set_cmd(t_list *cmd_list, t_discriptor **new_discriptor, \
 	t_cmd			*cmd;
 
 	cmd = *new_cmd;
-	copy = ft_strndup(now_word->contents, ft_strlen(now_word->contents));
+	copy = ft_strndup(now_word->contents, ft_strlen(now_word->contents) + 1);
 	if (get_type(now_word->contents) == PIPE)
 		set_next_cmd(cmd_list, new_cmd);
 	else if (get_type(now_word->contents) == DISCRIPTOR)
