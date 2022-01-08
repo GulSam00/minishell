@@ -14,41 +14,30 @@
 
 int	quotes_check(char *str)
 {
-	int	quotes[2];
+	int	first_quotes;
 	int	index;
-    int q_index;
 
-	quotes[0] = 0;
-	quotes[1] = 0;
+	first_quotes = 0;
 	index = 0;
-    q_index = 0;
 	while (str[index] != '\0')
 	{
 		if (str[index] == '\'')
         {
-            if (q_index > 0 &&quotes[q_index - 1] == 1)
-                quotes[--q_index] = 0;
-            else
-            {
-                if (q_index >= 2)
-                    return (-1);
-                quotes[q_index++] = 1;
-            }
+            if (first_quotes == 0)
+                first_quotes = 1;
+            else if (first_quotes == 1)
+                first_quotes = 0;
         }
 		else if (str[index] == '\"')
         {
-            if (q_index > 0 &&quotes[q_index - 1] == 2)
-                quotes[--q_index] = 0;
-            else
-            {
-                if (q_index >= 2)
-                    return (-1);
-                quotes[q_index++] = 2;
-            }
+            if (first_quotes == 0)
+                first_quotes = 2;
+            else if (first_quotes == 2)
+                first_quotes = 0;
         }
 		index++;
 	}
-	if (q_index != 0)
+	if (first_quotes > 0)
 		return (-1);
 	return (1);
 }
