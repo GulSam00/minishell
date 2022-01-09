@@ -6,7 +6,7 @@
 /*   By: sham <sham@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/02 14:55:13 by nasong            #+#    #+#             */
-/*   Updated: 2022/01/03 19:35:15 by sham             ###   ########.fr       */
+/*   Updated: 2022/01/09 15:36:34 by nasong           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,8 +44,6 @@ int	add_env(t_list *env_list, char *arg)
 	char	*value;
 	int		index;
 
-	key = 0;
-	value = 0;
 	index = 0;
 	new_env = malloc(sizeof(t_env));
 	while (arg[index] != '\0')
@@ -61,6 +59,7 @@ int	add_env(t_list *env_list, char *arg)
 		}
 		index++;
 	}
+	pop_env_with_key(env_list, arg);
 	init_env(new_env, ft_strdup(arg), 0);
 	add_data(env_list, new_env);
 	return (0);
